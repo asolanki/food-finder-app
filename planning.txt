@@ -1,0 +1,28 @@
+Workflow
+
+-Query Google Calendar for ALL events
+-For each event returned
+    -If eventID exists in Redis (UPDATE)
+        -If updated > our most recent time
+            -If location is updated
+                -Get new location info
+                -Replace in Redis
+            -Else
+                -Replace in Redis
+            PUT request to Parse
+    -Else (CREATE)
+        -Create FoodEvent as dict
+            -eventID
+            -Start date
+            -End date
+            -Location
+            -Title
+            -Description
+            -"most recent time" (updated/created)
+        -Pass location to Bing Maps API
+        -Retrieve coordinates/address/other info
+        -Add coordinates/address/other info to FoodEvent dict
+        -POST request to Parse (FoodEvent)
+        -Add eventID --> parseID mapping to Redis (Redundant?)
+        -Add FoodEvent object + its parseID to Redis
+
