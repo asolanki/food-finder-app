@@ -3,9 +3,10 @@ from config import GOOGLE_API_KEY
 import json
 
 METERS_PER_MILE=1699.34
+
+# param to places API to limit search results
+# set to coordinates of the Rotunda
 CENTRAL_COORDINATES=38.038087,-78.501949
-            # to limit Places API search
-            # start as rotunda
 
 # handles query to google maps API
 # @param loc_in the query string
