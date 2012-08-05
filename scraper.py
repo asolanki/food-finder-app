@@ -9,15 +9,14 @@ from config import PARSE_REST_KEY
 import json
 import redis
 import httplib
-import urllib2
 import datetime
 
 #TODO: Think about how best to deal with the API call. Generate current
 #datetime, only get events for the current week? Month?
 GET_EVENTS='https://www.googleapis.com/calendar/v3/'\
-                'calendars/{cid}/events/?key={key}'\
-		'&singleEvents=true&orderBy=starttime'\
-		.format(cid=CALENDAR_ID,key=GOOGLE_API_KEY)
+    'calendars/{cid}/events/?key={key}'\
+    '&singleEvents=true&orderBy=starttime'\
+    .format(cid=CALENDAR_ID,key=GOOGLE_API_KEY)
 
 request = urllib2.Request(GET_EVENTS)
 
