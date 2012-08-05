@@ -2,10 +2,7 @@
 #Simple script to scrape event data from a google calendar and convert it into
 #Python dictionaries.
 
-from config import CALENDAR_ID
-from config import GOOGLE_API_KEY
-from config import PARSE_APP_ID
-from config import PARSE_REST_KEY
+from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
 import json
 import redis
 import httplib
