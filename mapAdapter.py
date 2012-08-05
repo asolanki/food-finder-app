@@ -13,9 +13,9 @@ CENTRAL_COORDINATES = 38.038087,-78.501949
 # @return dictionary holding 'latitude' and 'longitude'
 def handleLocation(loc_in):
     GET_LOCATION = 'https://maps.googleapis.com/maps/api/place/textsearch/'\
-        'json?query={query}&sensor=false&key={api}'.format(query = loc_in, 
-                        api = GOOGLE_API_KEY, location = CENTRAL_COORDINATES,
-                        radius = METERS_PER_MILE * 4)
+        'json?query={query}&sensor=false&key={api}'.format(query=loc_in, 
+                        api=GOOGLE_API_KEY, location=CENTRAL_COORDINATES,
+                        radius=METERS_PER_MILE * 4)
 
     request = urllib2.Request(GET_LOCATION)
     location_dict = {}
