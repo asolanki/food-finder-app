@@ -1,4 +1,4 @@
-Create 
+// Create 
     PFObject *foodEvent = [PFObject objectWithClassName:@"Newcomb Brownies"];
     [foodEvent setObject:[NSDate asfddasdfd] forKey:@"startTime"];
     [foodEvent setObject:[NSString initWithString:@"Newcomb Hall"] forKey:@"location"];
@@ -16,7 +16,7 @@ Create
 
     Parse app lazily creates class when first encountered (!!!!!)
 
-Retrieve
+// Retrieve
     PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
     PFObject *foodEvent = [query getObjectWithId:@{ID}];
 
@@ -33,19 +33,19 @@ Retrieve
                                      else
                                  }];
 
-Offline
+// Offline
     [foodScore saveEventually]
     // deleteEventually
 
-increment
+// increment
     [foodEvent incrementKey:@"count"];
     [foodEvent saveEventually];
 
-Arrays
+// Arrays
     [foodEvent addUniqueObjectsFromArray:[NSArray arrayWithObjects:@"peanut", @"shellfish", nil] forKey:@"allergens"];
     [foodEvent saveInBackground];
 
-Relational
+// Relational
     PFObject *myLocation = [PFObject objectWithClassName:@"Location"];
     [myLocation setObject:@"Newcomb Hall" forKey:@"name"];
 
