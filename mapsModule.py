@@ -7,9 +7,9 @@ CENTRAL_COORDINATES=38.038087,-78.501949
             # to limit Places API search
             # start as rotunda
 
-# def handleLocation(in):
-# loc_in = 'rotunda'
-   
+# handles query to google maps API
+# @param loc_in the query string
+# @return dictionary holding 'latitude' and 'longitude'
 def handleLocation(loc_in):
     GET_LOCATION = 'https://maps.googleapis.com/maps/api/place/textsearch/'\
         'json?query={query}&sensor=false&key={api}'.format(query=loc_in, \
@@ -29,5 +29,6 @@ def handleLocation(loc_in):
     return_dict['latitude'] = location_dict['results'][0][u'geometry'][u'location'][u'lat']
     return_dict['longitude'] = location_dict['results'][0][u'geometry'][u'location'][u'lng']
     return return_dict
+
 
 
