@@ -32,4 +32,3 @@ def handleLocation(loc_in):
     return_dict['latitude'] = location_dict[u'lat']
     return_dict['longitude'] = location_dict[u'lng']
     return return_dict
-
