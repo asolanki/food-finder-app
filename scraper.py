@@ -35,8 +35,18 @@ def update_redis(redis_db, food_event):
         if food_event_attr != 'event_id':
             redis_db.set(food_event['event_id']+'-'+food_event_attr,\
                     food_event[food_event_attr])
-        else:
-            redis_db.set(food_event['event_id'], '')
+
+def parse_req(food_obj, req='POST'):
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection.connect()
+    connection.request(req, '/1/classes/FoodObject', json.dumps(food_obj),\
+                       {                        
+                           "X-Parse-Application-Id": PARSE_APP_ID,
+                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                           "Content-Type": "application/json"
+                       })
+    result = json.loads(connection.getresponse().read())
+    return result
 
 GET_EVENTS='https://www.googleapis.com/calendar/v3/'\
     'calendars/{cid}/events/?key={key}'\
@@ -72,14 +82,15 @@ for one_event in events_list_dict['items']:
             #it actually changes
             food_event = get_food_event(one_event)
             update_redis(redis_db, food_event)
-        #Parse put request
+            parse_req(food_event, 'PUT')
 
     else:
         #This is a create
         food_event = get_food_event(one_event)
         update_redis(redis_db, food_event)
-        #Parse post request
-        #Add eventID --> parseID mapping to Redis
+        reply = parse_req(food_event)
+        redis_db.set(food_event['event_id'], reply['objectId'])
+        
 
 
 
