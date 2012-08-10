@@ -3,7 +3,7 @@
 # running Redis database, and push the data up to the Parse cloud.
 
 from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
-from config import METERS_PER_MILE, CENTRAL_COORDINATES
+from config import METERS_PER_MILE, CENTRAL_COORDINATES, LOGGING_DIR, REDIS
 
 import json
 import redis
@@ -135,8 +135,17 @@ def api_req(url):
 #the data up to the Parse cloud. Should be able to handle both new events and
 #updated/changed events (based on what is already saved in the local redis DB)
 def main():
-    redis_db = redis.StrictRedis(host='localhost', port=6379, db=0)
-
+    redis_logger.info('Opening redis db at {0} on port {1} at database {2}')\
+                     .format(REDIS['host'],REDIS['port'],REDIS['db'])
+    try: 
+        redis_db = redis.StrictRedis(\
+            host=REDIS['host'],\
+            port=REDIS['port'],\
+            db=REDIS['db'])
+    except e:
+        redis_logger.error('')
+    
+    redis_logger.info('Successfully opened redis db')
     events_to_push = []
     events_list_dict = api_req(GET_EVENTS)
 

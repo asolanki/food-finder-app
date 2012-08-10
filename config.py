@@ -22,3 +22,10 @@ CENTRAL_COORDINATES = '38.038087,-78.501949'
 
 #Logging directory
 LOGGING_DIR = 'logs'
+
+#Redis database info
+REDIS = {
+    'host': 'localhost',
+    'port': 6379,
+    'db': 0 
+}
