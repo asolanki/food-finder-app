@@ -27,7 +27,7 @@
 
     [foodEvent refresh];
 
-    [query getObjectInBackgroundWithId:@"{ID}
+    [query getObjectInBackgroundWithId:@"{ID}"
                                  block:^(PFObject *foodEvent, NSErorr *error) {
                                      if (!error) 
                                      else
@@ -52,4 +52,18 @@
     PFObject *foodEvent = [PFObject objectWithClassName:@"FoodEvent"];
     [foodEvent setObject:myLocation forKey:@"parent"];
     [foodEvent saveInBackground] // saves both!
+
+// QUERIES
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
+    [query whereKey:@"location" equalTo:@"Old Cabell Hall"];
+    // whereKey:notEqualTo/greaterThan/notContainedIn:(NSArray)/matchesRegex/hasPrefix
+    //
+    [query orderByAscending:@"location"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // objects contains results
+        } else {
+            // oops
+        }
+    }];
 
