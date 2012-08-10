@@ -19,3 +19,6 @@ METERS_PER_MILE = 1699.34
 #Limit search results on Google Maps API
 #Coordinates for the Rotunda
 CENTRAL_COORDINATES = '38.038087,-78.501949'
+
+#Logging directory
+LOGGING_DIR = 'logs'

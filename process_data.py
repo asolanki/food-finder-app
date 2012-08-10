@@ -7,10 +7,29 @@ from config import METERS_PER_MILE, CENTRAL_COORDINATES
 
 import json
 import redis
+import logging
 import httplib
 import datetime
 import urllib2
 import urllib
+
+#Logging mechanisms
+log_format = logging.Formatter('%(asctime)s -- %(levelname)s -- %(message)s')
+
+redis_logger = logging.getLogger('redis')
+redis_handler = logging.FileHandler('logs/redis.log')
+redis_handler.setFormatter(log_format)
+redis_logger.addHandler(redis_handler)
+
+parse_logger = logging.getLogger('parse')
+parse_handler = logging.FileHandler('logs/parse.log')
+parse_handler.setFormatter(log_format)
+parse_logger.addHandler(parse_handler)
+
+stdio_logger = logging.getLogger('stdio')
+stdio_handler = logging.FileHandler('logs/stdio.log')
+stdio_handler.setFormatter(log_format)
+stdio_logger.addHandler(stdio_handler)
 
 #String constant for google calendar API request, based on API key and Calendar
 #ID
