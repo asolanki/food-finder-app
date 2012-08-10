@@ -1,6 +1,6 @@
-#scraper.py
-#Simple script to scrape event data from a google calendar and convert it into
-#Python dictionaries.
+# scraper.py
+# Simple script to scrape event data from a google calendar and convert it into
+# Python dictionaries.
 
 from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
 import mapAdapter
@@ -13,7 +13,7 @@ import urllib2
 
 
 
-#Given an event (as a dict) from a Google calendar, return a food_event dict.
+# Given an event (as a dict) from a Google calendar, return a food_event dict.
 def get_food_event(one_event):
     id_str = one_event[u'id']
     food_event = {
@@ -78,14 +78,14 @@ for one_event in events_list_dict['items']:
         delta = up_time - our_time
         zerotime = datetime.timedelta()
         if delta != zerotime:
-            #Could be slightly more efficient if we only updated location when
-            #it actually changes
+            # Could be slightly more efficient if we only updated location when
+            # it actually changes
             food_event = get_food_event(one_event)
             update_redis(redis_db, food_event)
             parse_req(food_event, 'PUT')
 
     else:
-        #This is a create
+        # This is a create
         food_event = get_food_event(one_event)
         update_redis(redis_db, food_event)
         reply = parse_req(food_event)

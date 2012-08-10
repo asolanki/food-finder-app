@@ -3,7 +3,6 @@ import urllib
 from config import GOOGLE_API_KEY
 import json
 
-
 METERS_PER_MILE = 1699.34
 
 # param to places API to limit search results
@@ -20,11 +19,8 @@ def handleLocation(loc_in):
                         api=GOOGLE_API_KEY, location=CENTRAL_COORDINATES,
                         radius=METERS_PER_MILE * 4)
 
-
     request = urllib2.Request(GET_LOCATION)
     location_dict = {}
-
-    
 
     try:
         response = urllib2.urlopen(request)
