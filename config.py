@@ -2,7 +2,7 @@
 # Configuration file for food finder project.
 
 # The google calendar ID to use.
-CALENDAR_ID = 'bal2ag@virginia.edu'
+CALENDAR_ID = 'virginia.edu_vmok4n893trne2cebnb2ui3eic@group.calendar.google.com'
 
 # The google calendar API key.
 GOOGLE_API_KEY = 'AIzaSyAdvIBlSWMdn-Ed4c_BmQUI86-GuEFrVl0'

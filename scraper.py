@@ -3,13 +3,51 @@
 #Python dictionaries.
 
 from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
+import mapAdapter
+
 import json
 import redis
 import httplib
 import datetime
+import urllib2
 
-#TODO: Think about how best to deal with the API call. Generate current
-#datetime, only get events for the current week? Month?
+
+
+#Given an event (as a dict) from a Google calendar, return a food_event dict.
+def get_food_event(one_event):
+    id_str = one_event[u'id']
+    food_event = {
+    	'event_id' : id_str,
+    	'start_time' : one_event[u'start'][u'dateTime'],
+    	'end_time' : one_event[u'end'][u'dateTime'],
+    	'location' : one_event[u'location'],
+    	'name' : one_event[u'summary'],
+    	'description' : one_event[u'description'],
+    	'most_recent_time' : one_event[u'updated']
+    }
+    coords = mapAdapter.handleLocation(food_event['location'])
+    food_event['latitude'] = coords['latitude']
+    food_event['longitude'] = coords['longitude']
+    return food_event
+    
+def update_redis(redis_db, food_event):
+    for food_event_attr in food_event.keys():
+        if food_event_attr != 'event_id':
+            redis_db.set(food_event['event_id']+'-'+food_event_attr,\
+                    food_event[food_event_attr])
+
+def parse_req(food_obj, req='POST'):
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection.connect()
+    connection.request(req, '/1/classes/FoodObject', json.dumps(food_obj),\
+                       {                        
+                           "X-Parse-Application-Id": PARSE_APP_ID,
+                           "X-Parse-REST-API-Key": PARSE_REST_KEY,
+                           "Content-Type": "application/json"
+                       })
+    result = json.loads(connection.getresponse().read())
+    return result
+
 GET_EVENTS='https://www.googleapis.com/calendar/v3/'\
     'calendars/{cid}/events/?key={key}'\
     '&singleEvents=true&orderBy=starttime'\
@@ -25,17 +63,34 @@ except urllib2.HTTPError, e:
     print e
     exit(1)
 
-events_to_push = []
 
+redis_db = redis.StrictRedis(host='localhost', port=6379, db=0)
+events_to_push = []
 for one_event in events_list_dict['items']:
-    event_to_push = {}
-    print "\tID: " + one_event[u'id']
-    print "\tTITLE: " + one_event[u'summary']
-    if u'location' in one_event:
-        print "\tLOC: " + one_event[u'location']
-    #TODO: In this loop, for every event, store event data as a dictionary. Add
-    #these dictionaries to a list. Then, process this list, pushing each event to
-    #Parse and storing a mapping from the event id to the Parse object ID on a
-    #local redis database. [Can determine whether or not to push to Parse based
-    #on whether the event ID is already stored in redis]
-   
+    if redis_db.exists(one_event[u'id']):
+        id_str = one_event[u'id']
+        our_time = datetime.datetime.\
+            strptime(redis_db.get(id_str+'-'+'most_recent_time'),\
+            '%Y-%m-%dT%H:%M:%S.%fZ')
+        up_time = datetime.datetime.\
+            strptime(one_event[u'updated'],\
+            '%Y-%m-%dT%H:%M:%S.%fZ')
+        delta = up_time - our_time
+        zerotime = datetime.timedelta()
+        if delta != zerotime:
+            #Could be slightly more efficient if we only updated location when
+            #it actually changes
+            food_event = get_food_event(one_event)
+            update_redis(redis_db, food_event)
+            parse_req(food_event, 'PUT')
+
+    else:
+        #This is a create
+        food_event = get_food_event(one_event)
+        update_redis(redis_db, food_event)
+        reply = parse_req(food_event)
+        redis_db.set(food_event['event_id'], reply['objectId'])
+        
+
+
+
