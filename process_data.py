@@ -126,8 +126,7 @@ def api_req(url):
     try:
         response = urllib2.urlopen(request)
         return json.loads(response.read())
-    except urllib2.HTTPError, e:
-        print e
+    except e:
         return { "ERROR" : e }
 
 #Main script. Job is to retrieve data from google calendar, extract relevant
@@ -137,14 +136,16 @@ def api_req(url):
 def main():
     redis_logger.info('Opening redis db at {0} on port {1} at database {2}')\
                      .format(REDIS['host'],REDIS['port'],REDIS['db'])
-    try: 
-        redis_db = redis.StrictRedis(\
+    redis_db = redis.StrictRedis(\
             host=REDIS['host'],\
             port=REDIS['port'],\
             db=REDIS['db'])
+    try:
+        redis_db.ping()
     except e:
-        redis_logger.error('')
-    
+        redis_logger.error(err)
+        exit(1) 
+
     redis_logger.info('Successfully opened redis db')
     events_to_push = []
     events_list_dict = api_req(GET_EVENTS)
