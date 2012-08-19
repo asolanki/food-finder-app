@@ -29,3 +29,15 @@ REDIS = {
     'port': 6379,
     'db': 0 
 }
+
+#Fields we store for each event in redis
+REDIS_FIELDS = [
+    'event_id',
+    'start_time',
+    'end_time',
+    'location',
+    'name',
+    'description',
+    'most_recent_time',
+    'coordinates'
+]

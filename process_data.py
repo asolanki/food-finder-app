@@ -4,6 +4,7 @@
 
 from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
 from config import METERS_PER_MILE, CENTRAL_COORDINATES, LOGGING_DIR, REDIS
+from config import REDIS_FIELDS
 
 import json
 import redis
@@ -16,23 +17,29 @@ import urllib
 #Logging mechanisms
 log_format = logging.Formatter('%(asctime)s -- %(levelname)s -- %(message)s')
 
-redis_logger = logging.getLogger('redis')
-redis_handler = logging.FileHandler('logs/redis.log')
+root_logger = logging.getLogger('master')
+root_handler = logging.FileHandler('{0}/complete.log'.format(LOGGING_DIR))
+root_handler.setFormatter(log_format)
+root_logger.addHandler(root_handler)
+root_logger.setLevel(logging.INFO)
+
+redis_logger = logging.getLogger('master.redis')
+redis_handler = logging.FileHandler('{0}/redis.log'.format(LOGGING_DIR))
 redis_handler.setFormatter(log_format)
 redis_logger.addHandler(redis_handler)
 redis_logger.setLevel(logging.INFO)
 
-parse_logger = logging.getLogger('parse')
-parse_handler = logging.FileHandler('logs/parse.log')
+parse_logger = logging.getLogger('master.parse')
+parse_handler = logging.FileHandler('{0}/parse.log'.format(LOGGING_DIR))
 parse_handler.setFormatter(log_format)
 parse_logger.addHandler(parse_handler)
 parse_logger.setLevel(logging.INFO)
 
-stdio_logger = logging.getLogger('stdio')
-stdio_handler = logging.FileHandler('logs/stdio.log')
-stdio_handler.setFormatter(log_format)
-stdio_logger.addHandler(stdio_handler)
-stdio_logger.setLevel(logging.INFO)
+general_logger = logging.getLogger('master.general')
+general_handler = logging.FileHandler('{0}/general.log'.format(LOGGING_DIR))
+general_handler.setFormatter(log_format)
+general_logger.addHandler(general_handler)
+general_logger.setLevel(logging.INFO)
 
 #String constant for google calendar API request, based on API key and Calendar
 #ID
@@ -86,7 +93,7 @@ def get_food_event(one_event):
     }
     coords = handleLocation(food_event['location'])
     if 'ERROR' in coords:
-        stdio_logger.warn('Google places API call failed on'\
+        general_logger.warn('Google places API call failed on'\
         ' {0}'.format(coords['API_CALL']))
     else:
         food_event['coordinates'] = {
@@ -133,6 +140,8 @@ def parse_req(redis_db, food_obj, req='POST'):
                            "X-Parse-REST-API-Key": PARSE_REST_KEY,
                            "Content-Type": "application/json"
                        })
+
+
     result = json.loads(connection.getresponse().read())
     parse_logger.info('Parse {0} call successful'.format(req))
     return result
@@ -176,12 +185,18 @@ def main():
 
     #Did we hit an error on the Google Calendar call? If so, log it and exit.
     if 'ERROR' in events_list_dict:
-        stdio_logger.error('Error on google calendar (api call: {0})'\
+        general_logger.error('Error on google calendar (api call: {0})'\
                             .format(events_list_dict['API_CALL']))
         exit (1)
 
+    #List of event ids in the google calendar - makes it easier to detect
+    #deletes
+    cal_ids = []
+
     #Main loop for processing events from Google calendar.
     for one_event in events_list_dict['items']:
+
+        cal_ids.append(one_event[u'id'])
 
         #Are we dealing with an update?
         if redis_db.exists(one_event[u'id']):
@@ -203,29 +218,46 @@ def main():
             if delta != zerotime:
                 # Could be slightly more efficient if we only updated location when
                 # it actually changes, but this should be fine for now
-                stdio_logger.info('Updating event {0}'.format(one_event[u'id']))
+                general_logger.info('Updating event {0}'.format(one_event[u'id']))
                 food_event = get_food_event(one_event)
                 update_redis(redis_db, food_event)
                 parse_req(redis_db, food_event, 'PUT')
             else:
-                stdio_logger.info('Skipping event {0}, no update needed.'\
+                general_logger.info('Skipping event {0}, no update needed.'\
                                   .format(one_event[u'id']))
 
         #Dealing with a create (new event)
         else:
-            stdio_logger.info('Creating event {0}'.format(one_event[u'id']))
+            general_logger.info('Creating event {0}'.format(one_event[u'id']))
             food_event = get_food_event(one_event)
             update_redis(redis_db, food_event)
             reply = parse_req(redis_db, food_event)
             redis_db.set(food_event['event_id'], reply['objectId'])
 
-    #TODO: Check for deleted events by getting every event ID from redis and
-    #ensuring that it is contained in the events ids retrieved from google
-    #calendar.
+
+    #First get all event ids saved in the database
+    redis_ids = filter(lambda x : '-' not in x, redis_db.keys())
+
+    #If any event ID in redis is no longer in the events from the calendar, we
+    #need to delete it from parse (and redis)
+    for one_id in redis_ids:
+        if one_id not in cal_ids:
+            general_logger.info('Deleting event {0}'.format(one_id))
+            #We are dealing with a delete. Make the delete call to parse and
+            #purge the event data from the redis db.
+            parse_req(redis_db, { 'event_id' : one_id }, 'DELETE')
+
+            redis_logger.info('Deleting event {0} from redis'.format(one_id))
+            redis_db.delete(one_id)
+            for a_field in REDIS_FIELDS:
+                redis_db.delete(one_id+'-'+a_field)
+
 
     #After all our work is done, save the Redis DB to disk.
     redis_db.save()
 
 
 #Start it up...
+general_logger.info('STARTING PROCESS DATA SCRIPT')
 main() 
+general_logger.info('ENDING PROCESS DATA SCRIPT')
