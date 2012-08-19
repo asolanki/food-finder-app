@@ -68,7 +68,7 @@
         // insert code that checks permissions for location services
     
     
-//    NSLog(@"%@, %@", locationManager.location.coordinate.longitude, locationManager.location.coordinate.longitude);
+    NSLog(@"\n\n %@, %@", locationManager.location.coordinate.longitude, locationManager.location.coordinate.longitude);
     
     [map setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     

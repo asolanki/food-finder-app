@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DetailViewController.h"
+#import <Parse/Parse.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface EventTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface EventTableViewController : UITableViewController 
+    <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
-@property (strong, nonatomic) NSArray *events;
+@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet UITableView *table;
-
 
 @end

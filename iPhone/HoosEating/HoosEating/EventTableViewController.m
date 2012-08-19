@@ -14,15 +14,36 @@
 @synthesize events;
 @synthesize table;
 
-// URL with which to query Parse
-static NSString* requestUrl = @"";
+- (void)queryParseWithLongitude:(float)longitude andLatitude:(float)latitude
+{
+
+//    PFGeoPoint *userLocation = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodObject"];
+//    [query whereKey:@"location" nearGeoPoint:userLocation];
+    [query whereKeyExists:@"location"];
+    
+    // needs to be some sort of querying related to updatedAt
+    // perhaps cache
+    //      query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    //      or maybe kPFCachePolicyNetworkOnly
+    //  now the objects have PFGeoPoint so I can perhaps query based on 
+    //      location
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (!error) {
+            [self.events addObjectsFromArray:objects];
+        } else {
+        }
+
+    }];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-    }
+    }    
     return self;
 }
 
@@ -34,21 +55,32 @@ static NSString* requestUrl = @"";
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (NSArray *)queryParseForObjects
-{
-    NSArray *array = [[NSArray alloc] init];
-    NSURL *url = [NSURL URLWithString:requestUrl];
-    
-    
-    return array;
-    
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    events = [NSArray arrayWithObjects:@"1", @"2", @"3", nil];
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    [locationManager setDelegate:self];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [locationManager setDistanceFilter:5];
+    [locationManager setPurpose:@"Find the free food nearest to you!"];
+    [locationManager startUpdatingLocation];
+    
+    CLLocation *location = [locationManager location];
+    
+    float longitude = location.coordinate.longitude;
+    float latitude = location.coordinate.latitude;
+    
+//    [self queryParseWithLongitude:longitude andLatitude:latitude];
+    
+    [events addObject:[NSNumber numberWithFloat:longitude]];
+    [events addObject:[NSNumber numberWithFloat:latitude]];
+
+    NSLog(@"\n\n\n%@", [events objectAtIndex:0]);
+    NSLog(@"Longitude: %@ \n", [NSNumber numberWithFloat:longitude]);
+    NSLog(@"Latitude: %@ \n", [NSNumber numberWithFloat:latitude]);   
+    // this does work 
     [super viewDidLoad];
     
     
@@ -114,12 +146,12 @@ static NSString* requestUrl = @"";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
-    cell.textLabel.text = [events objectAtIndex:indexPath.row];
-    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [events objectAtIndex:indexPath.row]];
+//  cell.detailTextLabel.text = [[events objectAtIndex:indexPath.row] get
     // Make a background for the cell!
                            
 
@@ -176,6 +208,8 @@ static NSString* requestUrl = @"";
 {
     // Navigation logic may go here. Create and push another view controller.
     DetailViewController *detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
+    
+    // assign vars in detailViewController to pass data
     
      // ...
      // Pass the selected object to the new view controller.
