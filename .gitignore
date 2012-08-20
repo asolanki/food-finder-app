@@ -1,4 +1,6 @@
 *.pyc
 *.swp
 *~
+bal2ag_rpc4mv_em2ec_android_app
+*.log
 

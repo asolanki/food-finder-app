@@ -1,0 +1,10 @@
+package com.parse.starter;
+
+import android.app.Activity;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+
+public class ListEventsActivity extends Activity {
+
+	
+}

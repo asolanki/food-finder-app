@@ -1,0 +1,8 @@
+package com.parse.starter;
+
+import android.app.Activity;
+
+public class ListEventsActivity extends Activity {
+
+	ScrollView theView = new ScrollView(this);
+}

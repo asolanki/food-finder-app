@@ -65,12 +65,12 @@ def handleLocation(loc_in):
     request = urllib2.Request(maps_req)
     location_dict = {}
 
-    try:
-        response = urllib2.urlopen(request)
-        location_dict = json.loads(response.read())['results'][0][u'geometry']\
-                                                                 [u'location']
-    except urllib2.HTTPError as e:
-        return { 'ERROR' : str(e), 'API_CALL' : loc_in }
+    response = urllib2.urlopen(request)
+    response_dict = json.loads(response.read())
+    if response_dict['status'] != 'OK':
+        return { 'ERROR' : response_dict['status'], 'API_CALL' : loc_in }
+
+    location_dict = response_dict['results'][0][u'geometry'][u'location']
 
     return_dict = {}
     return_dict['latitude'] = location_dict[u'lat']
