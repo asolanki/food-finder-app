@@ -44,7 +44,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cTx-QR-po4" kind="push" id="ixJ-Kd-MbW"/>
+                                    <segue destination="cTx-QR-po4" kind="push" id="yxk-R6-UbY"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendar.png" id="eLx-SZ-o3x">
@@ -81,24 +81,11 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djf-kK-Joc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="pFr-F6-s51" customClass="NearMeViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Daf-ob-BQw">
+                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="sdB-4m-nA8">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="isN-6X-UYr">
-                                <rect key="frame" x="-160" y="-208" width="640" height="832"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="pFr-F6-s51" id="wHw-LT-CBi"/>
-                                </connections>
-                            </mapView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </mapView>
                     <navigationItem key="navigationItem" title="Near Me" id="Ifs-JS-pT8"/>
-                    <connections>
-                        <outlet property="map" destination="isN-6X-UYr" id="nT7-4V-hMu"/>
-                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="858" y="-145"/>
@@ -123,7 +110,7 @@
         <scene sceneID="lAn-eC-7Uf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2WT-F0-aUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="cTx-QR-po4" customClass="EventTableViewController" sceneMemberID="viewController">
+                <tableViewController id="cTx-QR-po4" customClass="EventQueryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bbS-KD-xuc">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -146,7 +133,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Coming Up" id="B09-jr-D9H"/>
                     <connections>
-                        <outlet property="table" destination="bbS-KD-xuc" id="yNv-dx-lnh"/>
+                        <outlet property="table" destination="bbS-KD-xuc" id="046-yc-Ghi"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -161,31 +148,31 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start Time - End Time" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="Lvn-n3-d5q">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                <rect key="frame" x="82" y="0.0" width="238" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="84r-HI-z2m">
-                                <rect key="frame" x="82" y="37" width="218" height="55"/>
+                                <rect key="frame" x="75" y="42" width="225" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="@" lineBreakMode="tailTruncation" minimumFontSize="10" id="Jzl-1W-kxm">
-                                <rect key="frame" x="27" y="48" width="42" height="33"/>
+                                <rect key="frame" x="20" y="53" width="42" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" id="OPq-9Z-ZMy">
-                                <rect key="frame" x="20" y="91" width="280" height="218"/>
+                                <rect key="frame" x="20" y="105" width="280" height="191"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -201,12 +188,20 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2/10" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="vAs-fL-Mhu">
+                                <rect key="frame" x="9" y="3" width="65" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="MvY-ij-QWR"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="date" destination="vAs-fL-Mhu" id="ZGf-eL-tp6"/>
                         <outlet property="description" destination="OPq-9Z-ZMy" id="HQf-TP-NVi"/>
                         <outlet property="location" destination="84r-HI-z2m" id="JLy-Fn-j9e"/>
                         <outlet property="time" destination="Lvn-n3-d5q" id="zJV-Yb-2dh"/>
@@ -225,13 +220,14 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="location" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="time" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="EventTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventTableViewController.h"/>
+        <class className="EventQueryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventQueryTableViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="table" candidateClass="UITableView"/>
             </relationships>
@@ -244,6 +240,9 @@
             <relationships>
                 <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
             </relationships>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
