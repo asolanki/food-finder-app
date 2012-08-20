@@ -8,10 +8,24 @@
 
 #import "HEAppDelegate.h"
 #import <Parse/Parse.h>
+#import <CoreLocation/CoreLocation.h>
 
 @implementation HEAppDelegate
 
 @synthesize window = _window;
+
+static NSString* const kLocationChangeNotification = @"kLocationChangeNotification";
+
+- (void)setCurrentLocation:(CLLocation *)currentLocation
+{
+    NSDictionary *userLoc = [NSDictionary dictionaryWithObject:currentLocation 
+                                                        forKey:@"location"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationChangeNotification
+                                                        object:nil
+                                                      userInfo:userLoc];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

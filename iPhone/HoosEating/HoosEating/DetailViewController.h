@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface DetailViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *date;
 @property (weak, nonatomic) IBOutlet UITextView *description;
+@property (weak, nonatomic) PFObject *event;
+
 
 @end

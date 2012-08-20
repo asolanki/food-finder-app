@@ -15,9 +15,9 @@
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    [testObject setObject:@"bar" forKey:@"foo"];
-    [testObject save];
+//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+//    [testObject setObject:@"bar" forKey:@"foo"];
+//    [testObject save];
 
     
     [super viewWillAppear:animated];
