@@ -42,8 +42,28 @@
 - (void)viewDidLoad
 {
     
-    
+    UIFont *font = [UIFont fontWithName:@"Alégre Sans" size:65.54];
     [self.location setText:[self.event valueForKey:@"location"]];
+    [self.location setFont:font];
+    [self.location setAdjustsFontSizeToFitWidth:YES];
+    [self.location setMinimumFontSize:48];
+    [self.location setShadowColor:[UIColor whiteColor]];
+    [self.location setShadowOffset:CGSizeMake(2, 2)];
+    
+//    
+//    CGRect frame = location.frame;
+//    CGFloat fontSize = 48.0;
+//    // width 240  height 55
+//    frame.size = [location.text sizeWithFont:font
+//                              minFontSize:location.minimumFontSize
+//                           actualFontSize:&fontSize
+//                                 forWidth:320
+//                               lineBreakMode:location.lineBreakMode];
+//    frame.origin = CGPointMake(70, 170);
+//    
+//    [self.location setFrame:frame];
+
+    
     NSLog(@"\n\n%@\n", [self.event valueForKey:@"location"]);
     NSMutableString *dateStr = [NSMutableString stringWithString:
                                 [[self.event valueForKey:@"start_time"] 
@@ -68,7 +88,7 @@
     
     // this should be just pulled from object, dateStr is a temp.
     
-//    NSArray *dates = [dateStr componentsSeparatedByString:@"T"];
+//    NSArray *dates = [dateStr componentsSeparatedBySt`ring:@"T"];
 //    NSString *eventTime = [NSString stringWithFormat:@"%@%@%@", [dates objectAtIndex:0]
 //                           , [dates objectAtIndex:1]];
 
@@ -79,7 +99,14 @@
     
     
     [self.time setText:dateStr];
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:48];
+    [self.time setFont:font];
+//    [self.time setAdjustsFontSizeToFitWidth:YES];
+    [self.time setMinimumFontSize:36];
     
+    [self.time setShadowColor:[UIColor whiteColor]];
+    [self.time setShadowOffset:CGSizeMake(1, 1)];
+
 //    2012-08-19T23:40:20.000Z
     
     [super viewDidLoad];

@@ -38,6 +38,8 @@
 		C7F0122815D1E6CD00AFC687 /* NearMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */; };
 		C7F0122A15D22B3600AFC687 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122915D22B3500AFC687 /* CoreLocation.framework */; };
 		C7F0122C15D22B3D00AFC687 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122B15D22B3D00AFC687 /* MapKit.framework */; };
+		C7F8DEA115E3F3DC0034C6AE /* AlÇgre Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */; };
+		C7F8DEA415E3FEF10034C6AE /* AlteHaasGroteskBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7F8DEA315E3FEF10034C6AE /* AlteHaasGroteskBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearMeViewController.m; sourceTree = "<group>"; };
 		C7F0122915D22B3500AFC687 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C7F0122B15D22B3D00AFC687 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlÇgre Sans.ttf"; sourceTree = "<group>"; };
+		C7F8DEA315E3FEF10034C6AE /* AlteHaasGroteskBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AlteHaasGroteskBold.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,8 @@
 		C7F011FF15D1D52E00AFC687 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */,
+				C7F8DEA315E3FEF10034C6AE /* AlteHaasGroteskBold.ttf */,
 				C7A1E8D215E357E4001183D3 /* coming-button.png */,
 				C772B5F815E352630085015F /* bg.png */,
 				C7A1E8CE15E355E5001183D3 /* button.png */,
@@ -246,6 +252,8 @@
 				C7A1E8CF15E355E5001183D3 /* button.png in Resources */,
 				C7A1E8D115E3577E001183D3 /* near_button.png in Resources */,
 				C7A1E8D315E357E4001183D3 /* coming-button.png in Resources */,
+				C7F8DEA115E3F3DC0034C6AE /* AlÇgre Sans.ttf in Resources */,
+				C7F8DEA415E3FEF10034C6AE /* AlteHaasGroteskBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,5 +36,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AlÇgre Sans.ttf</string>
+	</array>
 </dict>
 </plist>
