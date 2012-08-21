@@ -39,7 +39,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
-                        object:(PFObject *)object {
+                        object:(PFObject *)object 
+{
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -47,6 +48,15 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
     }
+    
+    // background image
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
+    UIImage *image = [UIImage imageNamed:@"cell2.png"];
+    imageView.image = image;
+    
+    cell.backgroundView = imageView;
+    [[cell textLabel] setBackgroundColor:[UIColor clearColor]];
+    [[cell detailTextLabel] setBackgroundColor:[UIColor clearColor]];
     
     // Configure the cell to show todo item with a priority at the bottom
     cell.textLabel.text = [object objectForKey:@"name"];

@@ -13,13 +13,19 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="center" image="bg.png" id="VXl-vh-Pky">
+                                <rect key="frame" x="1" y="-44" width="320" height="492"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="contentStretch" x="0.0" y="0.59999999999999998" width="1" height="1"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vPR-gS-EEg">
-                                <rect key="frame" x="20" y="130" width="280" height="125"/>
+                                <rect key="frame" x="20" y="123" width="280" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <size key="titleShadowOffset" width="3" height="0.0"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,12 +34,12 @@
                                     <segue destination="pFr-F6-s51" kind="push" id="nTI-sh-Epq"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="map.png" id="vYb-7L-dMv">
-                                <rect key="frame" x="29" y="137" width="133" height="107"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near_button.png" id="BfO-NQ-vEl">
+                                <rect key="frame" x="20" y="122" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Abu-s3-JGV">
-                                <rect key="frame" x="20" y="282" width="280" height="125"/>
+                                <rect key="frame" x="20" y="271" width="280" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -47,19 +53,12 @@
                                     <segue destination="cTx-QR-po4" kind="push" id="yxk-R6-UbY"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="calendar.png" id="eLx-SZ-o3x">
-                                <rect key="frame" x="29" y="289" width="133" height="108"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-button.png" id="F5r-cB-QHR">
+                                <rect key="frame" x="20" y="268" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Near    Me" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="C3w-Fw-biQ">
-                                <rect key="frame" x="161" y="137" width="131" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="39"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Coming Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="cvd-Up-EBS">
-                                <rect key="frame" x="161" y="289" width="131" height="100"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="C3w-Fw-biQ">
+                                <rect key="frame" x="161" y="129" width="131" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="39"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -212,8 +211,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar.png" width="124" height="100"/>
-        <image name="map.png" width="124" height="100"/>
+        <image name="bg.png" width="320" height="460"/>
+        <image name="coming-button.png" width="280" height="125"/>
+        <image name="near_button.png" width="280" height="125"/>
         <image name="title.png" width="288" height="95"/>
     </resources>
     <classes>
