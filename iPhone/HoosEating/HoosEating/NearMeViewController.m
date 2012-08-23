@@ -7,14 +7,46 @@
 //
 
 #import "NearMeViewController.h"
+#import "HEAppDelegate.h"
 
 @implementation NearMeViewController
 
-@synthesize map;
+@synthesize map, locationManager;
+@synthesize upcomingButton;
+@synthesize todayButton;
 
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)plotPositions:(NSArray *)data
 {
+    // remove existing annotations except user location
+    for (id<MKAnnotation> annotation in map.annotations) {
+        if ([annotation isKindOfClass:[EventPoint class]]) {
+            [map removeAnnotation:annotation];
+        }
+    }
+    
+    // get the places from Parse
+        // TODO
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(37.77275,-122.425487);
+    EventPoint *event1 = [[EventPoint alloc] initWithName:@"lol" location:@"lollers" coordinate:coordinate];
+    
+    [map addAnnotation:event1];
+    NSLog(@"Debug event has been annotated at 33x33");
+
+    // add the places
+    for (int i=0; i<[data count]; i++) 
+    {
+        // rather than data[i] use test Object
+    }
+        
+}
+
+- (void)locationManager:(CLLocationManager *)manager 
+    didUpdateToLocation:(CLLocation *)newLocation 
+           fromLocation:(CLLocation *)oldLocation
+{
+    HEAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate setCurrentLocation:newLocation];
     NSDate* eventDate = newLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0)
@@ -51,26 +83,40 @@
     [super loadView];
 }
 
+- (void)locationDidChange:(NSNotification *)note
+{
+//    map.userLocation = n
+}
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    [self.map setDelegate:self];
+    [self.map setShowsUserLocation:YES];
+
+    locationManager = [[CLLocationManager alloc] init];
     [locationManager setDelegate:self];
+    [locationManager setDistanceFilter:kCLDistanceFilterNone];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-    [locationManager setDistanceFilter:5];
-    [locationManager setPurpose:@"Find the free food nearest to you!"];
-    [locationManager startUpdatingLocation];
     
-        // insert code that checks permissions for location services
+    [self plotPositions:nil];
     
     
-    NSLog(@"\n\n %@, %@", locationManager.location.coordinate.longitude, locationManager.location.coordinate.longitude);
-    
-    [map setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+//    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+//    [locationManager setDelegate:self];
+//    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+//    [locationManager setDistanceFilter:5];
+//    [locationManager setPurpose:@"Find the free food nearest to you!"];
+////    [locationManager startUpdatingLocation];
+//    
+//        // insert code that checks permissions for location services
+//    
+//    
+//    NSLog(@"\n\n %@, %@", locationManager.location.coordinate.longitude, locationManager.location.coordinate.longitude);
+//    
+//    [map setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
     
     // create annotations for each event nearby
 
@@ -80,6 +126,8 @@
 
 - (void)viewDidUnload
 {
+    [self setUpcomingButton:nil];
+    [self setTodayButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -92,5 +140,23 @@
 }
 
 
+
+#pragma mark - MKMapViewDelegate methods
+
+// when annotations are added
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    
+    // TODO -- make this into a centered on User but scaled based on POI animation
+    
+//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000);
+    MKAnnotationView *view = [views objectAtIndex:0];
+
+    MKCoordinateSpan span = MKCoordinateSpanMake(.1, .1);
+    
+    MKCoordinateRegion region2 = MKCoordinateRegionMake([[view annotation] coordinate], span);
+    
+    [mapView setRegion:region2 animated:YES];
+}
 
 @end

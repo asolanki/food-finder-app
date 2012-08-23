@@ -14,12 +14,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="center" image="bg.png" id="VXl-vh-Pky">
-                                <rect key="frame" x="1" y="-44" width="320" height="492"/>
+                                <rect key="frame" x="0.0" y="-14" width="320" height="532"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.59999999999999998" width="1" height="1"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vPR-gS-EEg">
-                                <rect key="frame" x="20" y="123" width="280" height="125"/>
+                                <rect key="frame" x="20" y="121" width="280" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <size key="titleShadowOffset" width="3" height="0.0"/>
@@ -35,11 +35,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near_button.png" id="BfO-NQ-vEl">
-                                <rect key="frame" x="20" y="122" width="280" height="128"/>
+                                <rect key="frame" x="20" y="120" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Abu-s3-JGV">
-                                <rect key="frame" x="20" y="271" width="280" height="125"/>
+                                <rect key="frame" x="20" y="286" width="280" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -54,16 +54,9 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-button.png" id="F5r-cB-QHR">
-                                <rect key="frame" x="20" y="268" width="280" height="128"/>
+                                <rect key="frame" x="20" y="283" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="C3w-Fw-biQ">
-                                <rect key="frame" x="161" y="129" width="131" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="39"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="title.png" id="G79-wu-Mfp">
                                 <rect key="frame" x="0.0" y="0.0" width="321" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -80,11 +73,31 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djf-kK-Joc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="pFr-F6-s51" customClass="NearMeViewController" sceneMemberID="viewController">
-                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="sdB-4m-nA8">
+                    <view key="view" contentMode="scaleToFill" id="R2f-x3-cl9">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </mapView>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="BVM-yG-dFk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Today" width="143" id="qpD-Fd-4A5"/>
+                                    <barButtonItem title="Upcoming" width="154" id="9VP-OR-762"/>
+                                </items>
+                            </toolbar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="xRY-CJ-uGW">
+                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <navigationItem key="navigationItem" title="Near Me" id="Ifs-JS-pT8"/>
+                    <connections>
+                        <outlet property="map" destination="xRY-CJ-uGW" id="1vt-CP-qVB"/>
+                        <outlet property="todayButton" destination="BVM-yG-dFk" id="vGi-fz-LDI"/>
+                        <outlet property="upcomingButton" destination="BVM-yG-dFk" id="b8B-w3-M9a"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="858" y="-145"/>
@@ -245,6 +258,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearMeViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="todayButton" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="upcomingButton" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="PFQueryTableViewController" superclassName="UITableViewController">

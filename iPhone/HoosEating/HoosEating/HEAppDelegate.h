@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+
+static NSString* const kLocationChangeNotification;
+
 
 @interface HEAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (void)setCurrentLocation:(CLLocation *)currentLocation;
 
 @end

@@ -9,9 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "EventPoint.h"
 
-@interface NearMeViewController : UIViewController <CLLocationManagerDelegate>
+@interface NearMeViewController : UIViewController 
+<MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *map;
+@property (weak, nonatomic) IBOutlet UIToolbar *upcomingButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *todayButton;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
+
 
 @end

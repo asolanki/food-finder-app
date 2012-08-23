@@ -99,10 +99,10 @@
     
     
     [self.time setText:dateStr];
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:48];
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
     [self.time setFont:font];
 //    [self.time setAdjustsFontSizeToFitWidth:YES];
-    [self.time setMinimumFontSize:36];
+    [self.time setMinimumFontSize:30];
     
     [self.time setShadowColor:[UIColor whiteColor]];
     [self.time setShadowOffset:CGSizeMake(1, 1)];

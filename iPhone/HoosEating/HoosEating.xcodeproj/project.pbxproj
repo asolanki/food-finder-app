@@ -24,6 +24,7 @@
 		C7D61A8E15D4840D00569532 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8D15D4840D00569532 /* Security.framework */; };
 		C7D61A9015D4841300569532 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8F15D4841300569532 /* StoreKit.framework */; };
 		C7D61A9215D4841A00569532 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A9115D4841A00569532 /* SystemConfiguration.framework */; };
+		C7E43BE715E5F07300EFA9E6 /* EventPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E43BE615E5F07300EFA9E6 /* EventPoint.m */; };
 		C7F011F915D1D52E00AFC687 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F011F815D1D52E00AFC687 /* UIKit.framework */; };
 		C7F011FB15D1D52E00AFC687 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F011FA15D1D52E00AFC687 /* Foundation.framework */; };
 		C7F011FD15D1D52E00AFC687 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F011FC15D1D52E00AFC687 /* CoreGraphics.framework */; };
@@ -62,6 +63,8 @@
 		C7D61A8D15D4840D00569532 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C7D61A8F15D4841300569532 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C7D61A9115D4841A00569532 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C7E43BE515E5F07300EFA9E6 /* EventPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventPoint.h; path = ../EventPoint.h; sourceTree = "<group>"; };
+		C7E43BE615E5F07300EFA9E6 /* EventPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventPoint.m; path = ../EventPoint.m; sourceTree = "<group>"; };
 		C7F011F415D1D52E00AFC687 /* HoosEating.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoosEating.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F011F815D1D52E00AFC687 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7F011FA15D1D52E00AFC687 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -152,10 +155,12 @@
 		C7F011FE15D1D52E00AFC687 /* HoosEating */ = {
 			isa = PBXGroup;
 			children = (
+				C7E43BE515E5F07300EFA9E6 /* EventPoint.h */,
+				C7E43BE615E5F07300EFA9E6 /* EventPoint.m */,
 				C7F0120715D1D52E00AFC687 /* HEAppDelegate.h */,
+				C7F0120815D1D52E00AFC687 /* HEAppDelegate.m */,
 				C7F0121515D1D95700AFC687 /* MainViewController.h */,
 				C7F0121615D1D95700AFC687 /* MainViewController.m */,
-				C7F0120815D1D52E00AFC687 /* HEAppDelegate.m */,
 				C7F0120A15D1D52E00AFC687 /* MainStoryboard.storyboard */,
 				C7101E6015E1B3A60061B7F3 /* EventQueryTableViewController.h */,
 				C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */,
@@ -270,6 +275,7 @@
 				C7F0122815D1E6CD00AFC687 /* NearMeViewController.m in Sources */,
 				C7510D1415D3FC2200764326 /* DetailViewController.m in Sources */,
 				C7101E6215E1B3A60061B7F3 /* EventQueryTableViewController.m in Sources */,
+				C7E43BE715E5F07300EFA9E6 /* EventPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
