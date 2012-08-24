@@ -63,6 +63,8 @@
 //    
 //    [self.location setFrame:frame];
 
+    NSString *amPm = @"AM";
+    NSString *amPm2 = @"AM";
     
     NSLog(@"\n\n%@\n", [self.event valueForKey:@"location"]);
     NSMutableString *dateStr = [NSMutableString stringWithString:
@@ -77,6 +79,7 @@
     if ( [month intValue] > 12 )
     {
         month = [NSNumber numberWithInt: [month intValue] - 12];
+        amPm = @"PM";
     }
 
     NSString *startDateNumber = [dateStr substringFromIndex:3];
@@ -92,6 +95,7 @@
     if ( [month intValue] > 12 )
     {
         month = [NSNumber numberWithInt: [month intValue] - 12];
+        amPm2 = @"PM";
     }
     
     NSString *endDateNumber = [dateStr2 substringFromIndex:3];
@@ -101,6 +105,18 @@
 
     [dateStr appendFormat:@"%@", dateStr2];
     NSLog(@"\n\ndateStr: %@", dateStr);
+    
+    if (![amPm isEqualToString:amPm2]) {
+        NSRange range = [dateStr rangeOfString:@" -"];
+        [dateStr insertString:amPm atIndex:range.location - 2];
+    }
+    [dateStr appendFormat:@"%@", amPm2];
+
+    // TODO test something that starts before noon and ends after, AM and PM.
+    // TODO test the opposite
+    /// TODO test both AM
+    // both PM has been tested.
+    
 //    [dateStr appendFormat:@"%@", [end substringToIndex:5]];
     
     
