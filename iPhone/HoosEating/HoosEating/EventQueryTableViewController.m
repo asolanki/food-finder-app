@@ -24,9 +24,18 @@
     return self;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 60;
+//}
+
+- (void)viewDidLoad
 {
-    return 60;
+    [super viewDidLoad];
+    [self.tableView setRowHeight:60];
+    [self.tableView setSeparatorColor:[UIColor clearColor]];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+
 }
 
 - (PFQuery *)queryForTable {
@@ -34,6 +43,12 @@
     
     [query orderByDescending:@"start_time"];
     
+    // TODO
+    // make two arrays, one for Today, one for Future.  Make them
+    // response to a UI Toggle Element.
+    // Bind the Toggle action to loadObjects
+
+
     return query;
 }
 

@@ -27,7 +27,7 @@
     // get the places from Parse
         // TODO
     
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(37.77275,-122.425487);
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(38.036676,-78.506028);
     EventPoint *event1 = [[EventPoint alloc] initWithName:@"lol" location:@"lollers" coordinate:coordinate];
     
     [map addAnnotation:event1];
@@ -36,7 +36,7 @@
     // add the places
     for (int i=0; i<[data count]; i++) 
     {
-        // rather than data[i] use test Object
+        // IT WORKS!
     }
         
 }
@@ -152,7 +152,7 @@
 //    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000);
     MKAnnotationView *view = [views objectAtIndex:0];
 
-    MKCoordinateSpan span = MKCoordinateSpanMake(.1, .1);
+    MKCoordinateSpan span = MKCoordinateSpanMake(.018, .002);
     
     MKCoordinateRegion region2 = MKCoordinateRegionMake([[view annotation] coordinate], span);
     

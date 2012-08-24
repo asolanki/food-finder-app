@@ -78,12 +78,30 @@
     {
         month = [NSNumber numberWithInt: [month intValue] - 12];
     }
-    // month check WORKS 
-    // TODO: chnage dateStr, implement for endDate
+
+    NSString *startDateNumber = [dateStr substringFromIndex:3];
+    dateStr = [NSMutableString stringWithFormat:@"%@:%@ - ", month, startDateNumber];
+    // at this pt dateStr is "1:30 - "
     
     NSString *end = [NSString stringWithString:[[self.event valueForKey:@"end_time"] 
                                                 substringFromIndex:11]];
-    [dateStr appendFormat:@" - %@", [end substringToIndex:5]];
+    
+    NSString *dateStr2 = [NSMutableString stringWithString:[end substringToIndex:5]];
+    NSLog(@"dateStr2: %@", dateStr2);
+    month = [f numberFromString:[dateStr2 substringToIndex:2]];
+    if ( [month intValue] > 12 )
+    {
+        month = [NSNumber numberWithInt: [month intValue] - 12];
+    }
+    
+    NSString *endDateNumber = [dateStr2 substringFromIndex:3];
+    dateStr2 = [NSMutableString stringWithFormat:@"%@:%@", month, endDateNumber];
+
+    NSLog(@"dateStr: %@", dateStr);
+
+    [dateStr appendFormat:@"%@", dateStr2];
+    NSLog(@"\n\ndateStr: %@", dateStr);
+//    [dateStr appendFormat:@"%@", [end substringToIndex:5]];
     
     
     // this should be just pulled from object, dateStr is a temp.
