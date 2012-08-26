@@ -1,19 +1,24 @@
 package com.parse.starter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.parse.FindCallback;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Contacts.People;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -35,56 +40,53 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 
+
 public class ListEventsActivity extends ListActivity {
 
-	static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-		"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-		"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
+	private ArrayList<ParseObject> foodEvents;
+	ProgressDialog loader;
+	String [] toDisplay;
+	ListView listView;
+	private static boolean done;
 
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// no more this
-		// setContentView(R.layout.list_fruit);
-		List<ParseObject> foodEvents;
-		ParseQuery query = new ParseQuery("FoodEvent");
-		query.findInBackground(new FindCallback() {
-		    public void done(final List<ParseObject> scoreList, ParseException e) {
-		        if (e == null) {
-		            Log.d("score", "Retrieved " + scoreList.size() + " scores");
-		            
-		            String [] toDisplay = new String[scoreList.size()];
-		            int g = 0;
-		            for (ParseObject x : scoreList) {
-		            	toDisplay[g] = x.getString("name");
-		            	g++;
-		            }
-		    		setListAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.main,toDisplay));
+		done = false;
+		loader = ProgressDialog.show(this, "", "Loading food events...", true);
+		new Thread(new Runnable() {
+			public void run() {
+				foodEvents = ParseApplication.getFoodItems();
+				loader.dismiss();
+				done = true;
+			}}).start();
 
-		    		ListView listView = getListView();
-		    		listView.setTextFilterEnabled(true);
+		while (!done) { }
 
-		    		listView.setOnItemClickListener(new OnItemClickListener() {
-		    			public void onItemClick(AdapterView<?> parent, View view,
-		    					int position, long id) {
-		    				// When clicked, show a toast with the TextView text
-		    				
-		    				Intent myIntent = new Intent(ListEventsActivity.this, ShowEventInfoActivity.class);
-		    				myIntent.putExtra("com.parse.starter.foodEvent_location", scoreList.get(position).getString("location"));
-		    				myIntent.putExtra("com.parse.starter.foodEvent_description", scoreList.get(position).getString("description"));
-		    				myIntent.putExtra("com.parse.starter.foodEvent_start", scoreList.get(position).getString("start_time"));
-		    				myIntent.putExtra("com.parse.starter.foodEvent_end", scoreList.get(position).getString("end_time"));
-		    				ListEventsActivity.this.startActivity(myIntent);
-		    			}
-		    		});
-		        } else {
-		            Log.d("score", "Error: " + e.getMessage());
-		        }
-		    }
+		setListAdapter(new FoodEventAdapter(this, foodEvents));
+		listView = getListView();
+		listView.setTextFilterEnabled(true);
+		listView.setBackgroundResource(R.drawable.bg);
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				Intent myIntent = new Intent(ListEventsActivity.this, ShowEventInfoActivity.class);
+				myIntent.putExtra("com.parse.starter.foodEvent_name", foodEvents.get(position).getString("name"));
+				myIntent.putExtra("com.parse.starter.foodEvent_location", foodEvents.get(position).getString("location"));
+				myIntent.putExtra("com.parse.starter.foodEvent_description", foodEvents.get(position).getString("description"));
+				myIntent.putExtra("com.parse.starter.foodEvent_start", foodEvents.get(position).getString("start_time"));
+				myIntent.putExtra("com.parse.starter.foodEvent_end", foodEvents.get(position).getString("end_time"));
+				ParseGeoPoint coords = (ParseGeoPoint) foodEvents.get(position).get("coordinates");
+				double lat = coords.getLatitude();
+				double lon = coords.getLongitude();
+				myIntent.putExtra("com.parse.starter.foodEvent_lat", lat);
+				myIntent.putExtra("com.parse.starter.foodEvent_lon", lon);
+				ListEventsActivity.this.startActivity(myIntent);
+			}
 		});
 
 	}
 
 }
-

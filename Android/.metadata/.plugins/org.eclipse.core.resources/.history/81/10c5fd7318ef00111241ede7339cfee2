@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#0000ff"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <Button
+        android:id="@android:id/button1"
+        android:text="@string/near_me_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000ff" />
+    
+    <Button
+        android:id="@android:id/button2"
+        android:text="@string/coming_up_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000ff" />
+
+</LinearLayout>
