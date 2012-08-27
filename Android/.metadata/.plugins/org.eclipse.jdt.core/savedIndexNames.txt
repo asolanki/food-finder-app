@@ -1,7 +1,0 @@
-INDEX VERSION 1.126+/home/alex/my-projects/food-finder-app/Android/.metadata/.plugins/org.eclipse.jdt.core
-3804542267.index
-1029193095.index
-3370066912.index
-3559590889.index
-476005238.index
-2582042632.index

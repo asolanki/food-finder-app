@@ -35,7 +35,7 @@ public class NearMeActivity extends MapActivity {
 	private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
 	ProgressDialog loader;
 	FoodEventItemizedOverlay itemizedOverlay;
-	private boolean locFail = false;
+	private boolean locFail;
 	private MapView theMap;
 	private boolean done;
 	private boolean gpsEnabled;
@@ -45,6 +45,7 @@ public class NearMeActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		done = false;
+		locFail = false;
 		//Location code
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -72,7 +73,7 @@ public class NearMeActivity extends MapActivity {
 		}
 		else {
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES, MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
-			Toast.makeText(this, "GPS not enabled. Using rough estimate", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "GPS not enabled. Attempting rough estimate", Toast.LENGTH_LONG).show();
 			gpsEnabled = false;
 		}
 
@@ -97,7 +98,6 @@ public class NearMeActivity extends MapActivity {
 				else {
 					//Default to rotunda (could be anywhere) if we fail
 					referencePoint = new GeoPoint(38035681, -78503323);
-					Log.i("loc fail", "failed");
 					locFail = true;
 				}
 
@@ -122,8 +122,28 @@ public class NearMeActivity extends MapActivity {
 					double lat = coords.getLatitude();
 					double lon = coords.getLongitude();
 					GeoPoint point = new GeoPoint((int)(lat * 1000000),(int)(lon * 1000000));
+
 					String title = oneEvent.getString("name");
-					String descrip = oneEvent.getString("description");
+					String loc = oneEvent.getString("location");
+					String start = oneEvent.getString("start_time");
+					String end = oneEvent.getString("end_time");
+
+					String[] ymd = start.split("-");
+					int month = Integer.parseInt(ymd[1]);
+					int day = Integer.parseInt(ymd[2].substring(0,2));
+
+					String[] ymd2 = end.split("-");
+					int month2 = Integer.parseInt(ymd2[1]);
+					int day2 = Integer.parseInt(ymd2[2].substring(0,2));
+
+					String descrip;
+					if (month == month2 && day == day2) {
+						descrip = loc + "\n" + month +"/"+ day + "\n" + ParseApplication.formattedDate(start) + " - " + ParseApplication.formattedDate(end);
+					}
+					else {
+						descrip = loc + "\n" + month +"/"+ day + " " + ParseApplication.formattedDate(start) + " to\n" + month2 + "/" + day2 + " " + ParseApplication.formattedDate(end);
+					}
+
 					FoodEventOverlayItem overlayitem = new FoodEventOverlayItem(point, title, descrip, oneEvent);
 					itemizedOverlay.addOverlay(overlayitem);
 				}
@@ -141,6 +161,7 @@ public class NearMeActivity extends MapActivity {
 		}
 		theMap.setBuiltInZoomControls(true);
 	}
+
 
 	protected boolean isRouteDisplayed() {
 		return false;

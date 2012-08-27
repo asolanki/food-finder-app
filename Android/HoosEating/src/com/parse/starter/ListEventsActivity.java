@@ -67,6 +67,8 @@ public class ListEventsActivity extends ListActivity {
 		listView = getListView();
 		listView.setTextFilterEnabled(true);
 		listView.setBackgroundResource(R.drawable.bg);
+		listView.setDivider(null);
+		listView.setDividerHeight(0); 
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

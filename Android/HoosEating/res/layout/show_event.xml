@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bg"
-    android:orientation="vertical"
-    android:gravity="center_horizontal" >
+    android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/event_detail_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="22sp" />
+        android:background="@drawable/bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/event_detail_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-    
-    <TextView
-        android:id="@+id/event_detail_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-    
-    <TextView
-        android:id="@+id/event_detail_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-    
-    <ImageButton
-        android:id="@+id/get_walk_dir"
-        android:src="@drawable/near_button"
-        android:layout_width="280dp"
-        android:layout_height="125dp"
-        android:background="@null" />
-    
-    <ImageButton
-        android:id="@+id/get_bus_dir"
-        android:src="@drawable/near_button"
-        android:layout_width="280dp"
-        android:layout_height="125dp"
-        android:background="@null" />
-        
+        <TextView
+            android:id="@+id/event_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@android:color/black"
+            android:textSize="50sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/event_detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@android:color/black"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/event_detail_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginBottom="11dp"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@android:color/black"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/event_detail_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edges"
+            android:gravity="center_horizontal"
+            android:textColor="#00008B"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/get_walk_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/walk_dir_btn" />
+
+        <Button
+            android:id="@+id/get_bus_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/bus_dir_btn" />
+    </LinearLayout>
+
+</ScrollView>

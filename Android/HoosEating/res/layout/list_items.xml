@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="@drawable/rounded_edges_list" >
 
     <TextView
         android:id="@+id/event_name"
@@ -10,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:paddingTop="4dp"
+        android:paddingRight="80dp"
+        android:paddingLeft="2dp"
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
@@ -19,6 +22,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:paddingTop="4dp"
+        android:paddingRight="4dp"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
     
@@ -29,6 +33,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/event_name"
         android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
