@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="bqZ-tW-q0o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="bqZ-tW-q0o">
     <dependencies>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
+        <!--Main View Controller - Hoo's Eating?-->
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -69,6 +70,7 @@
             </objects>
             <point key="canvasLocation" x="387" y="145"/>
         </scene>
+        <!--Near Me View Controller - Near Me-->
         <scene sceneID="3Im-IE-7ic">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djf-kK-Joc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -102,6 +104,7 @@
             </objects>
             <point key="canvasLocation" x="858" y="-145"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="3DH-l8-saL">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dt-Zo-VdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -119,6 +122,7 @@
             </objects>
             <point key="canvasLocation" x="-46" y="145"/>
         </scene>
+        <!--Event Query Table View Controller - Coming Up-->
         <scene sceneID="lAn-eC-7Uf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2WT-F0-aUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -151,6 +155,7 @@
             </objects>
             <point key="canvasLocation" x="858" y="428"/>
         </scene>
+        <!--Detail View Controller - Detail-->
         <scene sceneID="GVH-OS-a1j">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JRj-Tc-trV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -165,49 +170,45 @@
                                 <rect key="contentStretch" x="0.0" y="0.59999999999999998" width="1" height="1"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start Time - End Time" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="Lvn-n3-d5q">
-                                <rect key="frame" x="75" y="5" width="238" height="42"/>
+                                <rect key="frame" x="0.0" y="5" width="320" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.8500000000000002" width="1" height="1"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="27"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="84r-HI-z2m">
-                                <rect key="frame" x="75" y="42" width="225" height="55"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="84r-HI-z2m">
+                                <rect key="frame" x="0.0" y="42" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="@" lineBreakMode="tailTruncation" minimumFontSize="10" id="Jzl-1W-kxm">
-                                <rect key="frame" x="20" y="53" width="42" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" id="OPq-9Z-ZMy">
-                                <rect key="frame" x="20" y="105" width="280" height="191"/>
+                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" textAlignment="center" id="OPq-9Z-ZMy">
+                                <rect key="frame" x="20" y="141" width="280" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HV9-w8-jMa">
-                                <rect key="frame" x="27" y="322" width="273" height="74"/>
+                                <rect key="frame" x="20" y="332" width="280" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="43"/>
-                                <state key="normal" title="See On Map">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <state key="normal" title="Get Directions">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="seeOnMap:" destination="B81-MQ-eJa" eventType="touchUpInside" id="Tlb-Ky-S4v"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2/10" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="vAs-fL-Mhu">
-                                <rect key="frame" x="9" y="3" width="65" height="43"/>
+                                <rect key="frame" x="0.0" y="90" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,6 +223,7 @@
                         <outlet property="date" destination="vAs-fL-Mhu" id="ZGf-eL-tp6"/>
                         <outlet property="description" destination="OPq-9Z-ZMy" id="HQf-TP-NVi"/>
                         <outlet property="location" destination="84r-HI-z2m" id="JLy-Fn-j9e"/>
+                        <outlet property="mapButton" destination="HV9-w8-jMa" id="01p-Oa-U6v"/>
                         <outlet property="time" destination="Lvn-n3-d5q" id="zJV-Yb-2dh"/>
                     </connections>
                 </viewController>
@@ -239,9 +241,11 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="seeOnMap:"/>
                 <relationship kind="outlet" name="date" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="location" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="time" candidateClass="UILabel"/>
             </relationships>
         </class>

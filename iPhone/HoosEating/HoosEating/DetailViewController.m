@@ -7,8 +7,10 @@
 //
 
 #import "DetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DetailViewController
+@synthesize mapButton;
 @synthesize date, location, time, description, event;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -18,6 +20,20 @@
         // Custom initialization
     }
     return self;
+}
+- (IBAction)seeOnMap:(id)sender
+{
+    PFGeoPoint *geo = [self.event objectForKey:@"coordinates"];
+    NSString *coordinates = [NSString stringWithFormat:@"%f,%f",geo.latitude, geo.longitude];
+    
+    NSString *mapString = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=Current+Location&daddr=%@",coordinates] ;
+    
+//    NSLog([NSString stringWithFormat:@"Coordinates: %@",coordinates]);
+//    NSLog([NSString stringWithFormat:@"Map string: %@", mapString]);
+//    &saddr=Were+St&daddr=Kings+Hwy+to:Princes+Hwy+to:Princes+Hwy+to:Monaro+Hwy+to:-35.43483,149.112175
+    
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapString]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,9 +124,12 @@
     
     if (![amPm isEqualToString:amPm2]) {
         NSRange range = [dateStr rangeOfString:@" -"];
-        [dateStr insertString:amPm atIndex:range.location - 2];
+        [dateStr insertString:amPm atIndex:range.location];
     }
     [dateStr appendFormat:@"%@", amPm2];
+    
+    NSLog(@"\n\ndateStr: %@", dateStr);
+
 
     // TODO test something that starts before noon and ends after, AM and PM.
     // TODO test the opposite
@@ -133,16 +152,42 @@
     
     
     [self.time setText:dateStr];
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:26];
     [self.time setFont:font];
 //    [self.time setAdjustsFontSizeToFitWidth:YES];
-    [self.time setMinimumFontSize:30];
+    [self.time setMinimumFontSize:34];
     
     [self.time setShadowColor:[UIColor whiteColor]];
     [self.time setShadowOffset:CGSizeMake(1, 1)];
 
 //    2012-08-19T23:40:20.000Z
+
+    dateStr = [self.event objectForKey:@"start_time"];
+
+    [dateStr replaceOccurrencesOfString:@"-"
+                             withString:@"/"
+                                options:NSLiteralSearch
+                                  range:NSMakeRange(0, 6)];
+    dateStr2 = [[dateStr substringToIndex:10] substringFromIndex:5];
+
     
+    [self.date setText:dateStr2];
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:26];
+
+    [self.date setFont:font];
+    [self.date setMinimumFontSize:36];
+    [self.date setShadowColor:[UIColor whiteColor]];
+    [self.date setShadowOffset:CGSizeMake(1, 1)];
+    
+    self.description.layer.cornerRadius = 10;
+    self.description.layer.shadowOffset = CGSizeMake(2, 2);
+    self.description.layer.shadowColor = [[UIColor darkTextColor] CGColor];
+    self.description.layer.shadowOpacity = 1.0;
+    self.description.layer.shadowRadius = 5;
+
+    [self.description setText:[self.event objectForKey:@"description"]];
+    
+
     [super viewDidLoad];
 }
 
@@ -154,6 +199,7 @@
     [self setDate:nil];
 
     [self setDescription:nil];
+    [self setMapButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
