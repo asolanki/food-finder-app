@@ -8,6 +8,7 @@
 
 #import "NearMeViewController.h"
 #import "HEAppDelegate.h"
+#import <Parse/Parse.h>
 
 @implementation NearMeViewController
 
@@ -27,16 +28,32 @@
     // get the places from Parse
         // TODO
     
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(38.036676,-78.506028);
-    EventPoint *event1 = [[EventPoint alloc] initWithName:@"lol" location:@"lollers" coordinate:coordinate];
     
-    [map addAnnotation:event1];
-    NSLog(@"Debug event has been annotated at 33x33");
+    
+//    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(38.036676,-78.506028);
+//    EventPoint *event1 = [[EventPoint alloc] initWithName:@"lol" location:@"lollers" coordinate:coordinate];
+//    
+//    [map addAnnotation:event1];
+//    NSLog(@"Debug event has been annotated at 33x33");
 
     // add the places
     for (int i=0; i<[data count]; i++) 
     {
-        // IT WORKS!
+        PFObject *currObj = [data objectAtIndex:i];
+        NSString *eventName = [currObj objectForKey:@"name"];
+        NSString *locationName = [currObj objectForKey:@"location"];
+        PFGeoPoint *geo = [currObj objectForKey:@"coordinates"];
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geo.latitude, geo.longitude);
+        
+        EventPoint *event = [[EventPoint alloc] initWithName:eventName
+                                                    location:locationName
+                                                  coordinate:coordinate];
+        
+        // TODO add a flag as a param that is Today/Future and only adds annotations
+        // for the correct ones.
+        // this will require some sort of date format method.
+        
+        [map addAnnotation:event];
     }
         
 }
@@ -101,26 +118,19 @@
     [locationManager setDistanceFilter:kCLDistanceFilterNone];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    [self plotPositions:nil];
+//    [self plotPositions:nil];
     
-    
-//    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-//    [locationManager setDelegate:self];
-//    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-//    [locationManager setDistanceFilter:5];
-//    [locationManager setPurpose:@"Find the free food nearest to you!"];
-////    [locationManager startUpdatingLocation];
-//    
-//        // insert code that checks permissions for location services
-//    
-//    
-//    NSLog(@"\n\n %@, %@", locationManager.location.coordinate.longitude, locationManager.location.coordinate.longitude);
-//    
-//    [map setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-    
-    // create annotations for each event nearby
+    [self plotPositions:[self pointsFromParse]];
 
 
+}
+
+- (NSArray *)pointsFromParse
+{
+    PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
+    [q whereKey:@"coordinates" nearGeoPoint:[PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
+                                                                   longitude:self.locationManager.location.coordinate.longitude]];
+    return [q findObjects];
 }
 
 

@@ -62,23 +62,11 @@
     [self.location setText:[self.event valueForKey:@"location"]];
     [self.location setFont:font];
     [self.location setAdjustsFontSizeToFitWidth:YES];
-    [self.location setMinimumFontSize:48];
+    [self.location setMinimumFontSize:36];
     [self.location setShadowColor:[UIColor whiteColor]];
     [self.location setShadowOffset:CGSizeMake(2, 2)];
     
-//    
-//    CGRect frame = location.frame;
-//    CGFloat fontSize = 48.0;
-//    // width 240  height 55
-//    frame.size = [location.text sizeWithFont:font
-//                              minFontSize:location.minimumFontSize
-//                           actualFontSize:&fontSize
-//                                 forWidth:320
-//                               lineBreakMode:location.lineBreakMode];
-//    frame.origin = CGPointMake(70, 170);
-//    
-//    [self.location setFrame:frame];
-
+    // TODO refactor
     NSString *amPm = @"AM";
     NSString *amPm2 = @"AM";
     
@@ -96,6 +84,9 @@
     {
         month = [NSNumber numberWithInt: [month intValue] - 12];
         amPm = @"PM";
+    } else if ( [month intValue] < 1)
+    {
+        month = [NSNumber numberWithInt: 12];
     }
 
     NSString *startDateNumber = [dateStr substringFromIndex:3];
@@ -151,11 +142,12 @@
 //    NSString *date = [df stringFromDate:object.createdAt];
     
     
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
     [self.time setText:dateStr];
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:26];
+
     [self.time setFont:font];
-//    [self.time setAdjustsFontSizeToFitWidth:YES];
-    [self.time setMinimumFontSize:34];
+    [self.time setAdjustsFontSizeToFitWidth:YES];
+    [self.time setMinimumFontSize:30];
     
     [self.time setShadowColor:[UIColor whiteColor]];
     [self.time setShadowOffset:CGSizeMake(1, 1)];
