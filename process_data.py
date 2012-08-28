@@ -13,6 +13,7 @@ import httplib
 import datetime
 import urllib2
 import urllib
+import unicodedata
 
 #Logging mechanisms
 log_format = logging.Formatter('%(asctime)s -- %(levelname)s -- %(message)s')
@@ -41,6 +42,18 @@ general_handler.setFormatter(log_format)
 general_logger.addHandler(general_handler)
 general_logger.setLevel(logging.INFO)
 
+api_logger = logging.getLogger('master.api')
+api_handler = logging.FileHandler('{0}/api.log'.format(LOGGING_DIR))
+api_handler.setFormatter(log_format)
+api_logger.addHandler(api_handler)
+api_logger.setLevel(logging.INFO)
+
+loc_logger = logging.getLogger('location')
+loc_handler = logging.FileHandler('{0}/location.log'.format(LOGGING_DIR))
+loc_handler.setFormatter(log_format)
+loc_logger.addHandler(loc_handler)
+loc_logger.setLevel(logging.INFO)
+
 #String constant for google calendar API request, based on API key and Calendar
 #ID
 GET_EVENTS='https://www.googleapis.com/calendar/v3/'\
@@ -58,50 +71,75 @@ GET_LOCATION = 'https://maps.googleapis.com/maps/api/place/textsearch/'\
 # handles query to google maps API
 # @param loc_in the query string
 # @return dictionary holding 'latitude' and 'longitude'
-def handleLocation(loc_in):
-    loc_in = urllib.quote(loc_in)
-    maps_req = GET_LOCATION + '&query={0}'.format(loc_in)
+def handle_location(redis_db, loc_in):
+    
+    loc_in = unicodedata.normalize('NFKD', loc_in).encode('ascii','ignore')
+    escaped_loc = str.replace(loc_in, ' ', '_')
+    redis_loc = 'loc-'+escaped_loc
 
-    request = urllib2.Request(maps_req)
-    location_dict = {}
+    #We already have a mapping for this location. Use it!
+    if redis_db.exists(redis_loc):
+        coords = str.split(redis_db.get(redis_loc), ',')
+        return {
+            '__type' : 'GeoPoint',
+            'latitude' : float(coords[0]),
+            'longitude' : float(coords[1]),
+        }
 
-    response = urllib2.urlopen(request)
-    response_dict = json.loads(response.read())
-    if response_dict['status'] != 'OK':
-        return { 'ERROR' : response_dict['status'], 'API_CALL' : loc_in }
+    #We don't have a mapping for this location. Guess it from google places, and
+    #log this guess so we can check it manually later.
+    api_loc = urllib.quote(loc_in)
+    maps_req = GET_LOCATION + '&query={0}'.format(api_loc)
+    response_dict = api_req(maps_req)
 
+    #The API call went through, but did not return places properly. Default to
+    #dummy coords and manually check/enter the location.
+    if ('ERROR' in response_dict) or (response_dict['status'] != 'OK'):
+        general_logger.warn('Google places API call failed on {0} (check'\
+                            ' api log)'.format(loc_in))
+        loc_logger.warn('{0} failed'.format(loc_in))
+        return {
+            '__type' : 'GeoPoint',
+            'latitude' : 0.0,
+            'longitude' : 0.0,
+        }
+
+    #The API call worked. Get the first (most relevant, according to the Places
+    #API) location as our "best guess", log it for manual confirmation of
+    #correctness later, and return it
     location_dict = response_dict['results'][0][u'geometry'][u'location']
 
-    return_dict = {}
-    return_dict['latitude'] = location_dict[u'lat']
-    return_dict['longitude'] = location_dict[u'lng']
-    return return_dict
+    latitude = location_dict[u'lat']
+    longitude = location_dict[u'lng']
+
+    redis_logger.info('Setting new location {0} to {1} (confirm'\
+                      ' accuracy)'.format(loc_in,\
+                       str(latitude)+','+str(longitude)))
+    loc_logger.info('{0} set to {1}'.format(loc_in,\
+                       str(latitude)+','+str(longitude)))
+
+    redis_db.set(redis_loc, str(latitude)+','+str(longitude))
+
+    return {
+        '__type' : 'GeoPoint',
+        'latitude' : latitude,
+        'longitude' : longitude,
+    }
 
 # Given an event (as a dict) from a Google calendar, return a food_event dict.
 # @param one_event Single food event, as represented from the Google Cal API
 # @return food_event dict, containing the information needed for our apps
-def get_food_event(one_event):
-    id_str = one_event[u'id']
-    food_event = {
-    	'event_id' : id_str,
+def get_food_event(redis_db, one_event):
+    return {
+    	'event_id' : one_event[u'id'],
     	'start_time' : one_event[u'start'][u'dateTime'],
     	'end_time' : one_event[u'end'][u'dateTime'],
     	'location' : one_event[u'location'],
     	'name' : one_event[u'summary'],
     	'description' : one_event[u'description'],
-    	'most_recent_time' : one_event[u'updated']
+    	'most_recent_time' : one_event[u'updated'],
+        'coordinates' : handle_location(redis_db, one_event[u'location']),
     }
-    coords = handleLocation(food_event['location'])
-    if 'ERROR' in coords:
-        general_logger.warn('Google places API call failed on'\
-        ' {0}'.format(coords['API_CALL']))
-    else:
-        food_event['coordinates'] = {
-                '__type' : 'GeoPoint',
-                'latitude' : coords['latitude'],
-                'longitude' : coords['longitude'],
-        }
-    return food_event
 
 #Given a food_event dict and a redis db instance, dump the fields in the
 #food_event dict into redis using <EVENT_ID>-<ATTR_NAME> format
@@ -146,16 +184,38 @@ def parse_req(redis_db, food_obj, req='POST'):
     parse_logger.info('Parse {0} call successful'.format(req))
     return result
 
+#Utility function to fix the coordinates of a location. This will:
+#1) Update the loc-location_name key in redis.
+#2) Update all events with that location in parse to the new (proper) coords.
+def fix_coords(redis_db, location, coords):
+    escaped_loc = str.replace(location, ' ', '_')
+    redis_db.set('loc-'+escaped_loc, coords)
+    event_ids = filter(lambda x : '-' not in x, redis_db.keys())
+    for event_id in event_ids:
+        if redis_db.get(event_id+'-location') == location:
+            lat = float(str.split(coords, ',')[0])
+            lon = float(str.split(coords, ',')[1])
+            parse_dict = {
+                'event_id' : event_id,
+                'coordinates' : {
+                    '__type' : 'GeoPoint',
+                    'latitude' : lat,
+                    'longitude' : lon,
+                },
+            }
+            parse_req(redis_db, parse_dict, 'PUT')
+    redis_db.save()
+
 
 #Make a generic API call using a given URL (used for Google Calendar request).
 #It expects json to be returned, and thus returns a dictionary based on the json
 #returned from the API call.
 # @param url The API URL call as a string
 # @return A dictionary containing the returned json from the API URL call, or a
-# dictionary containing a single "ERROR" entry for an error
+# dictionary containing an "ERROR" entry for an error (and the URL)
 def api_req(url):
+    api_logger.info(url)
     request = urllib2.Request(url)
-
     try:
         response = urllib2.urlopen(request)
         return json.loads(response.read())
@@ -185,8 +245,8 @@ def main():
 
     #Did we hit an error on the Google Calendar call? If so, log it and exit.
     if 'ERROR' in events_list_dict:
-        general_logger.error('Error on google calendar (api call: {0})'\
-                            .format(events_list_dict['API_CALL']))
+        general_logger.error('Error getting google calendar info (check'\
+                             ' api log)')
         exit (1)
 
     #List of event ids in the google calendar - makes it easier to detect
@@ -219,7 +279,7 @@ def main():
                 # Could be slightly more efficient if we only updated location when
                 # it actually changes, but this should be fine for now
                 general_logger.info('Updating event {0}'.format(one_event[u'id']))
-                food_event = get_food_event(one_event)
+                food_event = get_food_event(redis_db, one_event)
                 update_redis(redis_db, food_event)
                 parse_req(redis_db, food_event, 'PUT')
             else:
@@ -229,7 +289,7 @@ def main():
         #Dealing with a create (new event)
         else:
             general_logger.info('Creating event {0}'.format(one_event[u'id']))
-            food_event = get_food_event(one_event)
+            food_event = get_food_event(redis_db, one_event)
             update_redis(redis_db, food_event)
             reply = parse_req(redis_db, food_event)
             redis_db.set(food_event['event_id'], reply['objectId'])
