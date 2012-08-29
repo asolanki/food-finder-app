@@ -45,11 +45,14 @@ import android.support.v4.widget.SimpleCursorAdapter;
 public class ShowEventInfoActivity extends Activity {
 
 	protected LocationManager locationManager;
+	protected LocationListener locationListener;
+	private static Location myLocation;
+	
 	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
 	private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
-	private String referenceCoords;
-	private boolean locFail;
-	private boolean gpsEnabled;
+	private static boolean locFail;
+	private static boolean gpsEnabled;
+	private static boolean networkEnabled;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,9 +105,9 @@ public class ShowEventInfoActivity extends Activity {
 
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		LocationListener locationListener = new LocationListener() {
+		locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
-
+				ShowEventInfoActivity.updateLocation(location);
 			}
 
 			public void onStatusChanged(String s, int i, Bundle b) {
@@ -112,34 +115,30 @@ public class ShowEventInfoActivity extends Activity {
 			}
 
 			public void onProviderDisabled(String s) {
-
+				if (s.equals(LocationManager.GPS_PROVIDER))
+					ShowEventInfoActivity.updateGps(true);
+				else if (s.equals(LocationManager.NETWORK_PROVIDER))
+					ShowEventInfoActivity.updateNetwork(true);
 			}
 
 			public void onProviderEnabled(String s) {
-
+				if (s.equals(LocationManager.GPS_PROVIDER))
+					ShowEventInfoActivity.updateGps(false);
+				else if (s.equals(LocationManager.NETWORK_PROVIDER))
+					ShowEventInfoActivity.updateNetwork(false);
 			}
 		};
 
-		Location location;
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) { 
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES, MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
-			location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 			gpsEnabled = true;
+			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+				networkEnabled = true;
 		}
-		else {
+		
+		else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) { 
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES, MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
-			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			gpsEnabled = false;
-		}
-
-		if (location != null) {
-			referenceCoords = (location.getLatitude())+","+(location.getLongitude());
-		}
-
-		else {
-			//Default to rotunda (could be anywhere) if we fail
-			referenceCoords ="38.035681,-78.503323";
-			locFail = true;
+			networkEnabled = true;
 		}
 
 		Button getWalkDir = (Button) findViewById(R.id.get_walk_dir);
@@ -148,6 +147,7 @@ public class ShowEventInfoActivity extends Activity {
 				if (!gpsEnabled) {
 					Toast.makeText(ShowEventInfoActivity.this, "GPS not enabled. Attempting rough estimate", Toast.LENGTH_LONG).show();
 				}
+				String referenceCoords = getRefCoords();
 				String url = "http://maps.google.com/maps?saddr="+referenceCoords+"&daddr="+lat+","+lon+"&dirflg=w";
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
 				startActivity(intent);
@@ -162,6 +162,7 @@ public class ShowEventInfoActivity extends Activity {
 			public void onClick(View v) {
 				if (!gpsEnabled)
 					Toast.makeText(ShowEventInfoActivity.this, "GPS not enabled. Attempting rough estimate", Toast.LENGTH_LONG).show();
+				String referenceCoords = getRefCoords();
 				String url = "http://maps.google.com/maps?saddr="+referenceCoords+"&daddr="+lat+","+lon+"&dirflg=r";
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
 				startActivity(intent);
@@ -171,5 +172,27 @@ public class ShowEventInfoActivity extends Activity {
 			}
 		});
 
+	}
+	
+	public static String getRefCoords() {
+		if (myLocation != null) {
+			return myLocation.getLatitude()+","+myLocation.getLongitude();
+		}
+		else {
+			locFail = true;
+			return "38.035681,-78.503323";
+		}
+	}
+	
+	public static void updateLocation(Location location) {
+		myLocation = location;
+	}
+	
+	public static void updateGps(boolean set) {
+		gpsEnabled = set;
+	}
+	
+	public static void updateNetwork(boolean set) {
+		networkEnabled = set;
 	}
 }

@@ -61,6 +61,8 @@
             android:id="@+id/event_detail_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="19dp"
+            android:paddingLeft="19dp"
             android:background="@drawable/rounded_edges"
             android:gravity="center_horizontal"
             android:textColor="#00008B"

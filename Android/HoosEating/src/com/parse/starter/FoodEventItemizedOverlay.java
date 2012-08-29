@@ -44,6 +44,11 @@ public class FoodEventItemizedOverlay extends ItemizedOverlay {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(myContext);
 		dialog.setTitle(item.getTitle());
 		dialog.setMessage(item.getSnippet());
+		dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
 		dialog.setPositiveButton("More Info", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				Intent myIntent = new Intent(myContext, ShowEventInfoActivity.class);

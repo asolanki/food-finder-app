@@ -47,28 +47,32 @@ public class ListEventsActivity extends ListActivity {
 	ProgressDialog loader;
 	String [] toDisplay;
 	ListView listView;
-	private static boolean done;
+	private Handler doneHandler = new Handler();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		done = false;
 		loader = ProgressDialog.show(this, "", "Loading food events...", true);
 		new Thread(new Runnable() {
 			public void run() {
 				foodEvents = ParseApplication.getFoodItems();
-				loader.dismiss();
-				done = true;
+				doneHandler.post(new Runnable() {
+					public void run() {
+						setupListView();
+					}
+				});
 			}}).start();
+	}
 
-		while (!done) { }
-
+	protected void setupListView() {
+		loader.dismiss();
 		setListAdapter(new FoodEventAdapter(this, foodEvents));
 		listView = getListView();
 		listView.setTextFilterEnabled(true);
 		listView.setBackgroundResource(R.drawable.bg);
 		listView.setDivider(null);
-		listView.setDividerHeight(0); 
+		listView.setDividerHeight(0);
+		listView.setCacheColorHint(0);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -88,7 +92,6 @@ public class ListEventsActivity extends ListActivity {
 				ListEventsActivity.this.startActivity(myIntent);
 			}
 		});
-
 	}
-
 }
+
