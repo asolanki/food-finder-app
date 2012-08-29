@@ -52,10 +52,17 @@ public class ListEventsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		loader = ProgressDialog.show(this, "", "Loading food events...", true);
 		new Thread(new Runnable() {
 			public void run() {
-				foodEvents = ParseApplication.getFoodItems();
+				if (ParseApplication.checkConn(ListEventsActivity.this)) {
+					foodEvents = ParseApplication.getFoodItems();
+				}
+				else {
+					foodEvents = new ArrayList<ParseObject> ();
+					Toast.makeText(ListEventsActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
+				}
 				doneHandler.post(new Runnable() {
 					public void run() {
 						setupListView();

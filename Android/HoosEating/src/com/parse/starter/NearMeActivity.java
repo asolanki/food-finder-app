@@ -127,14 +127,21 @@ public class NearMeActivity extends MapActivity {
 				Drawable drawable = NearMeActivity.this.getResources().getDrawable(R.drawable.map_marker);
 				Drawable me_mark = NearMeActivity.this.getResources().getDrawable(R.drawable.me_marker);
 				itemizedOverlay = new FoodEventItemizedOverlay(drawable, NearMeActivity.this);
-				
+
 				MeItemizedOverlay meOverlay = new MeItemizedOverlay(me_mark);
 				OverlayItem me = new OverlayItem(referencePoint, "", "");
 				meOverlay.addOverlay(me);
 
 
 				event_locs = new Hashtable<String,Integer>();
-				ArrayList<ParseObject> foodEvents = ParseApplication.getFoodItems();
+				ArrayList<ParseObject> foodEvents;
+				if (ParseApplication.checkConn(NearMeActivity.this)) {
+					foodEvents = ParseApplication.getFoodItems();
+				}
+				else {
+					foodEvents = new ArrayList<ParseObject> ();
+					Toast.makeText(NearMeActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
+				}
 
 				for (ParseObject oneEvent : foodEvents) {
 					ParseGeoPoint coords = (ParseGeoPoint) oneEvent.get("coordinates");
@@ -165,8 +172,8 @@ public class NearMeActivity extends MapActivity {
 					else {
 						event_locs.put(formatted_coords, 1);
 					}
-						
-						
+
+
 					GeoPoint point = new GeoPoint((int)(lat * 1000000),(int)(lon * 1000000));
 					String title = oneEvent.getString("name");
 					String loc = oneEvent.getString("location");
@@ -203,13 +210,13 @@ public class NearMeActivity extends MapActivity {
 						theMap.invalidate();
 					}
 				});
-				
+
 			}
 		}).start();
 	}
 
 	protected void printFail() {
-			Toast.makeText(this, "Could not retrieve your location. Defaulting to The Rotunda", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Could not retrieve your location. Defaulting to The Rotunda", Toast.LENGTH_LONG).show();
 	}
 
 	protected boolean isRouteDisplayed() {
