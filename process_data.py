@@ -71,15 +71,14 @@ GET_LOCATION = 'https://maps.googleapis.com/maps/api/place/textsearch/'\
 # handles query to google maps API
 # @param loc_in the query string
 # @return dictionary holding 'latitude' and 'longitude'
-def handle_location(redis_db, loc_in):
+def handle_location(redis_db, loc_db, loc_in):
     
     loc_in = unicodedata.normalize('NFKD', loc_in).encode('ascii','ignore')
-    escaped_loc = str.replace(loc_in, ' ', '_')
-    redis_loc = 'loc-'+escaped_loc
+    redis_loc = str.replace(loc_in, ' ', '_')
 
     #We already have a mapping for this location. Use it!
-    if redis_db.exists(redis_loc):
-        coords = str.split(redis_db.get(redis_loc), ',')
+    if loc_db.exists(redis_loc):
+        coords = str.split(loc_db.get(redis_loc), ',')
         return {
             '__type' : 'GeoPoint',
             'latitude' : float(coords[0]),
@@ -118,7 +117,7 @@ def handle_location(redis_db, loc_in):
     loc_logger.info('{0} set to {1}'.format(loc_in,\
                        str(latitude)+','+str(longitude)))
 
-    redis_db.set(redis_loc, str(latitude)+','+str(longitude))
+    loc_db.set(redis_loc, str(latitude)+','+str(longitude))
 
     return {
         '__type' : 'GeoPoint',
@@ -129,7 +128,7 @@ def handle_location(redis_db, loc_in):
 # Given an event (as a dict) from a Google calendar, return a food_event dict.
 # @param one_event Single food event, as represented from the Google Cal API
 # @return food_event dict, containing the information needed for our apps
-def get_food_event(redis_db, one_event):
+def get_food_event(redis_db, loc_db, one_event):
     return {
     	'event_id' : one_event[u'id'],
     	'start_time' : one_event[u'start'][u'dateTime'],
@@ -138,7 +137,8 @@ def get_food_event(redis_db, one_event):
     	'name' : one_event[u'summary'],
     	'description' : one_event[u'description'],
     	'most_recent_time' : one_event[u'updated'],
-        'coordinates' : handle_location(redis_db, one_event[u'location']),
+        'coordinates' : handle_location(redis_db, loc_db,\
+                                    one_event[u'location']),
     }
 
 #Given a food_event dict and a redis db instance, dump the fields in the
@@ -228,13 +228,19 @@ def api_req(url):
 #updated/changed events (based on what is already saved in the local redis DB)
 def main():
     redis_logger.info('Opening redis db at {0} on port {1} at database {2}'\
-                     .format(REDIS['host'],REDIS['port'],REDIS['db']))
+                      ' and {3}'\
+                     .format(REDIS['host'],REDIS['port'],REDIS['db'], 1))
     redis_db = redis.StrictRedis(\
             host=REDIS['host'],\
             port=REDIS['port'],\
             db=REDIS['db'])
+    loc_db = redis.StrictRedis(\
+            host=REDIS['host'],\
+            port=REDIS['port'],\
+            db=1)
     try:
         redis_db.ping()
+        loc_db.ping()
     except redis.exceptions.ConnectionError as err:
         redis_logger.error(str(err))
         exit(1) 
@@ -279,7 +285,7 @@ def main():
                 # Could be slightly more efficient if we only updated location when
                 # it actually changes, but this should be fine for now
                 general_logger.info('Updating event {0}'.format(one_event[u'id']))
-                food_event = get_food_event(redis_db, one_event)
+                food_event = get_food_event(redis_db, loc_db, one_event)
                 update_redis(redis_db, food_event)
                 parse_req(redis_db, food_event, 'PUT')
             else:
@@ -289,7 +295,7 @@ def main():
         #Dealing with a create (new event)
         else:
             general_logger.info('Creating event {0}'.format(one_event[u'id']))
-            food_event = get_food_event(redis_db, one_event)
+            food_event = get_food_event(redis_db, loc_db, one_event)
             update_redis(redis_db, food_event)
             reply = parse_req(redis_db, food_event)
             redis_db.set(food_event['event_id'], reply['objectId'])
