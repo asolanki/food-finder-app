@@ -1,6 +1,8 @@
 package com.parse.starter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -179,21 +181,18 @@ public class NearMeActivity extends MapActivity {
 					String loc = oneEvent.getString("location");
 					String start = oneEvent.getString("start_time");
 					String end = oneEvent.getString("end_time");
+					
+					GregorianCalendar curr = (GregorianCalendar) Calendar.getInstance();
 
-					String[] ymd = start.split("-");
-					int month = Integer.parseInt(ymd[1]);
-					int day = Integer.parseInt(ymd[2].substring(0,2));
-
-					String[] ymd2 = end.split("-");
-					int month2 = Integer.parseInt(ymd2[1]);
-					int day2 = Integer.parseInt(ymd2[2].substring(0,2));
+					HoosEatingDatetime startDate = new HoosEatingDatetime(start, curr);
+					HoosEatingDatetime endDate = new HoosEatingDatetime(end, curr);
 
 					String descrip;
-					if (month == month2 && day == day2) {
-						descrip = loc + "\n" + month +"/"+ day + "\n" + ParseApplication.formattedDate(start) + " - " + ParseApplication.formattedDate(end);
+					if (startDate.getMonthDay().equals(endDate.getMonthDay())) {
+						descrip = loc + "\n" + startDate.getMonthDay() + "\n" + startDate.getTime() + " - " + endDate.getTime();
 					}
 					else {
-						descrip = loc + "\n" + month +"/"+ day + " " + ParseApplication.formattedDate(start) + " to\n" + month2 + "/" + day2 + " " + ParseApplication.formattedDate(end);
+						descrip = loc + "\n" + startDate.getMonthDay() + " " + startDate.getTime() + " to\n" + endDate.getMonthDay() + " " + endDate.getTime();
 					}
 
 					FoodEventOverlayItem overlayitem = new FoodEventOverlayItem(point, title, descrip, oneEvent);

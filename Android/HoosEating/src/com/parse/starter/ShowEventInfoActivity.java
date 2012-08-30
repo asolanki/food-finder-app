@@ -1,5 +1,8 @@
 package com.parse.starter;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import com.google.android.maps.GeoPoint;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -78,19 +81,32 @@ public class ShowEventInfoActivity extends Activity {
 		event_name.setTypeface(tf);
 		
 		TextView event_time = (TextView) findViewById(R.id.event_detail_time);
-		String formatted_start = ParseApplication.formattedDate(start);
-		String formatted_end = ParseApplication.formattedDate(end);
-		String[] ymd = start.split("-");
-		int month = Integer.parseInt(ymd[1]);
-		int day = Integer.parseInt(ymd[2].substring(0,2));
-		String[] ymd2 = end.split("-");
-		int month2 = Integer.parseInt(ymd2[1]);
-		int day2 = Integer.parseInt(ymd2[2].substring(0,2));
-		if (month == month2 && day == day2) {
-			event_time.setText(month+"/"+day +"  "+formatted_start + " - " + formatted_end);
+		GregorianCalendar curr = (GregorianCalendar) Calendar.getInstance();
+		
+		HoosEatingDatetime startDate = new HoosEatingDatetime(start, curr);
+		HoosEatingDatetime endDate = new HoosEatingDatetime(end, curr);
+		
+		/*
+		 * TODO: Add handling for "all-day" events (More gracefully than just making
+		 * them go from 12:00 AM - 11:59 PM)
+		 * 
+		 * Cases:
+		 * 1 Day event
+		 *     -It's happening today, show "Today" + time
+		 *     -It's happening after today, show Date + Time
+		 * Multi-day Event
+		 *     -It started today, ends after today, show "Today" + time - EndDate + time
+		 *     -It started before today, ends today, show StartDate + time - "Today" + time
+		 *     -It started before today, ends after today, show StartDate + time - EndDate + time
+		 */
+		
+		//One day event.
+		if (startDate.getMonthDay().equals(endDate.getMonthDay())) {
+			event_time.setText(startDate.getMonthDay() + "  " + startDate.getTime() + " - " + endDate.getTime());
 		}
+		//Multi day event.
 		else {
-			event_time.setText(month+"/"+day +"  "+formatted_start + " - " + month2+"/"+day2 +"  "+formatted_end);
+			event_time.setText(startDate.getMonthDay() + "  " + startDate.getTime() + " - " + endDate.getMonthDay() + "  " + endDate.getTime());
 		}
 		event_time.setTypeface(tf);
 		

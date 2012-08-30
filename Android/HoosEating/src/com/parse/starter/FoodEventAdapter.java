@@ -57,30 +57,15 @@ public class FoodEventAdapter extends ArrayAdapter {
 			feView = (FoodEventView) rowView.getTag();
 		}
 
-		// Transfer the stock data from the data object
-		// to the view objects
 		ParseObject obj = (ParseObject) foodEvents.get(position);
 		feView.name.setText(obj.getString("name"));
 
 		String date = obj.getString("start_time");
-		String[] ymd = date.split("-");
-		int year = Integer.parseInt(ymd[0]);
-		int month = Integer.parseInt(ymd[1]);
-		int day = Integer.parseInt(ymd[2].substring(0,2));
-
-		String time_to_display;
+		
 		GregorianCalendar curr = (GregorianCalendar) Calendar.getInstance();
-		boolean same = ((curr.get(Calendar.YEAR) == year) &&
-				((curr.get(Calendar.MONTH) + 1) == month) &&
-				(curr.get(Calendar.DAY_OF_MONTH) == day ));
+		HoosEatingDatetime d = new HoosEatingDatetime(date, curr);
 		
-		if (same)
-			time_to_display = ParseApplication.formattedDate(date);
-		else {
-			time_to_display = month+"/"+day;
-		}
-		
-		feView.time.setText(time_to_display);
+		feView.time.setText(d.toString());
 
 		feView.loc.setText(obj.getString("location"));
 		

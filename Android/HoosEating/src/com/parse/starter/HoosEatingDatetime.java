@@ -16,7 +16,7 @@ public class HoosEatingDatetime {
 	private String time;
 
 
-	public HoosEatingDatetime(String src,  Calendar today) {
+	public HoosEatingDatetime(String src, Calendar today) {
 		String[] ymd = src.split("-");
 		sourceRep = src;
 		year = Integer.parseInt(ymd[0]);
@@ -86,12 +86,32 @@ public class HoosEatingDatetime {
 		return sourceRep;
 	}
 	
+	//For multi day events, we want to ignore the normal relevance rules and
+	//access the MM/DD format and time directly.
+	public String getMonthDay() {
+		if (status == 1) {
+			return "Today";
+		}
+		return month+"/"+day;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+	
+	
+	//Wrapper, since this checking logic should only have to happen within
+	//this class.
 	public String toString() {
 		if (status == 1) {
-			return time;
+			return getTime();
 		}
 		else {
-			return month+"/"+day;
+			return getMonthDay();
 		}
 	}
 }
