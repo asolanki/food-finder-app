@@ -16,7 +16,8 @@
 
     <application
         android:name="ParseApplication"
-        android:icon="@drawable/ic_launcher">
+        android:icon="@drawable/ic_launcher"
+        android:label="HoosEating">
         <uses-library android:name="com.google.android.maps" />
 
         <activity
