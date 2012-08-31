@@ -65,7 +65,7 @@
             android:paddingLeft="19dp"
             android:background="@drawable/rounded_edges"
             android:gravity="center_horizontal"
-            android:textColor="#00008B"
+            android:textColor="#364B60"
             android:textSize="20sp" />
 
         <Button
