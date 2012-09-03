@@ -10,15 +10,30 @@
 
 @implementation EventPoint
 
-@synthesize name,location;
+@synthesize name,location,description,start,end,parseId,title = _title,subtitle = _subtitle;
 @synthesize coordinate = _coordinate;
 
-- (id)initWithName:(NSString *)name location:(NSString *)location coordinate:(CLLocationCoordinate2D)coordinate
+- (id)initWithName:(NSString *)theName
+          location:(NSString *)theLocation
+        coordinate:(CLLocationCoordinate2D)coordinate
+       description:(NSString *)theDescription
+         startTime:(NSString *)theStart
+           endTime:(NSString *)theEnd
+          objectId:(NSString *)theParseId
 {
     if ((self = [super init])) {
-        self.name = [name copy];
-        self.location = [location copy];
+        self.name = theName;
+        self.location = theLocation;
         _coordinate = coordinate;
+        self.description = theDescription;
+        self.start = theStart;
+        self.end = theEnd;
+        self.parseId = theParseId;
+        
+
+        _title = theName;
+        _subtitle = theLocation;
+        
         
     }
     return self;
@@ -29,18 +44,12 @@
 
 - (NSString *)title
 {
-    if ([name isKindOfClass:[NSNull class]])
-        return @"No Name";
-    else
-        return name;
+    return _title;
 }
 
-- (NSString *)subtitle 
+- (NSString *)subtitle
 {
-    if ([location isKindOfClass:[NSNull class]])
-        return @"No Location";
-    else
-        return location;
+    return _subtitle;
 }
 
 @end

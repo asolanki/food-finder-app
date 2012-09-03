@@ -13,7 +13,8 @@
 
 @synthesize table;
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
     self = [self initWithStyle:style className:@"FoodEvent"];
     if (self) {
         // This table displays items in the FoodEvent class
@@ -56,7 +57,7 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object 
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"EventCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -76,7 +77,7 @@
     // Configure the cell to show todo item with a priority at the bottom
     cell.textLabel.text = [object objectForKey:@"name"];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",
-                                 [object objectForKey:@"description"]];
+                                 [object objectForKey:@"location"]];
     
     return cell;
 }

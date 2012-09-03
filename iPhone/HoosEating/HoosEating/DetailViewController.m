@@ -20,6 +20,8 @@
         // Custom initialization
     }
     return self;
+    
+    // foo:withBar:andBar
 }
 - (IBAction)seeOnMap:(id)sender
 {
@@ -57,9 +59,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    
     UIFont *font = [UIFont fontWithName:@"Alégre Sans" size:65.54];
     [self.location setText:[self.event valueForKey:@"location"]];
+    // self.location.setText(self.event(valueForKey(location)));
     [self.location setFont:font];
     [self.location setAdjustsFontSizeToFitWidth:YES];
     [self.location setMinimumFontSize:36];
@@ -70,7 +72,6 @@
     NSString *amPm = @"AM";
     NSString *amPm2 = @"AM";
     
-    NSLog(@"\n\n%@\n", [self.event valueForKey:@"location"]);
     NSMutableString *dateStr = [NSMutableString stringWithString:
                                 [[self.event valueForKey:@"start_time"] 
                                  substringFromIndex:11]];
@@ -97,7 +98,6 @@
                                                 substringFromIndex:11]];
     
     NSString *dateStr2 = [NSMutableString stringWithString:[end substringToIndex:5]];
-    NSLog(@"dateStr2: %@", dateStr2);
     month = [f numberFromString:[dateStr2 substringToIndex:2]];
     if ( [month intValue] > 12 )
     {
@@ -108,10 +108,8 @@
     NSString *endDateNumber = [dateStr2 substringFromIndex:3];
     dateStr2 = [NSMutableString stringWithFormat:@"%@:%@", month, endDateNumber];
 
-    NSLog(@"dateStr: %@", dateStr);
 
     [dateStr appendFormat:@"%@", dateStr2];
-    NSLog(@"\n\ndateStr: %@", dateStr);
     
     if (![amPm isEqualToString:amPm2]) {
         NSRange range = [dateStr rangeOfString:@" -"];
@@ -164,18 +162,26 @@
 
     
     [self.date setText:dateStr2];
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:26];
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
 
     [self.date setFont:font];
-    [self.date setMinimumFontSize:36];
+    [self.date setMinimumFontSize:30];
+    [self.location setAdjustsFontSizeToFitWidth:YES];
+
     [self.date setShadowColor:[UIColor whiteColor]];
     [self.date setShadowOffset:CGSizeMake(1, 1)];
     
+    
+    
     self.description.layer.cornerRadius = 10;
-    self.description.layer.shadowOffset = CGSizeMake(2, 2);
-    self.description.layer.shadowColor = [[UIColor darkTextColor] CGColor];
-    self.description.layer.shadowOpacity = 1.0;
-    self.description.layer.shadowRadius = 5;
+//    self.description.layer.shadowOffset = CGSizeMake(2, 2);
+//    self.description.layer.shadowColor = [[UIColor darkTextColor] CGColor];
+//    self.description.layer.shadowOpacity = 1.0;
+//    self.description.layer.shadowRadius = 5;
+//    self.description.layer.borderColor = [[UIColor darkGrayColor] CGColor];
+
+
+    
 
     [self.description setText:[self.event objectForKey:@"description"]];
     

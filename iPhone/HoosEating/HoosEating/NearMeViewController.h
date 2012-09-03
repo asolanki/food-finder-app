@@ -14,10 +14,10 @@
 @interface NearMeViewController : UIViewController 
 <MKMapViewDelegate, CLLocationManagerDelegate>
 
+//@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
-@property (weak, nonatomic) IBOutlet UIToolbar *upcomingButton;
-@property (weak, nonatomic) IBOutlet UIToolbar *todayButton;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSDictionary *idDict;
 
 
 

@@ -66,7 +66,7 @@
 		C7D61A9115D4841A00569532 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C7E43BE515E5F07300EFA9E6 /* EventPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventPoint.h; path = ../EventPoint.h; sourceTree = "<group>"; };
 		C7E43BE615E5F07300EFA9E6 /* EventPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventPoint.m; path = ../EventPoint.m; sourceTree = "<group>"; };
-		C7F011F415D1D52E00AFC687 /* HoosEating.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoosEating.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F011F415D1D52E00AFC687 /* HoosEating.3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoosEating.3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F011F815D1D52E00AFC687 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7F011FA15D1D52E00AFC687 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C7F011FC15D1D52E00AFC687 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,7 +137,7 @@
 		C7F011F515D1D52E00AFC687 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7F011F415D1D52E00AFC687 /* HoosEating.1.app */,
+				C7F011F415D1D52E00AFC687 /* HoosEating.3.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 			);
 			name = HoosEating;
 			productName = HoosEating;
-			productReference = C7F011F415D1D52E00AFC687 /* HoosEating.1.app */;
+			productReference = C7F011F415D1D52E00AFC687 /* HoosEating.3.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -356,7 +356,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HoosEating/HoosEating-Prefix.pch";
 				INFOPLIST_FILE = "HoosEating/HoosEating-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME).1";
+				PRODUCT_NAME = "$(TARGET_NAME).3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -371,7 +371,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HoosEating/HoosEating-Prefix.pch";
 				INFOPLIST_FILE = "HoosEating/HoosEating-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME).1";
+				PRODUCT_NAME = "$(TARGET_NAME).3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

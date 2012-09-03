@@ -15,11 +15,25 @@
 
 }
 
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *subtitle;
+
 @property (weak, nonatomic) NSString *name;
 @property (weak, nonatomic) NSString *location;
+@property (weak, nonatomic) NSString *description;
+@property (weak, nonatomic) NSString *start;
+@property (weak, nonatomic) NSString *end;
+@property (weak, nonatomic) NSString *parseId;
+
+
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
-- (id)initWithName:(NSString *)name location:(NSString *)location coordinate:(CLLocationCoordinate2D)coordinate;
-
+- (id)initWithName:(NSString *)theName
+          location:(NSString *)theLocation
+        coordinate:(CLLocationCoordinate2D)coordinate
+       description:(NSString *)theDescription
+         startTime:(NSString *)theStart
+           endTime:(NSString *)theEnd
+          objectId:(NSString *)theParseId;
 
 @end

@@ -7,14 +7,12 @@
 //
 
 #import "NearMeViewController.h"
-#import "HEAppDelegate.h"
 #import <Parse/Parse.h>
+#import "DetailViewController.h"
 
 @implementation NearMeViewController
 
-@synthesize map, locationManager;
-@synthesize upcomingButton;
-@synthesize todayButton;
+@synthesize map, locationManager, idDict;
 
 - (void)plotPositions:(NSArray *)data
 {
@@ -25,60 +23,53 @@
         }
     }
     
-    // get the places from Parse
-        // TODO
+    EventPoint *event;
     
-    
-    
-//    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(38.036676,-78.506028);
-//    EventPoint *event1 = [[EventPoint alloc] initWithName:@"lol" location:@"lollers" coordinate:coordinate];
-//    
-//    [map addAnnotation:event1];
-//    NSLog(@"Debug event has been annotated at 33x33");
-
-    // add the places
-    for (int i=0; i<[data count]; i++) 
+    for (PFObject *currObj in data)
     {
-        PFObject *currObj = [data objectAtIndex:i];
-        NSString *eventName = [currObj objectForKey:@"name"];
-        NSString *locationName = [currObj objectForKey:@"location"];
         PFGeoPoint *geo = [currObj objectForKey:@"coordinates"];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geo.latitude, geo.longitude);
         
-        EventPoint *event = [[EventPoint alloc] initWithName:eventName
-                                                    location:locationName
-                                                  coordinate:coordinate];
+        event = [[EventPoint alloc] initWithName:[currObj objectForKey:@"name"]
+                                        location:[currObj objectForKey:@"location"]
+                                      coordinate:coordinate
+                                     description:[currObj objectForKey:@"description"]
+                                       startTime:[currObj objectForKey:@"start_time"]
+                                         endTime:[currObj objectForKey:@"end_time"]
+                                        objectId:currObj.objectId];
         
-        // TODO add a flag as a param that is Today/Future and only adds annotations
-        // for the correct ones.
-        // this will require some sort of date format method.
+//        idDict 
+        NSLog(@"Parse ID for %@ - %@", [currObj objectForKey:@"name"], event.parseId);
+        NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
         
         [map addAnnotation:event];
+//        [events addObject:event];
     }
-        
 }
 
-- (void)locationManager:(CLLocationManager *)manager 
-    didUpdateToLocation:(CLLocation *)newLocation 
-           fromLocation:(CLLocation *)oldLocation
-{
-    HEAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate setCurrentLocation:newLocation];
-    NSDate* eventDate = newLocation.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0)
-    {
-        NSLog(@"latitude: %.6f, longitude: %.6f\n", newLocation.coordinate.latitude,
-              newLocation.coordinate.longitude);
-    }
-}
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation
+//           fromLocation:(CLLocation *)oldLocation
+//{
+////    HEAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    [((HEAppDelegate *)[[UIApplication sharedApplication] delegate]) setCurrentLocation:newLocation];
+//    NSDate* eventDate = newLocation.timestamp;
+//    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+//    if (abs(howRecent) < 15.0)
+//    {
+//        NSLog(@"latitude: %.6f, longitude: %.6f\n", newLocation.coordinate.latitude,
+//              newLocation.coordinate.longitude);
+//    }
+//}
+
+
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -100,44 +91,69 @@
     [super loadView];
 }
 
-- (void)locationDidChange:(NSNotification *)note
-{
-//    map.userLocation = n
-}
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.map setDelegate:self];
     [self.map setShowsUserLocation:YES];
-
-    locationManager = [[CLLocationManager alloc] init];
-    [locationManager setDelegate:self];
-    [locationManager setDistanceFilter:kCLDistanceFilterNone];
-    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-//    [self plotPositions:nil];
-    
-    [self plotPositions:[self pointsFromParse]];
+    if ([CLLocationManager locationServicesEnabled]) {
+        locationManager = [[CLLocationManager alloc] init];
+        [locationManager setDelegate:self];
+        [locationManager setDistanceFilter:kCLDistanceFilterNone];
+        [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+        [locationManager startUpdatingLocation];
+        PFGeoPoint *userLocation = [PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
+                                                          longitude:self.locationManager.location.coordinate.longitude];
+        
+        PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
+        [q whereKey:@"coordinates" nearGeoPoint:userLocation];
+        
+        [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                [self plotPositions:objects];
+            } else {
 
+            }
+        }];
+    }
+    else {
+        NSLog(@"no location");
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                          message:@"We need location services to show the events near you!"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
+    
+    
+    
+    
+    
+    
+    //        [self plotPositions:[self pointsFromParse]];
+
+    
 
 }
 
-- (NSArray *)pointsFromParse
-{
-    PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
-    [q whereKey:@"coordinates" nearGeoPoint:[PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
-                                                                   longitude:self.locationManager.location.coordinate.longitude]];
-    return [q findObjects];
-}
+//- (NSArray *)pointsFromParse
+//{
+//    PFGeoPoint *userLocation =
+//        [PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
+//                               longitude:self.locationManager.location.coordinate.longitude];
+//    
+//    PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
+//    [q whereKey:@"coordinates" nearGeoPoint:userLocation];
+//    
+//    return [q findObjectsInBackgroundWithBlock:];
+//}
 
 
 - (void)viewDidUnload
 {
-    [self setUpcomingButton:nil];
-    [self setTodayButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -160,13 +176,90 @@
     // TODO -- make this into a centered on User but scaled based on POI animation
     
 //    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000);
-    MKAnnotationView *view = [views objectAtIndex:0];
+//    MKAnnotationView *view = [views objectAtIndex:0];
 
-    MKCoordinateSpan span = MKCoordinateSpanMake(.018, .002);
+    for (MKAnnotationView *view in views)
+    {
+        if ( [view.annotation isKindOfClass:[EventPoint class]] )
+            {
+                MKCoordinateSpan mapSpan = MKCoordinateSpanMake(.018, .002);
+                CLLocationCoordinate2D userLocation =
+                    CLLocationCoordinate2DMake(self.locationManager.location.coordinate.latitude,
+                                               self.locationManager.location.coordinate.longitude);
+                
+
+
+                MKCoordinateRegion center = MKCoordinateRegionMake(userLocation, mapSpan);
+                        
+                
+                [mapView setRegion:center animated:YES];
+                //    [mapView selectAnnotation:[view annotation] animated:YES];
+
+            } else {
+                [view setCanShowCallout:YES];
+                
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
+                [view setRightCalloutAccessoryView:button];
+            }
+    }
     
-    MKCoordinateRegion region2 = MKCoordinateRegionMake([[view annotation] coordinate], span);
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
-    [mapView setRegion:region2 animated:YES];
+//    if (annotation == self.map.userLocation)
+//    {
+//        return nil;
+//    }
+    
+    if ( [annotation isKindOfClass:[EventPoint class]])
+    {
+        static NSString *viewIdentifier = @"annotationView";
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:viewIdentifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:viewIdentifier];
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [button setTitle:annotation.title forState:UIControlStateNormal];
+        [annotationView setRightCalloutAccessoryView:button];
+        
+        return annotationView;
+    }
+    
+    return nil;
+    
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
+                      calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([(UIButton*)control buttonType] == UIButtonTypeDetailDisclosure){
+        PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
+        EventPoint *event = (EventPoint *) view.annotation ;
+
+        NSLog(@"Clicked on %@ with id %@", event.name, event.parseId);
+        NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
+
+        [query getObjectInBackgroundWithId:event.parseId
+                                     block:^(PFObject *object, NSError *error) {
+                                         if (!error) {
+                                             NSLog(@"No Errors");
+                                             DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
+                                             dvc.event = object;
+                                             [[self navigationController] pushViewController:dvc animated:YES];
+
+                                         } else {
+                                             NSLog(@"\n\nQuery error!");
+                                         }
+                                     }];
+    }
+
+    
 }
 
 @end

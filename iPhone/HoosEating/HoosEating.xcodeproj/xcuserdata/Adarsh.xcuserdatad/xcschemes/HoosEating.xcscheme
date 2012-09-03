@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C7F011F315D1D52E00AFC687"
-               BuildableName = "HoosEating.1.app"
+               BuildableName = "HoosEating.3.app"
                BlueprintName = "HoosEating"
                ReferencedContainer = "container:HoosEating.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7F011F315D1D52E00AFC687"
-            BuildableName = "HoosEating.1.app"
+            BuildableName = "HoosEating.3.app"
             BlueprintName = "HoosEating"
             ReferencedContainer = "container:HoosEating.xcodeproj">
          </BuildableReference>
@@ -41,7 +41,7 @@
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7F011F315D1D52E00AFC687"
-            BuildableName = "HoosEating.1.app"
+            BuildableName = "HoosEating.3.app"
             BlueprintName = "HoosEating"
             ReferencedContainer = "container:HoosEating.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7F011F315D1D52E00AFC687"
-            BuildableName = "HoosEating.1.app"
+            BuildableName = "HoosEating.3.app"
             BlueprintName = "HoosEating"
             ReferencedContainer = "container:HoosEating.xcodeproj">
          </BuildableReference>
