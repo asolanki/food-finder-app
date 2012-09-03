@@ -187,9 +187,9 @@ def parse_req(redis_db, food_obj, req='POST'):
 #Utility function to fix the coordinates of a location. This will:
 #1) Update the loc-location_name key in redis.
 #2) Update all events with that location in parse to the new (proper) coords.
-def fix_coords(redis_db, location, coords):
+def fix_coords(redis_db, loc_db, location, coords):
     escaped_loc = str.replace(location, ' ', '_')
-    redis_db.set('loc-'+escaped_loc, coords)
+    redis_db.set(escaped_loc, coords)
     event_ids = filter(lambda x : '-' not in x, redis_db.keys())
     for event_id in event_ids:
         if redis_db.get(event_id+'-location') == location:
