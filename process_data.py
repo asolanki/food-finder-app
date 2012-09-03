@@ -6,6 +6,8 @@ from config import CALENDAR_ID, GOOGLE_API_KEY, PARSE_APP_ID, PARSE_REST_KEY
 from config import METERS_PER_MILE, CENTRAL_COORDINATES, LOGGING_DIR, REDIS
 from config import REDIS_FIELDS
 
+from location_backup import location_fixes
+
 import json
 import redis
 import logging
@@ -87,8 +89,9 @@ def handle_location(redis_db, loc_db, loc_in):
 
     #We don't have a mapping for this location. Guess it from google places, and
     #log this guess so we can check it manually later.
-    api_loc = urllib.quote(loc_in)
-    maps_req = GET_LOCATION + '&query={0}'.format(api_loc)
+    api_loc = str.replace(loc_in, ' ', '+')
+    #api_loc = urllib.quote(loc_in)
+    maps_req = GET_LOCATION + '&query={0},+Charlottesville,+VA'.format(api_loc)
     response_dict = api_req(maps_req)
 
     #The API call went through, but did not return places properly. Default to
@@ -189,7 +192,7 @@ def parse_req(redis_db, food_obj, req='POST'):
 #2) Update all events with that location in parse to the new (proper) coords.
 def fix_coords(redis_db, loc_db, location, coords):
     escaped_loc = str.replace(location, ' ', '_')
-    redis_db.set(escaped_loc, coords)
+    loc_db.set(escaped_loc, coords)
     event_ids = filter(lambda x : '-' not in x, redis_db.keys())
     for event_id in event_ids:
         if redis_db.get(event_id+'-location') == location:
@@ -206,6 +209,18 @@ def fix_coords(redis_db, loc_db, location, coords):
             parse_req(redis_db, parse_dict, 'PUT')
     redis_db.save()
 
+#Wrapper around fix_coords
+def run_fixes():
+    redis_db = redis.StrictRedis(\
+            host=REDIS['host'],\
+            port=REDIS['port'],\
+            db=REDIS['db'])
+    loc_db = redis.StrictRedis(\
+            host=REDIS['host'],\
+            port=REDIS['port'],\
+            db=1)
+    for l in location_fixes:
+        fix_coords(redis_db, loc_db, l, location_fixes[l])
 
 #Make a generic API call using a given URL (used for Google Calendar request).
 #It expects json to be returned, and thus returns a dictionary based on the json
@@ -326,4 +341,5 @@ def main():
 #Start it up...
 general_logger.info('STARTING PROCESS DATA SCRIPT')
 main() 
+#run_fixes()
 general_logger.info('ENDING PROCESS DATA SCRIPT')
