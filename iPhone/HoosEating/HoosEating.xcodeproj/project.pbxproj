@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C7101E6215E1B3A60061B7F3 /* EventQueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */; };
 		C7510D1415D3FC2200764326 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7510D1315D3FC2100764326 /* DetailViewController.m */; };
+		C75E46D715F5988300FF61AD /* HEDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C75E46D615F5988300FF61AD /* HEDateFormatter.m */; };
 		C765643915E69648009A1B13 /* button-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C765643815E69648009A1B13 /* button-bg.png */; };
 		C772B5F715E3505E0085015F /* cell2.png in Resources */ = {isa = PBXBuildFile; fileRef = C772B5F615E3505E0085015F /* cell2.png */; };
 		C772B5F915E352630085015F /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C772B5F815E352630085015F /* bg.png */; };
@@ -48,6 +49,8 @@
 		C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventQueryTableViewController.m; sourceTree = "<group>"; };
 		C7510D1215D3FC2100764326 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		C7510D1315D3FC2100764326 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		C75E46D515F5988300FF61AD /* HEDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HEDateFormatter.h; path = ../HEDateFormatter.h; sourceTree = "<group>"; };
+		C75E46D615F5988300FF61AD /* HEDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HEDateFormatter.m; path = ../HEDateFormatter.m; sourceTree = "<group>"; };
 		C765643815E69648009A1B13 /* button-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg.png"; sourceTree = "<group>"; };
 		C772B5F615E3505E0085015F /* cell2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell2.png; sourceTree = "<group>"; };
 		C772B5F815E352630085015F /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */,
 				C7510D1215D3FC2100764326 /* DetailViewController.h */,
 				C7510D1315D3FC2100764326 /* DetailViewController.m */,
+				C75E46D515F5988300FF61AD /* HEDateFormatter.h */,
+				C75E46D615F5988300FF61AD /* HEDateFormatter.m */,
 				C7F0122615D1E6CD00AFC687 /* NearMeViewController.h */,
 				C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */,
 				C7F011FF15D1D52E00AFC687 /* Supporting Files */,
@@ -276,6 +281,7 @@
 				C7510D1415D3FC2200764326 /* DetailViewController.m in Sources */,
 				C7101E6215E1B3A60061B7F3 /* EventQueryTableViewController.m in Sources */,
 				C7E43BE715E5F07300EFA9E6 /* EventPoint.m in Sources */,
+				C75E46D715F5988300FF61AD /* HEDateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

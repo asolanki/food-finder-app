@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "HEDateFormatter.h"
 
 @implementation DetailViewController
 @synthesize mapButton;
@@ -180,12 +181,14 @@
 //    self.description.layer.shadowRadius = 5;
 //    self.description.layer.borderColor = [[UIColor darkGrayColor] CGColor];
 
-
     
 
     [self.description setText:[self.event objectForKey:@"description"]];
     
 
+    HEDateFormatter *format = [[HEDateFormatter alloc] initWithStartDate:@"2012-08-31T23:59:00-04:00"
+                                                                 endDate:@"2012-09-01T13:59:00-04:00"];
+    
     [super viewDidLoad];
 }
 
