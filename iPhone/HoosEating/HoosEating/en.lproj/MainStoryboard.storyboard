@@ -175,22 +175,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.59999999999999998" width="1" height="1"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start Time - End Time" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="22" id="Lvn-n3-d5q">
-                                <rect key="frame" x="5" y="5" width="310" height="42"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start Time - End" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="16" id="Lvn-n3-d5q">
+                                <rect key="frame" x="5" y="58" width="310" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="30"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="84r-HI-z2m">
-                                <rect key="frame" x="5" y="42" width="310" height="55"/>
+                                <rect key="frame" x="5" y="93" width="310" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" text="Description" textAlignment="center" id="OPq-9Z-ZMy">
-                                <rect key="frame" x="20" y="141" width="280" height="173"/>
+                                <rect key="frame" x="20" y="160" width="280" height="154"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -211,10 +211,10 @@
                                     <action selector="seeOnMap:" destination="B81-MQ-eJa" eventType="touchUpInside" id="Tlb-Ky-S4v"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2/10" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="30" id="vAs-fL-Mhu">
-                                <rect key="frame" x="0.0" y="90" width="320" height="43"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ii1-n8-JH8">
+                                <rect key="frame" x="5" y="6" width="310" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -224,11 +224,11 @@
                     <navigationItem key="navigationItem" id="MvY-ij-QWR"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="date" destination="vAs-fL-Mhu" id="ZGf-eL-tp6"/>
+                        <outlet property="dateTime" destination="Lvn-n3-d5q" id="15P-3M-l5v"/>
                         <outlet property="description" destination="OPq-9Z-ZMy" id="HQf-TP-NVi"/>
                         <outlet property="location" destination="84r-HI-z2m" id="JLy-Fn-j9e"/>
                         <outlet property="mapButton" destination="HV9-w8-jMa" id="01p-Oa-U6v"/>
-                        <outlet property="time" destination="Lvn-n3-d5q" id="zJV-Yb-2dh"/>
+                        <outlet property="name" destination="ii1-n8-JH8" id="h3J-j1-vgy"/>
                     </connections>
                 </viewController>
             </objects>
@@ -245,11 +245,12 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="action" name="seeOnMap:"/>
+                <relationship kind="outlet" name="dateTime" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="location" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="EventQueryTableViewController" superclassName="PFQueryTableViewController">

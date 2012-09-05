@@ -11,8 +11,9 @@
 #import "HEDateFormatter.h"
 
 @implementation DetailViewController
+@synthesize name;
 @synthesize mapButton;
-@synthesize date, location, time, description, event;
+@synthesize dateTime, location, description, event;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,116 +62,56 @@
 - (void)viewDidLoad
 {
     UIFont *font = [UIFont fontWithName:@"Alégre Sans" size:65.54];
-    [self.location setText:[self.event valueForKey:@"location"]];
-    // self.location.setText(self.event(valueForKey(location)));
+    [self.location setText:[NSString stringWithFormat:@"@%@",[self.event valueForKey:@"location"]]];
     [self.location setFont:font];
     [self.location setAdjustsFontSizeToFitWidth:YES];
     [self.location setMinimumFontSize:36];
     [self.location setShadowColor:[UIColor whiteColor]];
-    [self.location setShadowOffset:CGSizeMake(2, 2)];
+    [self.location setShadowOffset:CGSizeMake(1, 2)];
     
-    // TODO refactor
-    NSString *amPm = @"AM";
-    NSString *amPm2 = @"AM";
+    [self.name setText:[self.event valueForKey:@"name"]];
+    // self.location.setText(self.event(valueForKey(location)));
+    [self.name setFont:font];
+    [self.name setAdjustsFontSizeToFitWidth:YES];
+    [self.name setMinimumFontSize:36];
+    [self.name setShadowColor:[UIColor whiteColor]];
+    [self.name setShadowOffset:CGSizeMake(1, 2)];
     
-    NSMutableString *dateStr = [NSMutableString stringWithString:
-                                [[self.event valueForKey:@"start_time"] 
-                                 substringFromIndex:11]];
-    dateStr = [NSMutableString stringWithString:[dateStr substringToIndex:5]];
+    HEDateFormatter *format = [[HEDateFormatter alloc] initWithStartDate:[self.event objectForKey:@"start_time"]
+                                                                 endDate:[self.event objectForKey:@"end_time"]
+                                                               todayDate:[NSDate date]];
     
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
     
-    NSNumber *month = [f numberFromString:[dateStr substringToIndex:2]];
-    if ( [month intValue] > 12 )
-    {
-        month = [NSNumber numberWithInt: [month intValue] - 12];
-        amPm = @"PM";
-    } else if ( [month intValue] < 1)
-    {
-        month = [NSNumber numberWithInt: 12];
-    }
+    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:24];
+    [self.dateTime setText:[format dateTime]];
 
-    NSString *startDateNumber = [dateStr substringFromIndex:3];
-    dateStr = [NSMutableString stringWithFormat:@"%@:%@ - ", month, startDateNumber];
-    // at this pt dateStr is "1:30 - "
+    [self.dateTime setFont:font];
+    [self.dateTime setMinimumFontSize:24];
+    [self.dateTime setAdjustsFontSizeToFitWidth:YES];
     
-    NSString *end = [NSString stringWithString:[[self.event valueForKey:@"end_time"] 
-                                                substringFromIndex:11]];
-    
-    NSString *dateStr2 = [NSMutableString stringWithString:[end substringToIndex:5]];
-    month = [f numberFromString:[dateStr2 substringToIndex:2]];
-    if ( [month intValue] > 12 )
-    {
-        month = [NSNumber numberWithInt: [month intValue] - 12];
-        amPm2 = @"PM";
-    }
-    
-    NSString *endDateNumber = [dateStr2 substringFromIndex:3];
-    dateStr2 = [NSMutableString stringWithFormat:@"%@:%@", month, endDateNumber];
-
-
-    [dateStr appendFormat:@"%@", dateStr2];
-    
-    if (![amPm isEqualToString:amPm2]) {
-        NSRange range = [dateStr rangeOfString:@" -"];
-        [dateStr insertString:amPm atIndex:range.location];
-    }
-    [dateStr appendFormat:@"%@", amPm2];
-    
-    NSLog(@"\n\ndateStr: %@", dateStr);
-
-
-    // TODO test something that starts before noon and ends after, AM and PM.
-    // TODO test the opposite
-    /// TODO test both AM
-    // both PM has been tested.
-    
-//    [dateStr appendFormat:@"%@", [end substringToIndex:5]];
-    
-    
-    // this should be just pulled from object, dateStr is a temp.
-    
-//    NSArray *dates = [dateStr componentsSeparatedBySt`ring:@"T"];
-//    NSString *eventTime = [NSString stringWithFormat:@"%@%@%@", [dates objectAtIndex:0]
-//                           , [dates objectAtIndex:1]];
-
-                           
-//    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-//    [df setDateFormat:@"yyyy-MM-dd"];
-//    NSString *date = [df stringFromDate:object.createdAt];
-    
-    
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
-    [self.time setText:dateStr];
-
-    [self.time setFont:font];
-    [self.time setAdjustsFontSizeToFitWidth:YES];
-    [self.time setMinimumFontSize:30];
-    
-    [self.time setShadowColor:[UIColor whiteColor]];
-    [self.time setShadowOffset:CGSizeMake(1, 1)];
+    [self.dateTime setShadowColor:[UIColor whiteColor]];
+    [self.dateTime setShadowOffset:CGSizeMake(1, 1)];
 
 //    2012-08-19T23:40:20.000Z
 
-    dateStr = [self.event objectForKey:@"start_time"];
-
-    [dateStr replaceOccurrencesOfString:@"-"
-                             withString:@"/"
-                                options:NSLiteralSearch
-                                  range:NSMakeRange(0, 6)];
-    dateStr2 = [[dateStr substringToIndex:10] substringFromIndex:5];
-
-    
-    [self.date setText:dateStr2];
-    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
-
-    [self.date setFont:font];
-    [self.date setMinimumFontSize:30];
-    [self.location setAdjustsFontSizeToFitWidth:YES];
-
-    [self.date setShadowColor:[UIColor whiteColor]];
-    [self.date setShadowOffset:CGSizeMake(1, 1)];
+//    dateStr = [self.event objectForKey:@"start_time"];
+//
+//    [dateStr replaceOccurrencesOfString:@"-"
+//                             withString:@"/"
+//                                options:NSLiteralSearch
+//                                  range:NSMakeRange(0, 6)];
+//    dateStr2 = [[dateStr substringToIndex:10] substringFromIndex:5];
+//
+//    
+//    [self.date setText:dateStr2];
+//    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
+//
+//    [self.date setFont:font];
+//    [self.date setMinimumFontSize:30];
+//    [self.location setAdjustsFontSizeToFitWidth:YES];
+//
+//    [self.date setShadowColor:[UIColor whiteColor]];
+//    [self.date setShadowOffset:CGSizeMake(1, 1)];
     
     
     
@@ -186,8 +127,7 @@
     [self.description setText:[self.event objectForKey:@"description"]];
     
 
-    HEDateFormatter *format = [[HEDateFormatter alloc] initWithStartDate:@"2012-08-31T23:59:00-04:00"
-                                                                 endDate:@"2012-09-01T13:59:00-04:00"];
+    
     
     [super viewDidLoad];
 }
@@ -196,11 +136,11 @@
 - (void)viewDidUnload
 {
     [self setLocation:nil];
-    [self setTime:nil];
-    [self setDate:nil];
+    [self setDateTime:nil];
 
     [self setDescription:nil];
     [self setMapButton:nil];
+    [self setName:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

@@ -12,8 +12,8 @@
 @interface DetailViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *location;
-@property (weak, nonatomic) IBOutlet UILabel *time;
-@property (weak, nonatomic) IBOutlet UILabel *date;
+@property (weak, nonatomic) IBOutlet UILabel *dateTime;
+@property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UITextView *description;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) PFObject *event;

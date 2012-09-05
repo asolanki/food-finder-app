@@ -12,12 +12,15 @@
 
 @property (strong, nonatomic) NSString *rawStartDate;
 @property (strong, nonatomic) NSString *rawEndDate;
-@property (strong, nonatomic) NSString *endDate;
-@property (strong, nonatomic) NSString *startDate;
-@property (strong, nonatomic) NSString *startTime;
-@property (strong, nonatomic) NSString *endTime;
+@property (strong, nonatomic) NSDate *todayDate;
+@property (strong, nonatomic) NSString *dateTime;
 
 
-- (id)initWithStartDate:(NSString *)startDate endDate:(NSString *)endDate;
+- (id)initWithStartDate:(NSString *)startDate endDate:(NSString *)endDate todayDate:(NSDate *)today;
+
+// methods for specific date/time formatting
+
+
+
 
 @end

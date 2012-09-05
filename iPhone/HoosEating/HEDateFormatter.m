@@ -11,32 +11,48 @@
 
 @implementation HEDateFormatter
 
-@synthesize rawEndDate, rawStartDate, startDate, endDate, startTime, endTime;
+@synthesize rawEndDate, rawStartDate, todayDate, dateTime;
 
-- (id)initWithStartDate:(NSString *)theStart endDate:(NSString *)theEnd;
+- (id)initWithStartDate:(NSString *)start endDate:(NSString *)end todayDate:(NSDate *)today
 {
     self = [super init];
     if (self) {
-        self.rawEndDate = theEnd;
-        self.rawStartDate = theStart;
+        self.rawEndDate = end;
+        self.rawStartDate = start;
+        self.todayDate = today;
         
         // 2012-08-31T00:00:00-04:00
         // 2012-08-29T18:00:00-04:00
         // 2012-08-31T23:59:00-04:00
         
-        self.startDate = [self.rawStartDate substringToIndex:10];
-        self.startDate = [self.startDate substringFromIndex:5];
-        self.startDate = [self.startDate stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];        
+        NSString *todayString = [dateFormat stringFromDate:todayDate];
         
-        self.endDate = [self.rawEndDate substringToIndex:10];
-        self.endDate = [self.endDate substringFromIndex:5];
-        self.endDate = [self.endDate stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
+        NSArray *startArray = [rawStartDate componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
+        NSArray *endArray = [rawEndDate componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
+        NSArray *todayArray = [todayString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
+
         
-        self.startTime = [self.rawStartDate substringFromIndex:11];
-        self.startTime = [self.startTime substringToIndex:5];
+        NSString *startProcessed = [self processedDateFromArray:startArray todayArray:todayArray];
+        NSString *endProcessed = [self processedDateFromArray:endArray todayArray:todayArray];
         
-        self.endTime = [self.rawEndDate substringFromIndex:11];
-        self.endTime = [self.endTime substringToIndex:5];
+        if ( [startProcessed isEqualToString:endProcessed] ) {
+            endProcessed = @" ";
+        }
+        
+        NSString *startTimeProcessed = [self processedTimeFromArray:startArray];
+        NSString *endTimeProcessed = [self processedTimeFromArray:endArray];
+        
+        
+        if ( [[startTimeProcessed substringFromIndex:6] isEqualToString:[endTimeProcessed substringFromIndex:6]] )
+        {
+            startTimeProcessed = [startTimeProcessed substringToIndex:5];
+        }
+        
+        
+        self.dateTime = [NSString stringWithFormat:@"%@ %@ - %@ %@", startProcessed, startTimeProcessed, endProcessed, endTimeProcessed];
+        NSLog(@"%@ \n\n %@",startTimeProcessed , self.dateTime);
         
         // todo am/pm
         
@@ -45,7 +61,7 @@
         // else have both AM/PM respective
         
         
-        NSLog(@"sd: %@ \n ed: %@ \n st: %@ \n et: %@ ", self.startDate, self.endDate, self.startTime, self.endTime);
+//        NSLog(@"sd: %@ \n ed: %@ \n st: %@ \n et: %@ ", self.startDate, self.endDate, self.startTime, self.endTime);
         
         
 //        NSString *amPm = @"AM";
@@ -102,5 +118,79 @@
     }
     return self;
 }
+
+# pragma mark Processing Methods
+
+- (NSString *)processedTimeFromArray:(NSArray *)startArray
+{
+    bool pm = false;
+    NSString *hour = [startArray objectAtIndex:3];
+    NSNumberFormatter *format = [[NSNumberFormatter alloc]init];
+    int hourNumber = [[format numberFromString:hour] intValue];
+    
+    if ( hourNumber > 12) {
+        pm = true;
+        hourNumber -= 12;
+    }
+    else if ( hourNumber == 0) {
+        hourNumber = 12;
+    }
+    
+    hour = [NSString stringWithFormat:@"%i", hourNumber];
+    
+    NSString *minute = [startArray objectAtIndex:4];
+    int minuteNumber = [[format numberFromString:minute] intValue];
+    
+    if ( minuteNumber < 10 ) {
+        minute = [NSString stringWithFormat:@"0%i", minuteNumber];
+    }
+    
+    return [NSString stringWithFormat:@"%@:%@ %@", hour, minute, pm ? @"PM" : @"AM"];
+    
+}
+
+- (NSString *)processedDateFromArray:(NSArray *)dateArray todayArray:(NSArray *)todayArray
+{
+    NSString *today = [todayArray objectAtIndex:0];
+    NSString *date = [dateArray objectAtIndex:0];
+    
+    if ( [today isEqualToString:date] ) {
+        // same year
+        today = [todayArray objectAtIndex:1];
+        date = [dateArray objectAtIndex:1];
+        
+        if ( [today isEqualToString:date] ) {
+            // same month
+            today = [todayArray objectAtIndex:2];
+            date = [dateArray objectAtIndex:2];
+            if ( [today isEqualToString:date] ) {
+                // same day
+                return @"Today";
+            }
+        }
+    }
+    
+    NSNumberFormatter *format = [[NSNumberFormatter alloc]init];
+    int dateNumber = [[format numberFromString:date] intValue];
+    if (dateNumber < 10) {
+        date = [NSString stringWithFormat:@"%i", dateNumber];
+    }
+    
+    NSString *month = [dateArray objectAtIndex:1];
+    
+    if ( [month characterAtIndex:0] == '0' ) {
+        month = [NSString stringWithFormat:@"%c", [month characterAtIndex:1]];
+    }
+    
+    return [NSString stringWithFormat:@"%@/%@", month, date];
+}
+
+
+
+
+# pragma mark Date Methods
+
+
+
 
 @end
