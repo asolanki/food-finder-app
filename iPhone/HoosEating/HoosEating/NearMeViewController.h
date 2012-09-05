@@ -17,7 +17,7 @@
 //@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSDictionary *idDict;
+@property (strong, nonatomic) NSMutableDictionary *idDict;
 
 
 

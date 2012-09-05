@@ -38,31 +38,14 @@
                                          endTime:[currObj objectForKey:@"end_time"]
                                         objectId:currObj.objectId];
         
-//        idDict 
-        NSLog(@"Parse ID for %@ - %@", [currObj objectForKey:@"name"], event.parseId);
-        NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
+        [idDict setObject:currObj.objectId forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
+        
+        NSLog(@"Storing %@ under key %@%@", event.parseId, event.name, event.location);
         
         [map addAnnotation:event];
 //        [events addObject:event];
     }
 }
-
-//- (void)locationManager:(CLLocationManager *)manager
-//    didUpdateToLocation:(CLLocation *)newLocation
-//           fromLocation:(CLLocation *)oldLocation
-//{
-////    HEAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    [((HEAppDelegate *)[[UIApplication sharedApplication] delegate]) setCurrentLocation:newLocation];
-//    NSDate* eventDate = newLocation.timestamp;
-//    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-//    if (abs(howRecent) < 15.0)
-//    {
-//        NSLog(@"latitude: %.6f, longitude: %.6f\n", newLocation.coordinate.latitude,
-//              newLocation.coordinate.longitude);
-//    }
-//}
-
-
 
 
 
@@ -95,8 +78,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setIdDict:[NSMutableDictionary dictionary]];
+    NSLog(@"Dict %@", self.idDict);
+
     [self.map setDelegate:self];
     [self.map setShowsUserLocation:YES];
+    
+    NSLog(@"%@", self.idDict);
+
     
     if ([CLLocationManager locationServicesEnabled]) {
         locationManager = [[CLLocationManager alloc] init];
@@ -113,6 +102,7 @@
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 [self plotPositions:objects];
+                NSLog(@"%@", self.idDict);
             } else {
 
             }
@@ -133,7 +123,6 @@
     
     
     
-    //        [self plotPositions:[self pointsFromParse]];
 
     
 
@@ -238,26 +227,26 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
                       calloutAccessoryControlTapped:(UIControl *)control
 {
-    if ([(UIButton*)control buttonType] == UIButtonTypeDetailDisclosure){
-        PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
-        EventPoint *event = (EventPoint *) view.annotation ;
-
-        NSLog(@"Clicked on %@ with id %@", event.name, event.parseId);
-        NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
-
-        [query getObjectInBackgroundWithId:event.parseId
-                                     block:^(PFObject *object, NSError *error) {
-                                         if (!error) {
-                                             NSLog(@"No Errors");
-                                             DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
-                                             dvc.event = object;
-                                             [[self navigationController] pushViewController:dvc animated:YES];
-
-                                         } else {
-                                             NSLog(@"\n\nQuery error!");
-                                         }
-                                     }];
-    }
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
+    EventPoint *event = (EventPoint *) view.annotation;
+    
+    NSString *id = [idDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
+    
+    NSLog(@"Clicked on %@ with id %@", event.name, id);
+    NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
+    
+    [query getObjectInBackgroundWithId:id
+                                 block:^(PFObject *object, NSError *error) {
+                                     if (!error) {
+                                         NSLog(@"No Errors");
+                                         DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
+                                         dvc.event = object;
+                                         [[self navigationController] pushViewController:dvc animated:YES];
+                                         
+                                     } else {
+                                         NSLog(@"\n\nQuery error!");
+                                     }
+                                 }];
 
     
 }
