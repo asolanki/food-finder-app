@@ -21,10 +21,6 @@
         self.rawStartDate = start;
         self.todayDate = today;
         
-        // 2012-08-31T00:00:00-04:00
-        // 2012-08-29T18:00:00-04:00
-        // 2012-08-31T23:59:00-04:00
-        
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd"];        
         NSString *todayString = [dateFormat stringFromDate:todayDate];
@@ -54,67 +50,6 @@
         self.dateTime = [NSString stringWithFormat:@"%@ %@ - %@ %@", startProcessed, startTimeProcessed, endProcessed, endTimeProcessed];
         NSLog(@"%@ \n\n %@",startTimeProcessed , self.dateTime);
         
-        // todo am/pm
-        
-        // if both hours are < 12, only one AM
-        // if both are > 12, only one PM
-        // else have both AM/PM respective
-        
-        
-//        NSLog(@"sd: %@ \n ed: %@ \n st: %@ \n et: %@ ", self.startDate, self.endDate, self.startTime, self.endTime);
-        
-        
-//        NSString *amPm = @"AM";
-//        NSString *amPm2 = @"AM";
-//        
-//        NSMutableString *dateStr = [NSMutableString stringWithString:
-//                                    [[self.event valueForKey:@"start_time"]
-//                                     substringFromIndex:11]];
-//        dateStr = [NSMutableString stringWithString:[dateStr substringToIndex:5]];
-//        
-//        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-//        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-//        
-//        NSNumber *month = [f numberFromString:[dateStr substringToIndex:2]];
-//        if ( [month intValue] > 12 )
-//        {
-//            month = [NSNumber numberWithInt: [month intValue] - 12];
-//            amPm = @"PM";
-//        } else if ( [month intValue] < 1)
-//        {
-//            month = [NSNumber numberWithInt: 12];
-//        }
-//        
-//        NSString *startDateNumber = [dateStr substringFromIndex:3];
-//        dateStr = [NSMutableString stringWithFormat:@"%@:%@ - ", month, startDateNumber];
-//        // at this pt dateStr is "1:30 - "
-//        
-//        NSString *end = [NSString stringWithString:[[self.event valueForKey:@"end_time"]
-//                                                    substringFromIndex:11]];
-//        
-//        NSString *dateStr2 = [NSMutableString stringWithString:[end substringToIndex:5]];
-//        month = [f numberFromString:[dateStr2 substringToIndex:2]];
-//        if ( [month intValue] > 12 )
-//        {
-//            month = [NSNumber numberWithInt: [month intValue] - 12];
-//            amPm2 = @"PM";
-//        }
-//        
-//        NSString *endDateNumber = [dateStr2 substringFromIndex:3];
-//        dateStr2 = [NSMutableString stringWithFormat:@"%@:%@", month, endDateNumber];
-//        
-//        
-//        [dateStr appendFormat:@"%@", dateStr2];
-//        
-//        if (![amPm isEqualToString:amPm2]) {
-//            NSRange range = [dateStr rangeOfString:@" -"];
-//            [dateStr insertString:amPm atIndex:range.location];
-//        }
-//        [dateStr appendFormat:@"%@", amPm2];
-//        
-//        NSLog(@"\n\ndateStr: %@", dateStr);
-
-
     }
     return self;
 }
@@ -184,11 +119,6 @@
     
     return [NSString stringWithFormat:@"%@/%@", month, date];
 }
-
-
-
-
-# pragma mark Date Methods
 
 
 

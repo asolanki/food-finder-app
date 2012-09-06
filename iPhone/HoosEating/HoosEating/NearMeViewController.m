@@ -24,7 +24,6 @@
     }
     
     EventPoint *event;
-    
     for (PFObject *currObj in data)
     {
         PFGeoPoint *geo = [currObj objectForKey:@"coordinates"];
@@ -38,9 +37,10 @@
                                          endTime:[currObj objectForKey:@"end_time"]
                                         objectId:currObj.objectId];
         
-        [idDict setObject:currObj.objectId forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
         
-        NSLog(@"Storing %@ under key %@%@", event.parseId, event.name, event.location);
+        // index all annotation-backing objects by their name and location concatenated.
+        [idDict setObject:currObj forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
+        
         
         [map addAnnotation:event];
 //        [events addObject:event];
@@ -79,15 +79,12 @@
 {
     [super viewDidLoad];
     [self setIdDict:[NSMutableDictionary dictionary]];
-    NSLog(@"Dict %@", self.idDict);
-
     [self.map setDelegate:self];
     [self.map setShowsUserLocation:YES];
     
-    NSLog(@"%@", self.idDict);
-
-    
-    if ([CLLocationManager locationServicesEnabled]) {
+    if ([CLLocationManager locationServicesEnabled] &&
+        [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+    {
         locationManager = [[CLLocationManager alloc] init];
         [locationManager setDelegate:self];
         [locationManager setDistanceFilter:kCLDistanceFilterNone];
@@ -102,7 +99,6 @@
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 [self plotPositions:objects];
-                NSLog(@"%@", self.idDict);
             } else {
 
             }
@@ -115,13 +111,14 @@
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
+
+        message.delegate = self;
+        [self.view addSubview:message];
+
         [message show];
+    
+    
     }
-    
-    
-    
-    
-    
     
 
     
@@ -195,7 +192,8 @@
     
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
     
 //    if (annotation == self.map.userLocation)
 //    {
@@ -227,28 +225,41 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
                       calloutAccessoryControlTapped:(UIControl *)control
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
     EventPoint *event = (EventPoint *) view.annotation;
     
-    NSString *id = [idDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
+    PFObject *obj = [idDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
+        
+    DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
+    dvc.event = obj;
+    [self.navigationController pushViewController:dvc animated:YES];
     
-    NSLog(@"Clicked on %@ with id %@", event.name, id);
-    NSLog(@"%@ %@ %@ %@", event.description, event.start, event.end, event.location);
     
-    [query getObjectInBackgroundWithId:id
-                                 block:^(PFObject *object, NSError *error) {
-                                     if (!error) {
-                                         NSLog(@"No Errors");
-                                         DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
-                                         dvc.event = object;
-                                         [[self navigationController] pushViewController:dvc animated:YES];
-                                         
-                                     } else {
-                                         NSLog(@"\n\nQuery error!");
-                                     }
-                                 }];
+    
+//    [query getObjectInBackgroundWithId:id
+//                                 block:^(PFObject *object, NSError *error) {
+//                                     if (!error) {
+//                                         NSLog(@"No Errors");
+//                                         DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
+//                                         dvc.event = object;
+//                                         [[self navigationController] pushViewController:dvc animated:YES];
+//                                         
+//                                     } else {
+//                                         NSLog(@"\n\nQuery error!");
+//                                     }
+//                                 }];
 
     
 }
 
+# pragma mark UIAlertViewDelegate methods
+    
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+//    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+//    }
+}
+    
+    
+    
 @end

@@ -16,19 +16,14 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [self initWithStyle:style className:@"FoodEvent"];
-    if (self) {
-        // This table displays items in the FoodEvent class
+    if (self)
+    {
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
         self.objectsPerPage = 25;
     }
     return self;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 60;
-//}
 
 - (void)viewDidLoad
 {
@@ -40,16 +35,16 @@
 }
 
 - (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
     
+    NSDate *date = [NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [format stringFromDate:date];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
+    [query whereKey:@"start_time" greaterThanOrEqualTo:dateString];
     [query orderByDescending:@"start_time"];
     
-    // TODO
-    // make two arrays, one for Today, one for Future.  Make them
-    // response to a UI Toggle Element.
-    // Bind the Toggle action to loadObjects
-
-
     return query;
 }
 

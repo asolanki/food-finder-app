@@ -12,7 +12,7 @@
 #import "EventPoint.h"
 
 @interface NearMeViewController : UIViewController 
-<MKMapViewDelegate, CLLocationManagerDelegate>
+<MKMapViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 
 //@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet MKMapView *map;

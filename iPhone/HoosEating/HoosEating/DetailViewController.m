@@ -10,56 +10,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HEDateFormatter.h"
 
+
 @implementation DetailViewController
 @synthesize name;
+@synthesize descriptionBG;
 @synthesize mapButton;
 @synthesize dateTime, location, description, event;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-    
-    // foo:withBar:andBar
-}
-- (IBAction)seeOnMap:(id)sender
-{
-    PFGeoPoint *geo = [self.event objectForKey:@"coordinates"];
-    NSString *coordinates = [NSString stringWithFormat:@"%f,%f",geo.latitude, geo.longitude];
-    
-    NSString *mapString = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=Current+Location&daddr=%@",coordinates] ;
-    
-//    NSLog([NSString stringWithFormat:@"Coordinates: %@",coordinates]);
-//    NSLog([NSString stringWithFormat:@"Map string: %@", mapString]);
-//    &saddr=Were+St&daddr=Kings+Hwy+to:Princes+Hwy+to:Princes+Hwy+to:Monaro+Hwy+to:-35.43483,149.112175
-    
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapString]];
-}
+# pragma mark Custom Methods
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
+- (void)setUpDetailView
 {
     UIFont *font = [UIFont fontWithName:@"Alégre Sans" size:65.54];
     [self.location setText:[NSString stringWithFormat:@"@%@",[self.event valueForKey:@"location"]]];
@@ -84,54 +44,85 @@
     
     font = [UIFont fontWithName:@"Alte Haas Grotesk" size:24];
     [self.dateTime setText:[format dateTime]];
-
+    
     [self.dateTime setFont:font];
     [self.dateTime setMinimumFontSize:24];
     [self.dateTime setAdjustsFontSizeToFitWidth:YES];
     
     [self.dateTime setShadowColor:[UIColor whiteColor]];
     [self.dateTime setShadowOffset:CGSizeMake(1, 1)];
-
-//    2012-08-19T23:40:20.000Z
-
-//    dateStr = [self.event objectForKey:@"start_time"];
-//
-//    [dateStr replaceOccurrencesOfString:@"-"
-//                             withString:@"/"
-//                                options:NSLiteralSearch
-//                                  range:NSMakeRange(0, 6)];
-//    dateStr2 = [[dateStr substringToIndex:10] substringFromIndex:5];
-//
-//    
-//    [self.date setText:dateStr2];
-//    font = [UIFont fontWithName:@"Alte Haas Grotesk" size:30];
-//
-//    [self.date setFont:font];
-//    [self.date setMinimumFontSize:30];
-//    [self.location setAdjustsFontSizeToFitWidth:YES];
-//
-//    [self.date setShadowColor:[UIColor whiteColor]];
-//    [self.date setShadowOffset:CGSizeMake(1, 1)];
     
-    
+    // [UIColor colorWithRed:16 green:38 blue:60 alpha:1]    
     
     self.description.layer.cornerRadius = 10;
-//    self.description.layer.shadowOffset = CGSizeMake(2, 2);
-//    self.description.layer.shadowColor = [[UIColor darkTextColor] CGColor];
-//    self.description.layer.shadowOpacity = 1.0;
-//    self.description.layer.shadowRadius = 5;
-//    self.description.layer.borderColor = [[UIColor darkGrayColor] CGColor];
-
+    self.descriptionBG.layer.cornerRadius = 10;    
     
-
     [self.description setText:[self.event objectForKey:@"description"]];
     
-
     
     
-    [super viewDidLoad];
 }
 
+- (IBAction)seeOnMap:(id)sender
+{
+    PFGeoPoint *geo = [self.event objectForKey:@"coordinates"];
+    NSString *coordinates = [NSString stringWithFormat:@"%f,%f",geo.latitude, geo.longitude];
+    
+    NSString *mapString = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=Current+Location&daddr=%@",coordinates] ;    
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapString]];
+}
+
+# pragma mark Default Methods
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+    
+    // foo:withBar:andBar
+}
+
+#pragma mark - View lifecycle
+
+/*
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+}
+*/
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.frame = CGRectMake(0, 0, 40, 40);
+    activityIndicator.center = self.view.center;
+    [self.view addSubview:activityIndicator];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	[activityIndicator startAnimating];
+
+    [self setUpDetailView];
+    [super viewDidLoad];
+
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[activityIndicator stopAnimating];
+   
+    
+}
 
 - (void)viewDidUnload
 {
@@ -141,9 +132,8 @@
     [self setDescription:nil];
     [self setMapButton:nil];
     [self setName:nil];
+    [self setDescriptionBG:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

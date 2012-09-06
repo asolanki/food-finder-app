@@ -21,20 +21,19 @@
            endTime:(NSString *)theEnd
           objectId:(NSString *)theParseId
 {
-    if ((self = [super init])) {
-        self.name = theName;
-        self.location = theLocation;
-        _coordinate = coordinate;
-        self.description = theDescription;
-        self.start = theStart;
-        self.end = theEnd;
-        self.parseId = theParseId;
+    if ((self = [super init]))
+    {
+//        self.name = theName;
+//        self.location = theLocation;
+//        self.description = theDescription;
+//        self.start = theStart;
+//        self.end = theEnd;
+//        self.parseId = theParseId;
         
 
         _title = theName;
         _subtitle = theLocation;
-        
-        
+        _coordinate = coordinate;
     }
     return self;
 }
