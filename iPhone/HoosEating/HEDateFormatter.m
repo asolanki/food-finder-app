@@ -44,7 +44,6 @@
         }
         
         self.dateTime = [NSString stringWithFormat:@"%@ %@ - %@ %@", startProcessed, startTimeProcessed, endProcessed, endTimeProcessed];
-        NSLog(@"%@ \n\n %@",startTimeProcessed , self.dateTime);
         
     }
     return self;
@@ -115,8 +114,5 @@
     
     return [NSString stringWithFormat:@"%@/%@", month, date];
 }
-
-
-
 
 @end

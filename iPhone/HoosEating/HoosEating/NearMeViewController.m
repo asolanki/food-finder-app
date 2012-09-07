@@ -33,53 +33,38 @@
         geo = [currObj objectForKey:@"coordinates"];
         temp = [NSString stringWithFormat:@"%f%f", geo.latitude, geo.longitude];
         
-        
-        if ( [geoDict objectForKey:temp] == nil )
-        {
+        if ( [geoDict objectForKey:temp] == nil ) {
             // unique location
             [geoDict setObject:[NSNumber numberWithInt:1] forKey:temp];
             status = 0;
-        }
-        else
-        {
+        } else {
             // duplicate location
             // increment counter for location
-
             NSNumber *curr = (NSNumber *)[geoDict objectForKey:temp];
-            NSLog(@"Duplicate! %@", curr);
             status = [curr intValue];
             [geoDict setObject:[NSNumber numberWithInt:[curr intValue]+1] forKey:temp];
         }
         
-
         switch (status) {
             case 0:
-                NSLog(@"case 0");
                 coordinate = CLLocationCoordinate2DMake(geo.latitude, geo.longitude);
                 break;
             case 1:
-                NSLog(@"case 1");
-                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.0003, geo.longitude + 0.0003);
+                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.00003, geo.longitude + 0.00003);
                 break;
             case 2:
-                NSLog(@"case 2");
-                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.0003, geo.longitude - 0.0003);
+                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.00003, geo.longitude - 0.00003);
                 break;
             case 3:
-                NSLog(@"case 3");
-                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.0003, geo.longitude + 0.0003);
+                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.00003, geo.longitude + 0.00003);
                 break;
             case 4:
-                NSLog(@"case 4");
-                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.0003, geo.longitude - 0.0003);
+                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.00003, geo.longitude - 0.00003);
                 break;
-
+                
             default:
                 break;
         }
-
-        
-        
         
         event = [[EventPoint alloc] initWithName:[currObj objectForKey:@"name"]
                                         location:[currObj objectForKey:@"location"]
@@ -89,12 +74,9 @@
                                          endTime:[currObj objectForKey:@"end_time"]
                                         objectId:currObj.objectId];
         
-        
         // index all annotation-backing objects by their name and location concatenated.
         temp = [NSString stringWithFormat:@"%@%@", event.name, event.location];
-        [PFDict setObject:currObj forKey:temp];
-//        NSLog(@"Plotting %@ at %@", event.name, event.location);
-        
+        [PFDict setObject:currObj forKey:temp];        
         [map addAnnotation:event];
     }
     
@@ -154,50 +136,38 @@
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
         [format setDateFormat:@"yyyy-MM-dd"];
         NSString *dateString = [format stringFromDate:date];
-
+        
         [q whereKey:@"end_time" greaterThanOrEqualTo:dateString];
         
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-//                NSLog(@"%@", objects);
+                //                NSLog(@"%@", objects);
                 [self plotPositions:objects];
             } else {
-
+                
             }
         }];
     }
     else {
-        NSLog(@"no location");
+        //        NSLog(@"no location");
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops!"
                                                           message:@"We need location services to show the events near you!"
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
-
+        
         message.delegate = self;
         [self.view addSubview:message];
-
+        
         [message show];
-    
-    
+        
+        
     }
     
-
     
-
+    
+    
 }
-
-//- (NSArray *)pointsFromParse
-//{
-//    PFGeoPoint *userLocation =
-//        [PFGeoPoint geoPointWithLatitude:self.locationManager.location.coordinate.latitude
-//                               longitude:self.locationManager.location.coordinate.longitude];
-//    
-//    PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
-//    [q whereKey:@"coordinates" nearGeoPoint:userLocation];
-//    
-//    return [q findObjectsInBackgroundWithBlock:];
-//}
 
 
 - (void)viewDidUnload
@@ -220,36 +190,30 @@
 // when annotations are added
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    
-    // TODO -- make this into a centered on User but scaled based on POI animation
-    
-//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000);
-//    MKAnnotationView *view = [views objectAtIndex:0];
-
     for (MKAnnotationView *view in views)
     {
         if ( [view.annotation isKindOfClass:[EventPoint class]] )
-            {
-                MKCoordinateSpan mapSpan = MKCoordinateSpanMake(.018, .002);
-                CLLocationCoordinate2D userLocation =
-                    CLLocationCoordinate2DMake(self.locationManager.location.coordinate.latitude,
-                                               self.locationManager.location.coordinate.longitude);
-                
-
-
-                MKCoordinateRegion center = MKCoordinateRegionMake(userLocation, mapSpan);
-                        
-                
-                [mapView setRegion:center animated:YES];
-                //    [mapView selectAnnotation:[view annotation] animated:YES];
-
-            } else {
-                [view setCanShowCallout:YES];
-                
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-
-                [view setRightCalloutAccessoryView:button];
-            }
+        {
+            MKCoordinateSpan mapSpan = MKCoordinateSpanMake(.018, .002);
+            CLLocationCoordinate2D userLocation =
+            CLLocationCoordinate2DMake(self.locationManager.location.coordinate.latitude,
+                                       self.locationManager.location.coordinate.longitude);
+            
+            
+            
+            MKCoordinateRegion center = MKCoordinateRegionMake(userLocation, mapSpan);
+            
+            
+            [mapView setRegion:center animated:YES];
+            //    [mapView selectAnnotation:[view annotation] animated:YES];
+            
+        } else {
+            [view setCanShowCallout:YES];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            
+            [view setRightCalloutAccessoryView:button];
+        }
     }
     
 }
@@ -257,10 +221,10 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     
-//    if (annotation == self.map.userLocation)
-//    {
-//        return nil;
-//    }
+    //    if (annotation == self.map.userLocation)
+    //    {
+    //        return nil;
+    //    }
     
     if ( [annotation isKindOfClass:[EventPoint class]])
     {
@@ -285,43 +249,23 @@
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
-                      calloutAccessoryControlTapped:(UIControl *)control
+calloutAccessoryControlTapped:(UIControl *)control
 {
     EventPoint *event = (EventPoint *) view.annotation;
-    
     PFObject *obj = [PFDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
-//    NSLog(@"%@%@", event.name, event.location);
+    
     DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
     dvc.event = obj;
     [self.navigationController pushViewController:dvc animated:YES];
-    
-    
-    
-//    [query getObjectInBackgroundWithId:id
-//                                 block:^(PFObject *object, NSError *error) {
-//                                     if (!error) {
-//                                         NSLog(@"No Errors");
-//                                         DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
-//                                         dvc.event = object;
-//                                         [[self navigationController] pushViewController:dvc animated:YES];
-//                                         
-//                                     } else {
-//                                         NSLog(@"\n\nQuery error!");
-//                                     }
-//                                 }];
-
-    
 }
 
 # pragma mark UIAlertViewDelegate methods
-    
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-//    if (buttonIndex == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
-    
-    
-    
+
+
+
 @end

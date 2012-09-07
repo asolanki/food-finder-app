@@ -14,7 +14,6 @@
 @interface NearMeViewController : UIViewController 
 <MKMapViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 
-//@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSMutableDictionary *PFDict;

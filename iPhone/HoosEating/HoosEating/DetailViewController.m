@@ -30,7 +30,6 @@
     [self.location setShadowOffset:CGSizeMake(1, 2)];
     
     [self.name setText:[self.event valueForKey:@"name"]];
-    // self.location.setText(self.event(valueForKey(location)));
     [self.name setFont:font];
     [self.name setAdjustsFontSizeToFitWidth:YES];
     [self.name setMinimumFontSize:36];
@@ -55,6 +54,7 @@
     // [UIColor colorWithRed:16 green:38 blue:60 alpha:1]    
     
     self.description.layer.cornerRadius = 10;
+    [self.description setDataDetectorTypes:UIDataDetectorTypeLink];
     self.descriptionBG.layer.cornerRadius = 10;    
     
     [self.description setText:[self.event objectForKey:@"description"]];

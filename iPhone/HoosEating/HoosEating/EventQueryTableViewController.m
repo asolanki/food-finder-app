@@ -72,40 +72,12 @@
     
     
     startTime = [format dateTime];
-    NSArray *timeArray = [startTime componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
-    startTime = [timeArray objectAtIndex:0];
-    
-    
-//    NSLog(@"TIME: %@", [[format dateTime] substringToIndex:5]);
-    
-//    startTime = [startTime substringFromIndex:5]
-//    startTime = [startTime substringToIndex:5];
+
+    startTime = [[startTime componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]] objectAtIndex:0];
     
     cell.start.text = startTime;
 
     
-//    static NSString *CellIdentifier = @"EventCell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-//                                      reuseIdentifier:CellIdentifier];
-//    }
-//    
-//    // background image
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
-//    UIImage *image = [UIImage imageNamed:@"cell2.png"];
-//    imageView.image = image;
-//    
-//    cell.backgroundView = imageView;
-//    [[cell textLabel] setBackgroundColor:[UIColor clearColor]];
-//    [[cell detailTextLabel] setBackgroundColor:[UIColor clearColor]];
-//    
-//    // Configure the cell to show todo item with a priority at the bottom
-//    cell.textLabel.text = [object objectForKey:@"name"];
-//    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",
-//                                 [object objectForKey:@"location"]];
-//    
     return cell;
 }
 
