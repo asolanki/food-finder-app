@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C70CEEF315F7E5BE0021FC5B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C70CEEF215F7E5BE0021FC5B /* MBProgressHUD.m */; };
 		C7101E6215E1B3A60061B7F3 /* EventQueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */; };
 		C7510D1415D3FC2200764326 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7510D1315D3FC2100764326 /* DetailViewController.m */; };
 		C75E46D715F5988300FF61AD /* HEDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C75E46D615F5988300FF61AD /* HEDateFormatter.m */; };
@@ -53,8 +52,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C70CEEF115F7E5BE0021FC5B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		C70CEEF215F7E5BE0021FC5B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		C7101E6015E1B3A60061B7F3 /* EventQueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventQueryTableViewController.h; sourceTree = "<group>"; };
 		C7101E6115E1B3A60061B7F3 /* EventQueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventQueryTableViewController.m; sourceTree = "<group>"; };
 		C7510D1215D3FC2100764326 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -183,8 +180,6 @@
 				C7D3D3C915F9D990007A39CF /* HETableCell.xib */,
 				C7D3D3CB15F9DB43007A39CF /* HETableCell.h */,
 				C7D3D3CC15F9DB43007A39CF /* HETableCell.m */,
-				C70CEEF115F7E5BE0021FC5B /* MBProgressHUD.h */,
-				C70CEEF215F7E5BE0021FC5B /* MBProgressHUD.m */,
 				C7E43BE515E5F07300EFA9E6 /* EventPoint.h */,
 				C7E43BE615E5F07300EFA9E6 /* EventPoint.m */,
 				C7F0120715D1D52E00AFC687 /* HEAppDelegate.h */,
@@ -316,7 +311,6 @@
 				C7101E6215E1B3A60061B7F3 /* EventQueryTableViewController.m in Sources */,
 				C7E43BE715E5F07300EFA9E6 /* EventPoint.m in Sources */,
 				C75E46D715F5988300FF61AD /* HEDateFormatter.m in Sources */,
-				C70CEEF315F7E5BE0021FC5B /* MBProgressHUD.m in Sources */,
 				C7D3D3CD15F9DB43007A39CF /* HETableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

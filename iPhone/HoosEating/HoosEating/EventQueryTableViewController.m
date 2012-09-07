@@ -30,11 +30,11 @@
     [super viewDidLoad];
     [self.tableView setRowHeight:60];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-
+    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]]];
 }
 
-- (PFQuery *)queryForTable {
+- (PFQuery *)queryForTable
+{
     
     NSDate *date = [NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -47,7 +47,6 @@
     [[PFUser currentUser] incrementKey:@"RunCount"];
     [[PFUser currentUser] saveInBackground];
 
-    
     return query;
 }
 
@@ -55,7 +54,6 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object 
 {
-    
     static NSString *CellIdentifier = @"TableCell";
     HETableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -63,23 +61,19 @@
                                   reuseIdentifier:CellIdentifier];
     }
     
-    
-    
     cell.name.text = [object objectForKey:@"name"];
     cell.location.text = [object objectForKey:@"location"];
+    cell.location.textColor = [UIColor colorWithRed:16 green:38 blue:60 alpha:1];
     
+    cell.start.textColor = [UIColor darkTextColor];
+    
+    // parse MM/DD from startTime in ISO format
     NSString *startTime = [object objectForKey:@"start_time"];
-
     HEDateFormatter *format = [[HEDateFormatter alloc] initWithStartDate:startTime endDate:startTime todayDate:[NSDate date]];
-    
-    
-    
     startTime = [format dateTime];
-
     startTime = [[startTime componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]] objectAtIndex:0];
     
     cell.start.text = startTime;
-
     
     return cell;
 }
