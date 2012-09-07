@@ -3,7 +3,7 @@
 //  HoosEating
 //
 //  Created by Adarsh Solanki on 8/7/12.
-//  Copyright (c) 2012 University of Virginia. All rights reserved.
+//  Copyright (c) 2012 Adarsh Solanki. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,7 +17,7 @@
 //@property (strong, nonatomic) NSMutableArray *events;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSMutableDictionary *idDict;
+@property (strong, nonatomic) NSMutableDictionary *PFDict;
 
 
 

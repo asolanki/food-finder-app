@@ -35,7 +35,7 @@
                                     <segue destination="pFr-F6-s51" kind="push" id="nTI-sh-Epq"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near_button.png" id="BfO-NQ-vEl">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near-button.png" id="BfO-NQ-vEl">
                                 <rect key="frame" x="20" y="120" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -54,7 +54,7 @@
                                     <segue destination="cTx-QR-po4" kind="push" id="yxk-R6-UbY"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-button.png" id="F5r-cB-QHR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-up-button.png" id="F5r-cB-QHR">
                                 <rect key="frame" x="20" y="283" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -245,11 +245,42 @@
     </scenes>
     <resources>
         <image name="bg.png" width="320" height="460"/>
-        <image name="coming-button.png" width="280" height="125"/>
+        <image name="coming-up-button.png" width="280" height="125"/>
         <image name="directionsButton.png" width="280" height="80"/>
-        <image name="near_button.png" width="280" height="125"/>
+        <image name="near-button.png" width="280" height="125"/>
         <image name="title.png" width="600" height="198"/>
     </resources>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateTime" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="descriptionBG" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EventQueryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventQueryTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="table" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+        </class>
+        <class className="NearMeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearMeViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

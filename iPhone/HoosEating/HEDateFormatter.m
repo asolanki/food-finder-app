@@ -3,7 +3,7 @@
 //  HoosEating
 //
 //  Created by Adarsh Solanki on 9/3/12.
-//  Copyright (c) 2012 University of Virginia. All rights reserved.
+//  Copyright (c) 2012 Adarsh Solanki. All rights reserved.
 //
 
 #import "HEDateFormatter.h"
@@ -28,7 +28,6 @@
         NSArray *startArray = [rawStartDate componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
         NSArray *endArray = [rawEndDate componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
         NSArray *todayArray = [todayString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-T:/"]];
-
         
         NSString *startProcessed = [self processedDateFromArray:startArray todayArray:todayArray];
         NSString *endProcessed = [self processedDateFromArray:endArray todayArray:todayArray];
@@ -40,12 +39,9 @@
         NSString *startTimeProcessed = [self processedTimeFromArray:startArray];
         NSString *endTimeProcessed = [self processedTimeFromArray:endArray];
         
-        
-        if ( [[startTimeProcessed substringFromIndex:6] isEqualToString:[endTimeProcessed substringFromIndex:6]] )
-        {
+        if ( [[startTimeProcessed substringFromIndex:6] isEqualToString:[endTimeProcessed substringFromIndex:6]] ) {
             startTimeProcessed = [startTimeProcessed substringToIndex:5];
         }
-        
         
         self.dateTime = [NSString stringWithFormat:@"%@ %@ - %@ %@", startProcessed, startTimeProcessed, endProcessed, endTimeProcessed];
         NSLog(@"%@ \n\n %@",startTimeProcessed , self.dateTime);

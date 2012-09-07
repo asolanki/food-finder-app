@@ -3,8 +3,7 @@
 //  HoosEating
 //
 //  Created by Adarsh Solanki on 8/7/12.
-//  Copyright (c) 2012 University of Virginia. All rights reserved.
-//
+//  Copyright (c) 2012 Adarsh Solanki. All rights reserved.
 
 #import "NearMeViewController.h"
 #import <Parse/Parse.h>
@@ -12,7 +11,7 @@
 
 @implementation NearMeViewController
 
-@synthesize map, locationManager, idDict;
+@synthesize map, locationManager, PFDict;
 
 - (void)plotPositions:(NSArray *)data
 {
@@ -23,6 +22,7 @@
         }
     }
     
+    // iteratively add each PFObject from array to map and to PFDict
     EventPoint *event;
     for (PFObject *currObj in data)
     {
@@ -39,11 +39,10 @@
         
         
         // index all annotation-backing objects by their name and location concatenated.
-        [idDict setObject:currObj forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
+        [PFDict setObject:currObj forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
         
         
         [map addAnnotation:event];
-//        [events addObject:event];
     }
 }
 
@@ -78,7 +77,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setIdDict:[NSMutableDictionary dictionary]];
+    [self setPFDict:[NSMutableDictionary dictionary]];
     [self.map setDelegate:self];
     [self.map setShowsUserLocation:YES];
     
@@ -227,7 +226,7 @@
 {
     EventPoint *event = (EventPoint *) view.annotation;
     
-    PFObject *obj = [idDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
+    PFObject *obj = [PFDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
         
     DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
     dvc.event = obj;

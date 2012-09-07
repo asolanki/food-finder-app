@@ -3,7 +3,7 @@
 //  HoosEating
 //
 //  Created by Adarsh Solanki on 8/23/12.
-//  Copyright (c) 2012 University of Virginia. All rights reserved.
+//  Copyright (c) 2012 Adarsh Solanki. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
