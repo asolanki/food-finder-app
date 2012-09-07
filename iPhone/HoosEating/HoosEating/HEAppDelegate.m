@@ -21,6 +21,10 @@
     [Parse setApplicationId:@"dF4lf8kvjIWL3PqE8ANdS5ancdatrrlYMw0Dm2nM"
                   clientKey:@"jIg3EUugNpG7aMKsSGWiIGrW9jeJPuzTYtUwwnDK"];
 
+    [PFUser enableAutomaticUser];
+    [[PFUser currentUser] incrementKey:@"RunCount"];
+    [[PFUser currentUser] saveInBackground];
+    
     return YES;
 }
 							
