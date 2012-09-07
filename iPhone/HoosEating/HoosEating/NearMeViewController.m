@@ -143,6 +143,8 @@
             if (!error) {
                 //                NSLog(@"%@", objects);
                 [self plotPositions:objects];
+                [[PFUser currentUser] incrementKey:@"RunCount"];
+                [[PFUser currentUser] saveInBackground];
             } else {
                 
             }

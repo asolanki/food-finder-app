@@ -44,6 +44,9 @@
     PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
     [query whereKey:@"end_time" greaterThanOrEqualTo:dateString];
     [query orderByAscending:@"start_time"];
+    [[PFUser currentUser] incrementKey:@"RunCount"];
+    [[PFUser currentUser] saveInBackground];
+
     
     return query;
 }
