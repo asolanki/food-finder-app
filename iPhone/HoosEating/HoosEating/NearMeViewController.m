@@ -11,7 +11,7 @@
 
 @implementation NearMeViewController
 
-@synthesize map, locationManager, PFDict;
+@synthesize map, locationManager, PFDict, geoDict;
 
 - (void)plotPositions:(NSArray *)data
 {
@@ -24,10 +24,62 @@
     
     // iteratively add each PFObject from array to map and to PFDict
     EventPoint *event;
+    NSString *temp;
+    CLLocationCoordinate2D coordinate;
+    PFGeoPoint *geo;
     for (PFObject *currObj in data)
     {
-        PFGeoPoint *geo = [currObj objectForKey:@"coordinates"];
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(geo.latitude, geo.longitude);
+        int status = 0;
+        geo = [currObj objectForKey:@"coordinates"];
+        temp = [NSString stringWithFormat:@"%f%f", geo.latitude, geo.longitude];
+        
+        
+        if ( [geoDict objectForKey:temp] == nil )
+        {
+            // unique location
+            [geoDict setObject:[NSNumber numberWithInt:1] forKey:temp];
+            status = 0;
+        }
+        else
+        {
+            // duplicate location
+            // increment counter for location
+
+            NSNumber *curr = (NSNumber *)[geoDict objectForKey:temp];
+            NSLog(@"Duplicate! %@", curr);
+            status = [curr intValue];
+            [geoDict setObject:[NSNumber numberWithInt:[curr intValue]+1] forKey:temp];
+        }
+        
+
+        switch (status) {
+            case 0:
+                NSLog(@"case 0");
+                coordinate = CLLocationCoordinate2DMake(geo.latitude, geo.longitude);
+                break;
+            case 1:
+                NSLog(@"case 1");
+                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.0003, geo.longitude + 0.0003);
+                break;
+            case 2:
+                NSLog(@"case 2");
+                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.0003, geo.longitude - 0.0003);
+                break;
+            case 3:
+                NSLog(@"case 3");
+                coordinate = CLLocationCoordinate2DMake(geo.latitude - 0.0003, geo.longitude + 0.0003);
+                break;
+            case 4:
+                NSLog(@"case 4");
+                coordinate = CLLocationCoordinate2DMake(geo.latitude + 0.0003, geo.longitude - 0.0003);
+                break;
+
+            default:
+                break;
+        }
+
+        
+        
         
         event = [[EventPoint alloc] initWithName:[currObj objectForKey:@"name"]
                                         location:[currObj objectForKey:@"location"]
@@ -39,8 +91,9 @@
         
         
         // index all annotation-backing objects by their name and location concatenated.
-        [PFDict setObject:currObj forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
-        NSLog(@"Plotting %@ at %@", event.name, event.location);
+        temp = [NSString stringWithFormat:@"%@%@", event.name, event.location];
+        [PFDict setObject:currObj forKey:temp];
+//        NSLog(@"Plotting %@ at %@", event.name, event.location);
         
         [map addAnnotation:event];
     }
@@ -79,6 +132,7 @@
 {
     [super viewDidLoad];
     [self setPFDict:[NSMutableDictionary dictionary]];
+    [self setGeoDict:[NSMutableDictionary dictionary]];
     [self.map setDelegate:self];
     [self.map setShowsUserLocation:YES];
     
@@ -105,7 +159,7 @@
         
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                NSLog(@"%@", objects);
+//                NSLog(@"%@", objects);
                 [self plotPositions:objects];
             } else {
 
@@ -236,7 +290,7 @@
     EventPoint *event = (EventPoint *) view.annotation;
     
     PFObject *obj = [PFDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
-    NSLog(@"%@%@", event.name, event.location);
+//    NSLog(@"%@%@", event.name, event.location);
     DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
     dvc.event = obj;
     [self.navigationController pushViewController:dvc animated:YES];

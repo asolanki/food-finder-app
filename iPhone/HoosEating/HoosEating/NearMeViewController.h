@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSMutableDictionary *PFDict;
+@property (strong, nonatomic) NSMutableDictionary *geoDict;
 
 
 

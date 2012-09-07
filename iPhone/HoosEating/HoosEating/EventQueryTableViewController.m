@@ -43,7 +43,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
     [query whereKey:@"end_time" greaterThanOrEqualTo:dateString];
-    [query orderByDescending:@"start_time"];
+    [query orderByAscending:@"start_time"];
     
     return query;
 }

@@ -16,11 +16,15 @@
 		C772B5F915E352630085015F /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C772B5F815E352630085015F /* bg.png */; };
 		C7A1E8CF15E355E5001183D3 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A1E8CE15E355E5001183D3 /* button.png */; };
 		C7BDEF6615EB415800C113ED /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = C7BDEF6515EB415800C113ED /* title.png */; };
-		C7D3D3C615F9CBFA007A39CF /* coming-up-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */; };
 		C7D3D3C815F9D82C007A39CF /* near-button2.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C715F9D82C007A39CF /* near-button2.png */; };
 		C7D3D3CA15F9D990007A39CF /* HETableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C915F9D990007A39CF /* HETableCell.xib */; };
 		C7D3D3CD15F9DB43007A39CF /* HETableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D3D3CC15F9DB43007A39CF /* HETableCell.m */; };
 		C7D3D3D115F9E12F007A39CF /* directions-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D015F9E12F007A39CF /* directions-button.png */; };
+		C7D3D3D315F9EC11007A39CF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D215F9EC11007A39CF /* Default.png */; };
+		C7D3D3D515F9EC1A007A39CF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D415F9EC1A007A39CF /* Default@2x.png */; };
+		C7D3D3D715F9EDE7007A39CF /* icon-old.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D615F9EDE7007A39CF /* icon-old.png */; };
+		C7D3D3D915F9EDEE007A39CF /* icon-retina.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D815F9EDEE007A39CF /* icon-retina.png */; };
+		C7D3D3DD15F9F3C0007A39CF /* coming-up-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3DC15F9F3C0007A39CF /* coming-up-button.png */; };
 		C7D61A8115D483B600569532 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8015D483B600569532 /* Parse.framework */; };
 		C7D61A8415D483DF00569532 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8315D483DF00569532 /* AudioToolbox.framework */; };
 		C7D61A8615D483E600569532 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8515D483E600569532 /* CFNetwork.framework */; };
@@ -62,12 +66,16 @@
 		C772B5F815E352630085015F /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		C7A1E8CE15E355E5001183D3 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		C7BDEF6515EB415800C113ED /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
-		C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coming-up-button.png"; sourceTree = "<group>"; };
 		C7D3D3C715F9D82C007A39CF /* near-button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near-button2.png"; sourceTree = "<group>"; };
 		C7D3D3C915F9D990007A39CF /* HETableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HETableCell.xib; path = ../HETableCell.xib; sourceTree = "<group>"; };
 		C7D3D3CB15F9DB43007A39CF /* HETableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HETableCell.h; sourceTree = "<group>"; };
 		C7D3D3CC15F9DB43007A39CF /* HETableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HETableCell.m; sourceTree = "<group>"; };
 		C7D3D3D015F9E12F007A39CF /* directions-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-button.png"; sourceTree = "<group>"; };
+		C7D3D3D215F9EC11007A39CF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C7D3D3D415F9EC1A007A39CF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C7D3D3D615F9EDE7007A39CF /* icon-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-old.png"; sourceTree = "<group>"; };
+		C7D3D3D815F9EDEE007A39CF /* icon-retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-retina.png"; sourceTree = "<group>"; };
+		C7D3D3DC15F9F3C0007A39CF /* coming-up-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coming-up-button.png"; sourceTree = "<group>"; };
 		C7D61A8015D483B600569532 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		C7D61A8315D483DF00569532 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C7D61A8515D483E600569532 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -79,7 +87,7 @@
 		C7D61A9115D4841A00569532 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C7E43BE515E5F07300EFA9E6 /* EventPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventPoint.h; path = ../EventPoint.h; sourceTree = "<group>"; };
 		C7E43BE615E5F07300EFA9E6 /* EventPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventPoint.m; path = ../EventPoint.m; sourceTree = "<group>"; };
-		C7F011F415D1D52E00AFC687 /* HoosEating.3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoosEating.3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F011F415D1D52E00AFC687 /* HoosEating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoosEating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F011F815D1D52E00AFC687 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7F011FA15D1D52E00AFC687 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C7F011FC15D1D52E00AFC687 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -130,6 +138,10 @@
 		C7F011E915D1D52E00AFC687 = {
 			isa = PBXGroup;
 			children = (
+				C7D3D3D815F9EDEE007A39CF /* icon-retina.png */,
+				C7D3D3D615F9EDE7007A39CF /* icon-old.png */,
+				C7D3D3D415F9EC1A007A39CF /* Default@2x.png */,
+				C7D3D3D215F9EC11007A39CF /* Default.png */,
 				C7D61A9115D4841A00569532 /* SystemConfiguration.framework */,
 				C7D61A8F15D4841300569532 /* StoreKit.framework */,
 				C7D61A8D15D4840D00569532 /* Security.framework */,
@@ -150,7 +162,7 @@
 		C7F011F515D1D52E00AFC687 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7F011F415D1D52E00AFC687 /* HoosEating.3.app */,
+				C7F011F415D1D52E00AFC687 /* HoosEating.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,9 +208,9 @@
 		C7F011FF15D1D52E00AFC687 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7D3D3DC15F9F3C0007A39CF /* coming-up-button.png */,
 				C7D3D3D015F9E12F007A39CF /* directions-button.png */,
 				C7D3D3C715F9D82C007A39CF /* near-button2.png */,
-				C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */,
 				C7BDEF6515EB415800C113ED /* title.png */,
 				C765643815E69648009A1B13 /* button-bg.png */,
 				C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */,
@@ -233,7 +245,7 @@
 			);
 			name = HoosEating;
 			productName = HoosEating;
-			productReference = C7F011F415D1D52E00AFC687 /* HoosEating.3.app */;
+			productReference = C7F011F415D1D52E00AFC687 /* HoosEating.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -278,10 +290,14 @@
 				C7F8DEA415E3FEF10034C6AE /* AlteHaasGroteskBold.ttf in Resources */,
 				C765643915E69648009A1B13 /* button-bg.png in Resources */,
 				C7BDEF6615EB415800C113ED /* title.png in Resources */,
-				C7D3D3C615F9CBFA007A39CF /* coming-up-button.png in Resources */,
 				C7D3D3C815F9D82C007A39CF /* near-button2.png in Resources */,
 				C7D3D3CA15F9D990007A39CF /* HETableCell.xib in Resources */,
 				C7D3D3D115F9E12F007A39CF /* directions-button.png in Resources */,
+				C7D3D3D315F9EC11007A39CF /* Default.png in Resources */,
+				C7D3D3D515F9EC1A007A39CF /* Default@2x.png in Resources */,
+				C7D3D3D715F9EDE7007A39CF /* icon-old.png in Resources */,
+				C7D3D3D915F9EDEE007A39CF /* icon-retina.png in Resources */,
+				C7D3D3DD15F9F3C0007A39CF /* coming-up-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HoosEating/HoosEating-Prefix.pch";
 				INFOPLIST_FILE = "HoosEating/HoosEating-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME).3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -397,7 +413,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HoosEating/HoosEating-Prefix.pch";
 				INFOPLIST_FILE = "HoosEating/HoosEating-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME).3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
