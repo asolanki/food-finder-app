@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="19dp"
             android:paddingLeft="19dp"
+            android:autoLink="web"
             android:background="@drawable/rounded_edges"
             android:gravity="center_horizontal"
             android:textColor="#364B60"
