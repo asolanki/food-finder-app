@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DetailViewController.h"
 #import <Parse/Parse.h>
+#import "HETableCell.h"
+#import "HEDateFormatter.h"
 
 @interface EventQueryTableViewController : PFQueryTableViewController
     <UITableViewDelegate, UITableViewDataSource>

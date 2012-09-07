@@ -16,8 +16,11 @@
 		C772B5F915E352630085015F /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C772B5F815E352630085015F /* bg.png */; };
 		C7A1E8CF15E355E5001183D3 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A1E8CE15E355E5001183D3 /* button.png */; };
 		C7BDEF6615EB415800C113ED /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = C7BDEF6515EB415800C113ED /* title.png */; };
-		C7D3D3C215F9CB94007A39CF /* near-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C115F9CB94007A39CF /* near-button.png */; };
 		C7D3D3C615F9CBFA007A39CF /* coming-up-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */; };
+		C7D3D3C815F9D82C007A39CF /* near-button2.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C715F9D82C007A39CF /* near-button2.png */; };
+		C7D3D3CA15F9D990007A39CF /* HETableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3C915F9D990007A39CF /* HETableCell.xib */; };
+		C7D3D3CD15F9DB43007A39CF /* HETableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D3D3CC15F9DB43007A39CF /* HETableCell.m */; };
+		C7D3D3D115F9E12F007A39CF /* directions-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C7D3D3D015F9E12F007A39CF /* directions-button.png */; };
 		C7D61A8115D483B600569532 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8015D483B600569532 /* Parse.framework */; };
 		C7D61A8415D483DF00569532 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8315D483DF00569532 /* AudioToolbox.framework */; };
 		C7D61A8615D483E600569532 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D61A8515D483E600569532 /* CFNetwork.framework */; };
@@ -41,7 +44,6 @@
 		C7F0122815D1E6CD00AFC687 /* NearMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */; };
 		C7F0122A15D22B3600AFC687 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122915D22B3500AFC687 /* CoreLocation.framework */; };
 		C7F0122C15D22B3D00AFC687 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122B15D22B3D00AFC687 /* MapKit.framework */; };
-		C7F8A21515F7FF0F00E92194 /* directionsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C7F8A21415F7FF0F00E92194 /* directionsButton.png */; };
 		C7F8DEA115E3F3DC0034C6AE /* AlÇgre Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */; };
 		C7F8DEA415E3FEF10034C6AE /* AlteHaasGroteskBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7F8DEA315E3FEF10034C6AE /* AlteHaasGroteskBold.ttf */; };
 /* End PBXBuildFile section */
@@ -60,8 +62,12 @@
 		C772B5F815E352630085015F /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		C7A1E8CE15E355E5001183D3 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		C7BDEF6515EB415800C113ED /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
-		C7D3D3C115F9CB94007A39CF /* near-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near-button.png"; sourceTree = "<group>"; };
 		C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coming-up-button.png"; sourceTree = "<group>"; };
+		C7D3D3C715F9D82C007A39CF /* near-button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near-button2.png"; sourceTree = "<group>"; };
+		C7D3D3C915F9D990007A39CF /* HETableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HETableCell.xib; path = ../HETableCell.xib; sourceTree = "<group>"; };
+		C7D3D3CB15F9DB43007A39CF /* HETableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HETableCell.h; sourceTree = "<group>"; };
+		C7D3D3CC15F9DB43007A39CF /* HETableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HETableCell.m; sourceTree = "<group>"; };
+		C7D3D3D015F9E12F007A39CF /* directions-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-button.png"; sourceTree = "<group>"; };
 		C7D61A8015D483B600569532 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		C7D61A8315D483DF00569532 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C7D61A8515D483E600569532 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -92,7 +98,6 @@
 		C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearMeViewController.m; sourceTree = "<group>"; };
 		C7F0122915D22B3500AFC687 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C7F0122B15D22B3D00AFC687 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		C7F8A21415F7FF0F00E92194 /* directionsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directionsButton.png; sourceTree = "<group>"; };
 		C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlÇgre Sans.ttf"; sourceTree = "<group>"; };
 		C7F8DEA315E3FEF10034C6AE /* AlteHaasGroteskBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AlteHaasGroteskBold.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +168,9 @@
 		C7F011FE15D1D52E00AFC687 /* HoosEating */ = {
 			isa = PBXGroup;
 			children = (
+				C7D3D3C915F9D990007A39CF /* HETableCell.xib */,
+				C7D3D3CB15F9DB43007A39CF /* HETableCell.h */,
+				C7D3D3CC15F9DB43007A39CF /* HETableCell.m */,
 				C70CEEF115F7E5BE0021FC5B /* MBProgressHUD.h */,
 				C70CEEF215F7E5BE0021FC5B /* MBProgressHUD.m */,
 				C7E43BE515E5F07300EFA9E6 /* EventPoint.h */,
@@ -188,9 +196,9 @@
 		C7F011FF15D1D52E00AFC687 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7D3D3D015F9E12F007A39CF /* directions-button.png */,
+				C7D3D3C715F9D82C007A39CF /* near-button2.png */,
 				C7D3D3C515F9CBFA007A39CF /* coming-up-button.png */,
-				C7D3D3C115F9CB94007A39CF /* near-button.png */,
-				C7F8A21415F7FF0F00E92194 /* directionsButton.png */,
 				C7BDEF6515EB415800C113ED /* title.png */,
 				C765643815E69648009A1B13 /* button-bg.png */,
 				C7F8DEA015E3F3DC0034C6AE /* AlÇgre Sans.ttf */,
@@ -270,9 +278,10 @@
 				C7F8DEA415E3FEF10034C6AE /* AlteHaasGroteskBold.ttf in Resources */,
 				C765643915E69648009A1B13 /* button-bg.png in Resources */,
 				C7BDEF6615EB415800C113ED /* title.png in Resources */,
-				C7F8A21515F7FF0F00E92194 /* directionsButton.png in Resources */,
-				C7D3D3C215F9CB94007A39CF /* near-button.png in Resources */,
 				C7D3D3C615F9CBFA007A39CF /* coming-up-button.png in Resources */,
+				C7D3D3C815F9D82C007A39CF /* near-button2.png in Resources */,
+				C7D3D3CA15F9D990007A39CF /* HETableCell.xib in Resources */,
+				C7D3D3D115F9E12F007A39CF /* directions-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +301,7 @@
 				C7E43BE715E5F07300EFA9E6 /* EventPoint.m in Sources */,
 				C75E46D715F5988300FF61AD /* HEDateFormatter.m in Sources */,
 				C70CEEF315F7E5BE0021FC5B /* MBProgressHUD.m in Sources */,
+				C7D3D3CD15F9DB43007A39CF /* HETableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

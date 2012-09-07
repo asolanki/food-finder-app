@@ -40,10 +40,11 @@
         
         // index all annotation-backing objects by their name and location concatenated.
         [PFDict setObject:currObj forKey:[NSString stringWithFormat:@"%@%@", event.name, event.location]];
-        
+        NSLog(@"Plotting %@ at %@", event.name, event.location);
         
         [map addAnnotation:event];
     }
+    
 }
 
 
@@ -95,8 +96,16 @@
         PFQuery *q = [PFQuery queryWithClassName:@"FoodEvent"];
         [q whereKey:@"coordinates" nearGeoPoint:userLocation];
         
+        NSDate *date = [NSDate date];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateString = [format stringFromDate:date];
+
+        [q whereKey:@"end_time" greaterThanOrEqualTo:dateString];
+        
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
+                NSLog(@"%@", objects);
                 [self plotPositions:objects];
             } else {
 
@@ -227,7 +236,7 @@
     EventPoint *event = (EventPoint *) view.annotation;
     
     PFObject *obj = [PFDict objectForKey:[NSString stringWithFormat:@"%@%@",event.name,event.location]];
-        
+    NSLog(@"%@%@", event.name, event.location);
     DetailViewController *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
     dvc.event = obj;
     [self.navigationController pushViewController:dvc animated:YES];

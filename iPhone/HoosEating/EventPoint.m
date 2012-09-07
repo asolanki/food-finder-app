@@ -23,12 +23,12 @@
 {
     if ((self = [super init]))
     {
-//        self.name = theName;
-//        self.location = theLocation;
-//        self.description = theDescription;
-//        self.start = theStart;
-//        self.end = theEnd;
-//        self.parseId = theParseId;
+        self.name = theName;
+        self.location = theLocation;
+        self.description = theDescription;
+        self.start = theStart;
+        self.end = theEnd;
+        self.parseId = theParseId;
         
 
         _title = theName;
