@@ -33,10 +33,8 @@ public class ParseApplication extends Application {
 
 		// Add your initialization code here
 		Parse.initialize(this, "dF4lf8kvjIWL3PqE8ANdS5ancdatrrlYMw0Dm2nM", "jIg3EUugNpG7aMKsSGWiIGrW9jeJPuzTYtUwwnDK");
-
 		
 		ParseUser.enableAutomaticUser();
-		ParseUser.getCurrentUser().increment("RunCount");
 		ParseACL defaultACL = new ParseACL();
 		// Optionally enable public read access by default.
 		// defaultACL.setPublicReadAccess(true);

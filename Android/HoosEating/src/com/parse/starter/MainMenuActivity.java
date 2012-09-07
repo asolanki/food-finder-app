@@ -2,6 +2,7 @@ package com.parse.starter;
 
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.main_menu);
 
 		ImageButton nearMe = (ImageButton) findViewById(R.id.near_me_btn);

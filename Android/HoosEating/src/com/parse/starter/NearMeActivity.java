@@ -15,6 +15,7 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -51,6 +52,9 @@ public class NearMeActivity extends MapActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ParseUser.getCurrentUser().increment("RunCount");
+		ParseUser.getCurrentUser().saveInBackground();
+		
 		//Location code
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

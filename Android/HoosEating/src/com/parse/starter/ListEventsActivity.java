@@ -8,6 +8,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -51,6 +52,8 @@ public class ListEventsActivity extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ParseUser.getCurrentUser().increment("RunCount");
+		ParseUser.getCurrentUser().saveInBackground();
 
 		
 		loader = ProgressDialog.show(this, "", "Loading food events...", true);
