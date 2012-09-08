@@ -55,27 +55,29 @@ public class ListEventsActivity extends ListActivity {
 		ParseUser.getCurrentUser().increment("RunCount");
 		ParseUser.getCurrentUser().saveInBackground();
 
-		
-		loader = ProgressDialog.show(this, "", "Loading food events...", true);
-		new Thread(new Runnable() {
-			public void run() {
-				if (ParseApplication.checkConn(ListEventsActivity.this)) {
+		if (ParseApplication.checkConn(ListEventsActivity.this)) {
+			loader = ProgressDialog.show(this, "", "Loading food events...", true);
+			new Thread(new Runnable() {
+				public void run() {
 					foodEvents = ParseApplication.getFoodItems();
-				}
-				else {
-					foodEvents = new ArrayList<ParseObject> ();
-					Toast.makeText(ListEventsActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
-				}
-				doneHandler.post(new Runnable() {
-					public void run() {
-						setupListView();
-					}
-				});
-			}}).start();
+					doneHandler.post(new Runnable() {
+						public void run() {
+							setupListView();
+						}
+					});
+				}}).start();
+		}
+		else {
+			foodEvents = new ArrayList<ParseObject> ();
+			Toast.makeText(ListEventsActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
+			setupListView();
+		}
 	}
 
 	protected void setupListView() {
-		loader.dismiss();
+		if (loader != null) {
+			loader.dismiss();
+		}
 		setListAdapter(new FoodEventAdapter(this, foodEvents));
 		listView = getListView();
 		listView.setTextFilterEnabled(true);

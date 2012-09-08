@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     android:background="@drawable/bg"
     android:padding="5dp" >
-    
+
     <ImageView
         android:id="@+id/title_image"
-        android:layout_width="288dp"
-        android:layout_height="95dp"
-        android:layout_x="15dp"
-        android:layout_y="25dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/title" />
-
+    
     <ImageButton
         android:id="@+id/near_me_btn"
-        android:layout_width="280dp"
-        android:layout_height="125dp"
-        android:layout_x="15dp"
-        android:layout_y="150dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="35dp"
+        android:paddingBottom="35dp"
         android:src="@drawable/near_button"
         android:background="@null" />
 
     <ImageButton
         android:id="@+id/coming_up_btn"
-        android:layout_width="280dp"
-        android:layout_height="125dp"
-        android:layout_x="15dp"
-        android:layout_y="300dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="35dp"
         android:src="@drawable/coming_button"
         android:background="@null" />
 
-</AbsoluteLayout>
+</LinearLayout>

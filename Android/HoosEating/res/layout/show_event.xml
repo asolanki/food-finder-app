@@ -5,7 +5,7 @@
     android:background="@drawable/bg"
     android:fillViewport="true" >
 
-    <LinearLayout
+   <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -69,19 +69,15 @@
             android:textColor="#364B60"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/get_walk_dir"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/get_dir"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/walk_dir_btn" />
+            android:paddingTop="25dp"
+            android:background="@null"
+            android:src="@drawable/directions_button" />
 
-        <Button
-            android:id="@+id/get_bus_dir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/bus_dir_btn" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -157,7 +157,7 @@ public class ShowEventInfoActivity extends Activity {
 			networkEnabled = true;
 		}
 
-		Button getWalkDir = (Button) findViewById(R.id.get_walk_dir);
+		ImageButton getWalkDir = (ImageButton) findViewById(R.id.get_dir);
 		getWalkDir.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (!gpsEnabled) {
@@ -165,21 +165,6 @@ public class ShowEventInfoActivity extends Activity {
 				}
 				String referenceCoords = getRefCoords();
 				String url = "http://maps.google.com/maps?saddr="+referenceCoords+"&daddr="+lat+","+lon+"&dirflg=w";
-				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
-				startActivity(intent);
-				if (locFail) {
-					Toast.makeText(ShowEventInfoActivity.this, "Could not retrieve your location. Defaulting to The Rotunda", Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-
-		Button getBusDir = (Button) findViewById(R.id.get_bus_dir);
-		getBusDir.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				if (!gpsEnabled)
-					Toast.makeText(ShowEventInfoActivity.this, "GPS not enabled. Attempting rough estimate", Toast.LENGTH_LONG).show();
-				String referenceCoords = getRefCoords();
-				String url = "http://maps.google.com/maps?saddr="+referenceCoords+"&daddr="+lat+","+lon+"&dirflg=r";
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
 				startActivity(intent);
 				if (locFail) {
