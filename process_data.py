@@ -221,6 +221,7 @@ def run_fixes():
             db=1)
     for l in location_fixes:
         fix_coords(redis_db, loc_db, l, location_fixes[l])
+        loc_logger.info('{0} fixed to {1}'.format(l,location_fixes[l]))
 
 #Make a generic API call using a given URL (used for Google Calendar request).
 #It expects json to be returned, and thus returns a dictionary based on the json
@@ -341,5 +342,5 @@ def main():
 #Start it up...
 general_logger.info('STARTING PROCESS DATA SCRIPT')
 main() 
-#run_fixes()
+run_fixes()
 general_logger.info('ENDING PROCESS DATA SCRIPT')
