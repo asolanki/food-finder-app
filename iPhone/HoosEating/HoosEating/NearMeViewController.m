@@ -140,13 +140,22 @@
         [q whereKey:@"end_time" greaterThanOrEqualTo:dateString];
         
         [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error) {
+            if (!error && ([objects count] != 0) ) {
                 //                NSLog(@"%@", objects);
                 [self plotPositions:objects];
                 [[PFUser currentUser] incrementKey:@"RunCount"];
-                [[PFUser currentUser] saveInBackground];
+                [[PFUser currentUser] saveEventually];
             } else {
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                  message:@"Can't connect to our servers! Make sure you have Internet access and try again."
+                                                                 delegate:nil
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
                 
+                message.delegate = self;
+                [self.view addSubview:message];
+                
+                [message show];
             }
         }];
     }
@@ -194,7 +203,7 @@
 {
     for (MKAnnotationView *view in views)
     {
-        if ( [view.annotation isKindOfClass:[EventPoint class]] )
+        if ( ![view.annotation isKindOfClass:[EventPoint class]] )
         {
             MKCoordinateSpan mapSpan = MKCoordinateSpanMake(.018, .002);
             CLLocationCoordinate2D userLocation =

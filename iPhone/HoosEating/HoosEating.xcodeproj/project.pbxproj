@@ -42,8 +42,6 @@
 		C7F0120915D1D52E00AFC687 /* HEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0120815D1D52E00AFC687 /* HEAppDelegate.m */; };
 		C7F0120C15D1D52E00AFC687 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7F0120A15D1D52E00AFC687 /* MainStoryboard.storyboard */; };
 		C7F0121715D1D95700AFC687 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0121615D1D95700AFC687 /* MainViewController.m */; };
-		C7F0121E15D1DDF500AFC687 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = C7F0121C15D1DDF500AFC687 /* calendar.png */; };
-		C7F0121F15D1DDF500AFC687 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = C7F0121D15D1DDF500AFC687 /* map.png */; };
 		C7F0122815D1E6CD00AFC687 /* NearMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */; };
 		C7F0122A15D22B3600AFC687 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122915D22B3500AFC687 /* CoreLocation.framework */; };
 		C7F0122C15D22B3D00AFC687 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F0122B15D22B3D00AFC687 /* MapKit.framework */; };
@@ -97,8 +95,6 @@
 		C7F0120B15D1D52E00AFC687 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C7F0121515D1D95700AFC687 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		C7F0121615D1D95700AFC687 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		C7F0121C15D1DDF500AFC687 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
-		C7F0121D15D1DDF500AFC687 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		C7F0122615D1E6CD00AFC687 /* NearMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearMeViewController.h; sourceTree = "<group>"; };
 		C7F0122715D1E6CD00AFC687 /* NearMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearMeViewController.m; sourceTree = "<group>"; };
 		C7F0122915D22B3500AFC687 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -213,8 +209,6 @@
 				C772B5F815E352630085015F /* bg.png */,
 				C7A1E8CE15E355E5001183D3 /* button.png */,
 				C772B5F615E3505E0085015F /* cell2.png */,
-				C7F0121C15D1DDF500AFC687 /* calendar.png */,
-				C7F0121D15D1DDF500AFC687 /* map.png */,
 				C7F0120015D1D52E00AFC687 /* HoosEating-Info.plist */,
 				C7F0120115D1D52E00AFC687 /* InfoPlist.strings */,
 				C7F0120415D1D52E00AFC687 /* main.m */,
@@ -276,8 +270,6 @@
 			files = (
 				C7F0120315D1D52E00AFC687 /* InfoPlist.strings in Resources */,
 				C7F0120C15D1D52E00AFC687 /* MainStoryboard.storyboard in Resources */,
-				C7F0121E15D1DDF500AFC687 /* calendar.png in Resources */,
-				C7F0121F15D1DDF500AFC687 /* map.png in Resources */,
 				C772B5F715E3505E0085015F /* cell2.png in Resources */,
 				C772B5F915E352630085015F /* bg.png in Resources */,
 				C7A1E8CF15E355E5001183D3 /* button.png in Resources */,

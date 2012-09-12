@@ -12,6 +12,7 @@
 
 
 @implementation DetailViewController
+@synthesize directions;
 @synthesize name;
 @synthesize descriptionBG;
 @synthesize mapButton;
@@ -133,6 +134,7 @@
     [self setMapButton:nil];
     [self setName:nil];
     [self setDescriptionBG:nil];
+    [self setDirections:nil];
     [super viewDidUnload];
 }
 
@@ -140,6 +142,19 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)downAction:(UIButton *)sender
+{
+    CGPoint loc = directions.center;
+    directions.center = CGPointMake(loc.x, loc.y+2);
+}
+
+- (IBAction)upAction:(id)sender
+{
+    CGPoint loc = directions.center;
+    directions.center = CGPointMake(loc.x, loc.y-2);
+    
 }
 
 @end

@@ -10,4 +10,20 @@
 
 @interface MainViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *comingButton;
+@property (weak, nonatomic) IBOutlet UIImageView *nearButton;
+
+
+- (BOOL)hasConnectivity;
+- (void)internetMessage;
+
+- (IBAction)comingDownAction:(UIButton *)sender;
+- (IBAction)nearDownAction:(UIButton *)sender;
+
+- (IBAction)comingUpAction:(id)sender;
+- (IBAction)nearUpAction:(UIButton *)sender;
+
+- (IBAction)nearSegue:(UIButton *)sender;
+- (IBAction)comingSegue:(UIButton *)sender;
+
 @end

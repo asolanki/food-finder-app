@@ -21,6 +21,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionBG;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) PFObject *event;
+@property (weak, nonatomic) IBOutlet UIButton *directions;
+
+- (IBAction)downAction:(UIButton *)sender;
+
+- (IBAction)upAction:(id)sender;
 
 
 @end

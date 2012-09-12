@@ -19,6 +19,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.59999999999999998" width="1" height="1"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near-button2.png" id="BfO-NQ-vEl">
+                                <rect key="frame" x="20" y="120" width="280" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" alpha="0.10000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vPR-gS-EEg">
                                 <rect key="frame" x="20" y="121" width="280" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -32,11 +36,14 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="pFr-F6-s51" kind="push" id="nTI-sh-Epq"/>
+                                    <action selector="nearDownAction:" destination="2" eventType="touchDown" id="FEW-aB-pG1"/>
+                                    <action selector="nearSegue:" destination="2" eventType="touchUpInside" id="QTO-0U-Jq2"/>
+                                    <action selector="nearUpAction:" destination="2" eventType="touchUpOutside" id="9aw-iE-57e"/>
+                                    <action selector="nearUpAction:" destination="2" eventType="touchUpInside" id="NLz-gg-ny5"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="near-button2.png" highlighted="YES" id="BfO-NQ-vEl">
-                                <rect key="frame" x="20" y="120" width="280" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-up-button.png" highlighted="YES" id="F5r-cB-QHR">
+                                <rect key="frame" x="20" y="283" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" alpha="0.10000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Abu-s3-JGV">
@@ -51,13 +58,12 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cTx-QR-po4" kind="push" id="yxk-R6-UbY"/>
+                                    <action selector="comingDownAction:" destination="2" eventType="touchDown" id="8RR-kV-rfG"/>
+                                    <action selector="comingSegue:" destination="2" eventType="touchUpInside" id="tUX-eS-ILP"/>
+                                    <action selector="comingUpAction:" destination="2" eventType="touchUpOutside" id="Xus-eR-Xi0"/>
+                                    <action selector="comingUpAction:" destination="2" eventType="touchUpInside" id="xST-Hr-BKc"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coming-up-button.png" highlighted="YES" id="F5r-cB-QHR">
-                                <rect key="frame" x="20" y="283" width="280" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="title.png" id="G79-wu-Mfp">
                                 <rect key="frame" x="0.0" y="0.0" width="321" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -66,6 +72,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Hoo's Eating?" id="lx1-nC-EYE"/>
+                    <connections>
+                        <outlet property="comingButton" destination="F5r-cB-QHR" id="OwM-zF-PTm"/>
+                        <outlet property="nearButton" destination="BfO-NQ-vEl" id="fZP-mT-Cfd"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="387" y="145"/>
@@ -74,13 +84,13 @@
         <scene sceneID="3Im-IE-7ic">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djf-kK-Joc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="pFr-F6-s51" customClass="NearMeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NearMe" id="pFr-F6-s51" customClass="NearMeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R2f-x3-cl9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="xRY-CJ-uGW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
                         </subviews>
@@ -116,9 +126,9 @@
         <scene sceneID="lAn-eC-7Uf">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2WT-F0-aUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="cTx-QR-po4" customClass="EventQueryTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="EventTable" id="cTx-QR-po4" customClass="EventQueryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bbS-KD-xuc">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -201,7 +211,10 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="downAction:" destination="B81-MQ-eJa" eventType="touchDown" id="Piz-sk-kBW"/>
                                     <action selector="seeOnMap:" destination="B81-MQ-eJa" eventType="touchUpInside" id="Tlb-Ky-S4v"/>
+                                    <action selector="upAction:" destination="B81-MQ-eJa" eventType="touchUpInside" id="GU5-Uk-KbH"/>
+                                    <action selector="upAction:" destination="B81-MQ-eJa" eventType="touchUpOutside" id="kPW-Fe-7tz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ii1-n8-JH8">
@@ -234,6 +247,7 @@
                         <outlet property="dateTime" destination="Lvn-n3-d5q" id="15P-3M-l5v"/>
                         <outlet property="description" destination="OPq-9Z-ZMy" id="HQf-TP-NVi"/>
                         <outlet property="descriptionBG" destination="3dd-aU-OXD" id="Os5-Ob-bt3"/>
+                        <outlet property="directions" destination="HV9-w8-jMa" id="Q34-SW-d0U"/>
                         <outlet property="location" destination="84r-HI-z2m" id="JLy-Fn-j9e"/>
                         <outlet property="mapButton" destination="HV9-w8-jMa" id="01p-Oa-U6v"/>
                         <outlet property="name" destination="ii1-n8-JH8" id="h3J-j1-vgy"/>
@@ -250,38 +264,6 @@
         <image name="near-button2.png" width="280" height="125"/>
         <image name="title.png" width="600" height="198"/>
     </resources>
-    <classes>
-        <class className="DetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="seeOnMap:"/>
-                <relationship kind="outlet" name="dateTime" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="descriptionBG" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="EventQueryTableViewController" superclassName="PFQueryTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventQueryTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="table" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="MainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
-        </class>
-        <class className="NearMeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearMeViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="PFQueryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

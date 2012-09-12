@@ -19,6 +19,4 @@
 @property (strong, nonatomic) NSMutableDictionary *PFDict;
 @property (strong, nonatomic) NSMutableDictionary *geoDict;
 
-
-
 @end

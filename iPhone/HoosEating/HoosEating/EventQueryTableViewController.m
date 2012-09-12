@@ -9,6 +9,9 @@
 #import "EventQueryTableViewController.h"
 #import <Parse/Parse.h>
 
+
+
+
 @implementation EventQueryTableViewController
 
 @synthesize table;
@@ -42,6 +45,13 @@
     NSString *dateString = [format stringFromDate:date];
     
     PFQuery *query = [PFQuery queryWithClassName:@"FoodEvent"];
+    
+//  // If no objects are loaded in memory, we look to the cache first to fill the table
+//	// and then subsequently do a query against the network.
+//	if ([self.objects count] == 0) {
+//		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+//	}
+    
     [query whereKey:@"end_time" greaterThanOrEqualTo:dateString];
     [query orderByAscending:@"start_time"];
     [[PFUser currentUser] incrementKey:@"RunCount"];
@@ -63,7 +73,15 @@
     
     cell.name.text = [object objectForKey:@"name"];
     cell.location.text = [object objectForKey:@"location"];
-    cell.location.textColor = [UIColor colorWithRed:16 green:38 blue:60 alpha:1];
+    
+    // color from hex
+    int c = 0x10263cff;
+    UIColor *color = [UIColor colorWithRed:((c>>24)&0xFF)/255.0
+                                     green:((c>>16)&0xFF)/255.0
+                                      blue:((c>>8)&0xFF)/255.0
+                                     alpha:((c)&0xFF)/255.0];
+
+    cell.location.textColor = color;
     
     cell.start.textColor = [UIColor darkTextColor];
     
@@ -80,6 +98,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    HETableCell *cell = (HETableCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+    int c = 0x10263cff;
+    UIColor *color = [UIColor colorWithRed:((c>>24)&0xFF)/255.0
+                                     green:((c>>16)&0xFF)/255.0
+                                      blue:((c>>8)&0xFF)/255.0
+                                     alpha:((c)&0xFF)/255.0];
+    
+    cell.location.textColor = color;
+    cell.start.textColor = [UIColor darkTextColor];
+    cell.name.textColor = color;
     DetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"EventDetail"];
     detail.event = [self objectAtIndexPath:indexPath];
     [self.navigationController pushViewController:detail animated:YES];
