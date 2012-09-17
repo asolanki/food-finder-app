@@ -1,4 +1,4 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;

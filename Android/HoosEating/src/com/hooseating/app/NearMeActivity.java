@@ -1,4 +1,4 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +7,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import com.google.android.maps.GeoPoint;
-import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -16,23 +15,16 @@ import com.google.android.maps.OverlayItem;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.hooseating.app.R;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class NearMeActivity extends MapActivity {
@@ -141,8 +133,8 @@ public class NearMeActivity extends MapActivity {
 
 				event_locs = new Hashtable<String,Integer>();
 				ArrayList<ParseObject> foodEvents;
-				if (ParseApplication.checkConn(NearMeActivity.this)) {
-					foodEvents = ParseApplication.getFoodItems();
+				if (HoosEatingApplication.checkConn(NearMeActivity.this)) {
+					foodEvents = HoosEatingApplication.getFoodItems();
 				}
 				else {
 					foodEvents = new ArrayList<ParseObject> ();

@@ -1,45 +1,20 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.parse.FindCallback;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseException;
 import com.parse.ParseUser;
-
-import android.app.Activity;
+import com.hooseating.app.R;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.provider.Contacts.People;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.*;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 
 
 public class ListEventsActivity extends ListActivity {
@@ -55,11 +30,11 @@ public class ListEventsActivity extends ListActivity {
 		ParseUser.getCurrentUser().increment("RunCount");
 		ParseUser.getCurrentUser().saveInBackground();
 
-		if (ParseApplication.checkConn(ListEventsActivity.this)) {
+		if (HoosEatingApplication.checkConn(ListEventsActivity.this)) {
 			loader = ProgressDialog.show(this, "", "Loading food events...", true);
 			new Thread(new Runnable() {
 				public void run() {
-					foodEvents = ParseApplication.getFoodItems();
+					foodEvents = HoosEatingApplication.getFoodItems();
 					doneHandler.post(new Runnable() {
 						public void run() {
 							setupListView();

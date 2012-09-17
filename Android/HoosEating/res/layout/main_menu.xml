@@ -10,7 +10,8 @@
         android:id="@+id/title_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/title" />
+        android:src="@drawable/title"
+        android:contentDescription="@string/app_name" />
     
     <ImageButton
         android:id="@+id/near_me_btn"
@@ -19,7 +20,8 @@
         android:paddingTop="35dp"
         android:paddingBottom="35dp"
         android:src="@drawable/near_button"
-        android:background="@null" />
+        android:background="@null"
+        android:contentDescription="@string/near_me_btn" />
 
     <ImageButton
         android:id="@+id/coming_up_btn"
@@ -27,6 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="35dp"
         android:src="@drawable/coming_button"
-        android:background="@null" />
+        android:background="@null"
+        android:contentDescription="@string/coming_up_btn" />
 
 </LinearLayout>

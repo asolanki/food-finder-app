@@ -1,4 +1,4 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.OverlayItem;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 

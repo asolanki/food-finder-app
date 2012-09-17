@@ -3,6 +3,5 @@
     <string name="app_name">HoosEating</string>
     <string name="near_me_btn">Near Me</string>
     <string name="coming_up_btn">Coming Up</string>
-    <string name="walk_dir_btn">Walking Directions</string>
-    <string name="bus_dir_btn">Transit Directions</string>
+    <string name="dir_btn">Directions</string>
 </resources>

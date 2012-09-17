@@ -75,7 +75,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="25dp"
             android:background="@null"
-            android:src="@drawable/directions_button" />
+            android:src="@drawable/directions_button"
+            android:contentDescription="@string/dir_btn" />
 
 
     </LinearLayout>

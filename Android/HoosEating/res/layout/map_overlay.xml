@@ -10,7 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:clickable="true"
-        android:apiKey="0jswE_OA6gJyjy_o-jso0-ygu6qOBkU3dvR93cA" />
-<!--    android:apiKey="0jswE_OA6gJw-Fi0zNcKxATyEGRcFovQGtOqp6A" />  -->
+        android:apiKey="0jswE_OA6gJygQcLGeUOsrzRy2ssRn2pfAYgAPA" />
+<!--    android:apiKey="0jswE_OA6gJyjy_o-jso0-ygu6qOBkU3dvR93cA" /> -->
+<!--    android:apiKey="0jswE_OA6gJw-Fi0zNcKxATyEGRcFovQGtOqp6A" /> -->
 
 </LinearLayout>

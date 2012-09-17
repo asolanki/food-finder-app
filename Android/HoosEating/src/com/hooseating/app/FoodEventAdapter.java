@@ -1,21 +1,12 @@
-package com.parse.starter;
+package com.hooseating.app;
 
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import com.parse.ParseObject;
-
+import com.hooseating.app.R;
 import android.app.Activity;
 import android.graphics.Typeface;
-
-import java.text.DateFormat;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

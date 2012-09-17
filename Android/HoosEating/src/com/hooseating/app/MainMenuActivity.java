@@ -1,22 +1,15 @@
-package com.parse.starter;
+package com.hooseating.app;
 
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
+import com.hooseating.app.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenuActivity extends Activity {
@@ -29,7 +22,7 @@ public class MainMenuActivity extends Activity {
 		ImageButton nearMe = (ImageButton) findViewById(R.id.near_me_btn);
 		nearMe.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if (!ParseApplication.checkConn(MainMenuActivity.this)) {
+				if (!HoosEatingApplication.checkConn(MainMenuActivity.this)) {
 					Toast.makeText(MainMenuActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
 				}
 				else {
@@ -41,7 +34,7 @@ public class MainMenuActivity extends Activity {
 		ImageButton comingUp = (ImageButton) findViewById(R.id.coming_up_btn);
 		comingUp.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if (!ParseApplication.checkConn(MainMenuActivity.this)) {
+				if (!HoosEatingApplication.checkConn(MainMenuActivity.this)) {
 					Toast.makeText(MainMenuActivity.this, "HoosEating needs an internet connection. Please enable wifi/data!", Toast.LENGTH_LONG).show();
 				}
 				else {
@@ -51,7 +44,7 @@ public class MainMenuActivity extends Activity {
 			}
 		});
 
-		if (!ParseApplication.checkConn(this)) {
+		if (!HoosEatingApplication.checkConn(this)) {
 			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setTitle("Turn on wifi/data");
 			dialog.setMessage("HoosEating needs an internet connection. Please enable wifi/data, and GPS if you're outside!");

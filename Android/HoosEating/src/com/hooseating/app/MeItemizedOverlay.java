@@ -1,4 +1,4 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import java.util.ArrayList;
 

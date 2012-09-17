@@ -1,49 +1,23 @@
-package com.parse.starter;
+package com.hooseating.app;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import com.google.android.maps.GeoPoint;
-import com.parse.FindCallback;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseException;
+import com.hooseating.app.R;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Contacts.People;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.*;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 
 public class ShowEventInfoActivity extends Activity {
 
@@ -85,20 +59,6 @@ public class ShowEventInfoActivity extends Activity {
 		
 		HoosEatingDatetime startDate = new HoosEatingDatetime(start, curr);
 		HoosEatingDatetime endDate = new HoosEatingDatetime(end, curr);
-		
-		/*
-		 * TODO: Add handling for "all-day" events (More gracefully than just making
-		 * them go from 12:00 AM - 11:59 PM)
-		 * 
-		 * Cases:
-		 * 1 Day event
-		 *     -It's happening today, show "Today" + time
-		 *     -It's happening after today, show Date + Time
-		 * Multi-day Event
-		 *     -It started today, ends after today, show "Today" + time - EndDate + time
-		 *     -It started before today, ends today, show StartDate + time - "Today" + time
-		 *     -It started before today, ends after today, show StartDate + time - EndDate + time
-		 */
 		
 		//One day event.
 		if (startDate.getMonthDay().equals(endDate.getMonthDay())) {
