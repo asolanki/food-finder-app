@@ -37,7 +37,7 @@
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>
         <activity
-            android:name="com.hooseating.android.ShowEventInfoActivity"
+            android:name=".ShowEventInfoActivity"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>
     </application>
