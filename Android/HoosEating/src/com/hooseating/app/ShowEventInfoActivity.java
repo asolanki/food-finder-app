@@ -38,13 +38,13 @@ public class ShowEventInfoActivity extends Activity {
 		setContentView(R.layout.show_event);
 
 		Intent intent = getIntent();
-		String myName = intent.getStringExtra("com.parse.starter.foodEvent_name");
-		String myLocation = intent.getStringExtra("com.parse.starter.foodEvent_location");
-		String myDescription = intent.getStringExtra("com.parse.starter.foodEvent_description");
-		String start = intent.getStringExtra("com.parse.starter.foodEvent_start");
-		String end = intent.getStringExtra("com.parse.starter.foodEvent_end");
-		final double lat = intent.getDoubleExtra("com.parse.starter.foodEvent_lat", 0.0);
-		final double lon = intent.getDoubleExtra("com.parse.starter.foodEvent_lon", 0.0);
+		String myName = intent.getStringExtra("com.hooseating.app.foodEvent_name");
+		String myLocation = intent.getStringExtra("com.hooseating.app.foodEvent_location");
+		String myDescription = intent.getStringExtra("com.hooseating.app.foodEvent_description");
+		String start = intent.getStringExtra("com.hooseating.app.foodEvent_start");
+		String end = intent.getStringExtra("com.hooseating.app.foodEvent_end");
+		final double lat = intent.getDoubleExtra("com.hooseating.app.foodEvent_lat", 0.0);
+		final double lon = intent.getDoubleExtra("com.hooseating.app.foodEvent_lon", 0.0);
 
 
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/AlgreSans.ttf");

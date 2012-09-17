@@ -52,16 +52,16 @@ public class FoodEventItemizedOverlay extends ItemizedOverlay {
 			public void onClick(DialogInterface dialog, int id) {
 				Intent myIntent = new Intent(myContext, ShowEventInfoActivity.class);
 				ParseObject o = item.getObj();
-				myIntent.putExtra("com.parse.starter.foodEvent_name", o.getString("name"));
-				myIntent.putExtra("com.parse.starter.foodEvent_location", o.getString("location"));
-				myIntent.putExtra("com.parse.starter.foodEvent_description", o.getString("description"));
-				myIntent.putExtra("com.parse.starter.foodEvent_start", o.getString("start_time"));
-				myIntent.putExtra("com.parse.starter.foodEvent_end", o.getString("end_time"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_name", o.getString("name"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_location", o.getString("location"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_description", o.getString("description"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_start", o.getString("start_time"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_end", o.getString("end_time"));
 				ParseGeoPoint coords = (ParseGeoPoint) o.get("coordinates");
 				double lat = coords.getLatitude();
 				double lon = coords.getLongitude();
-				myIntent.putExtra("com.parse.starter.foodEvent_lat", lat);
-				myIntent.putExtra("com.parse.starter.foodEvent_lon", lon);
+				myIntent.putExtra("com.hooseating.app.foodEvent_lat", lat);
+				myIntent.putExtra("com.hooseating.app.foodEvent_lon", lon);
 				myContext.startActivity(myIntent);	
 			}
 		});

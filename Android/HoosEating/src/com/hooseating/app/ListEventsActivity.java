@@ -66,16 +66,16 @@ public class ListEventsActivity extends ListActivity {
 					int position, long id) {
 
 				Intent myIntent = new Intent(ListEventsActivity.this, ShowEventInfoActivity.class);
-				myIntent.putExtra("com.parse.starter.foodEvent_name", foodEvents.get(position).getString("name"));
-				myIntent.putExtra("com.parse.starter.foodEvent_location", foodEvents.get(position).getString("location"));
-				myIntent.putExtra("com.parse.starter.foodEvent_description", foodEvents.get(position).getString("description"));
-				myIntent.putExtra("com.parse.starter.foodEvent_start", foodEvents.get(position).getString("start_time"));
-				myIntent.putExtra("com.parse.starter.foodEvent_end", foodEvents.get(position).getString("end_time"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_name", foodEvents.get(position).getString("name"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_location", foodEvents.get(position).getString("location"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_description", foodEvents.get(position).getString("description"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_start", foodEvents.get(position).getString("start_time"));
+				myIntent.putExtra("com.hooseating.app.foodEvent_end", foodEvents.get(position).getString("end_time"));
 				ParseGeoPoint coords = (ParseGeoPoint) foodEvents.get(position).get("coordinates");
 				double lat = coords.getLatitude();
 				double lon = coords.getLongitude();
-				myIntent.putExtra("com.parse.starter.foodEvent_lat", lat);
-				myIntent.putExtra("com.parse.starter.foodEvent_lon", lon);
+				myIntent.putExtra("com.hooseating.app.foodEvent_lat", lat);
+				myIntent.putExtra("com.hooseating.app.foodEvent_lon", lon);
 				ListEventsActivity.this.startActivity(myIntent);
 			}
 		});
