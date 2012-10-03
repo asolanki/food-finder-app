@@ -29,6 +29,15 @@ REDIS = {
     'db': 0 
 }
 
+#Postgresql database info
+POSTGRES = {
+    'dbname': 'hooseating',
+    'user': 'alex',
+    'password': '19bal91',
+    'tbl_fe': 'food_event',
+    'tbl_loc': 'location'
+}
+
 #Fields we store for each event in redis
 REDIS_FIELDS = [
     'event_id',
